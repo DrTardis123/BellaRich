@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="description" content="중소기업 CEO 법인 자산관리 1분 건강검진. 10개 질문으로 절세·승계·수익성 부동산 잠재 기회가 얼마나 되는지 진단하고, 벨라리치 1:1 상담으로 이어지세요." />
+<meta property="og:title" content="법인 자산 1분 건강검진 | 벨라리치" />
+<meta property="og:description" content="지금 내 법인 자산, 어디까지 최적화되어 있나요? 10개 질문으로 진단합니다." />
+<title>법인 자산 1분 건강검진 | 벨라리치</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    background: #0a0e1a;
+    color: #e6e9f2;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .bg-glow {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 600px 400px at 15% 10%, rgba(199, 156, 76, 0.12), transparent 60%),
+      radial-gradient(ellipse 500px 500px at 85% 90%, rgba(45, 75, 130, 0.18), transparent 60%);
+  }
+  .container {
+    position: relative; z-index: 1;
+    max-width: 560px; margin: 0 auto;
+    padding: 24px 20px 80px;
+  }
+  /* HEADER */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0 28px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .brand-mark {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: linear-gradient(135deg, #c79c4c 0%, #8a6a2c 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #0a0e1a; font-weight: 800; font-size: 16px; letter-spacing: -0.5px;
+    box-shadow: 0 4px 16px rgba(199, 156, 76, 0.25);
+  }
+  .brand-name { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; }
+  .brand-sub { font-size: 11px; color: #8a93a8; letter-spacing: 1px; }
+  .badge-trust {
+    font-size: 10px; color: #c79c4c; border: 1px solid rgba(199, 156, 76, 0.35);
+    padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px;
+    background: rgba(199, 156, 76, 0.06);
+  }
+
+  /* INTRO */
+  .intro-card {
+    background: linear-gradient(160deg, rgba(28, 35, 56, 0.85) 0%, rgba(18, 23, 38, 0.85) 100%);
+    border: 1px solid rgba(199, 156, 76, 0.18);
+    border-radius: 20px;
+    padding: 36px 28px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: #c79c4c; text-transform: uppercase;
+    background: rgba(199, 156, 76, 0.1); padding: 6px 12px; border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .eyebrow-dot { width: 6px; height: 6px; background: #c79c4c; border-radius: 50%; }
+  h1.title {
+    font-size: 28px; font-weight: 800; line-height: 1.3;
+    margin: 0 0 14px; color: #fff;
+    letter-spacing: -0.8px;
+  }
+  h1.title em {
+    font-style: normal;
+    background: linear-gradient(135deg, #c79c4c 0%, #e6c478 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .subtitle { font-size: 15px; color: #a8b0c5; margin: 0 0 28px; }
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; margin: 24px 0 28px;
+  }
+  .stat {
+    text-align: center; padding: 14px 6px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+  }
+  .stat-num {
+    font-size: 18px; font-weight: 800; color: #c79c4c;
+    display: block; line-height: 1.1;
+  }
+  .stat-label { font-size: 11px; color: #8a93a8; margin-top: 4px; }
+
+  .features { margin: 0 0 28px; padding: 0; list-style: none; }
+  .features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: #cdd3e3; padding: 8px 0;
+  }
+  .check {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(199, 156, 76, 0.15); color: #c79c4c;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; margin-top: 2px;
+  }
+
+  .btn-primary {
+    display: block; width: 100%;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #c79c4c 0%, #a07a2e 100%);
+    color: #0a0e1a; font-size: 16px; font-weight: 700;
+    border: none; border-radius: 14px; cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 24px rgba(199, 156, 76, 0.35);
+    letter-spacing: 0.3px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(199, 156, 76, 0.45); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-meta {
+    text-align: center; margin-top: 12px; font-size: 12px; color: #6e7689;
+  }
+
+  /* QUESTION */
+  .progress-wrap {
+    margin-bottom: 24px;
+  }
+  .progress-info {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .progress-label { font-size: 12px; color: #8a93a8; letter-spacing: 0.5px; }
+  .progress-count { font-size: 13px; font-weight: 700; color: #c79c4c; }
+  .progress-bar {
+    height: 4px; background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, #c79c4c, #e6c478);
+    width: 0%; transition: width 0.4s ease;
+    border-radius: 2px;
+  }
+  .question-card {
+    background: linear-gradient(160deg, rgba(28, 35, 56, 0.85) 0%, rgba(18, 23, 38, 0.85) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 32px 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
+  .q-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: #c79c4c; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .q-text {
+    font-size: 19px; font-weight: 700; color: #fff;
+    line-height: 1.4; margin: 0 0 24px;
+    letter-spacing: -0.4px;
+  }
+  .q-sub {
+    font-size: 13px; color: #8a93a8; margin: -16px 0 20px;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: #d0d6e6; font-size: 15px;
+  }
+  .option:hover { border-color: rgba(199, 156, 76, 0.4); background: rgba(199, 156, 76, 0.05); }
+  .option.selected {
+    border-color: #c79c4c;
+    background: rgba(199, 156, 76, 0.12);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(199, 156, 76, 0.2);
+  }
+  .opt-mark {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #8a93a8;
+    transition: all 0.15s ease;
+  }
+  .option.selected .opt-mark {
+    background: #c79c4c; border-color: #c79c4c; color: #0a0e1a;
+  }
+  .opt-text { flex: 1; }
+  .nav-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 24px; gap: 12px;
+  }
+  .btn-back {
+    background: transparent; border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #8a93a8; padding: 12px 20px; border-radius: 10px;
+    font-size: 14px; cursor: pointer; transition: all 0.15s ease;
+  }
+  .btn-back:hover { color: #fff; border-color: rgba(255, 255, 255, 0.25); }
+  .btn-back:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-next {
+    flex: 1; padding: 14px 24px;
+    background: linear-gradient(135deg, #c79c4c 0%, #a07a2e 100%);
+    color: #0a0e1a; font-size: 15px; font-weight: 700;
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 16px rgba(199, 156, 76, 0.3);
+  }
+  .btn-next:hover { box-shadow: 0 6px 20px rgba(199, 156, 76, 0.4); }
+  .btn-next:disabled { background: #2a3041; color: #6e7689; box-shadow: none; cursor: not-allowed; }
+
+  /* RESULT */
+  .result-card {
+    background: linear-gradient(160deg, rgba(28, 35, 56, 0.9) 0%, rgba(18, 23, 38, 0.9) 100%);
+    border: 1px solid rgba(199, 156, 76, 0.25);
+    border-radius: 20px;
+    padding: 36px 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .result-tag {
+    text-align: center;
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: #c79c4c; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .grade-display {
+    text-align: center;
+    margin: 8px 0 20px;
+  }
+  .grade-circle {
+    width: 130px; height: 130px; margin: 0 auto;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; font-weight: 800;
+    color: #0a0e1a;
+    box-shadow: 0 12px 40px rgba(199, 156, 76, 0.3);
+    position: relative;
+  }
+  .grade-circle::before {
+    content: ''; position: absolute; inset: -8px;
+    border-radius: 50%; border: 1.5px solid rgba(199, 156, 76, 0.3);
+  }
+  .grade-S { background: linear-gradient(135deg, #ffd76b 0%, #c79c4c 100%); }
+  .grade-A { background: linear-gradient(135deg, #e6c478 0%, #a07a2e 100%); color: #0a0e1a; }
+  .grade-B { background: linear-gradient(135deg, #b8c0d0 0%, #6e7689 100%); }
+  .grade-C { background: linear-gradient(135deg, #8a93a8 0%, #4a5060 100%); color: #fff; }
+  .grade-name {
+    font-size: 22px; font-weight: 800; color: #fff;
+    text-align: center; margin: 20px 0 8px;
+    letter-spacing: -0.5px;
+  }
+  .grade-name em { color: #c79c4c; font-style: normal; }
+  .grade-summary {
+    text-align: center; font-size: 14px; color: #a8b0c5;
+    margin: 0 0 28px; line-height: 1.6;
+  }
+  .score-meter {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    padding: 18px; margin-bottom: 24px;
+  }
+  .score-meter-label {
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: #8a93a8; margin-bottom: 8px;
+  }
+  .score-meter-value { color: #c79c4c; font-weight: 700; }
+  .score-meter-bar {
+    height: 8px; background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px; overflow: hidden;
+  }
+  .score-meter-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #c79c4c, #e6c478);
+    border-radius: 4px;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .findings { margin: 0 0 28px; }
+  .findings-title {
+    font-size: 13px; font-weight: 700; color: #fff;
+    margin: 0 0 14px; letter-spacing: 0.3px;
+  }
+  .finding {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px;
+    background: rgba(199, 156, 76, 0.06);
+    border: 1px solid rgba(199, 156, 76, 0.15);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 13.5px; color: #d0d6e6; line-height: 1.5;
+  }
+  .finding-icon {
+    flex-shrink: 0;
+    color: #c79c4c; font-weight: 800; font-size: 14px;
+    margin-top: 1px;
+  }
+
+  .cta-block {
+    background: linear-gradient(135deg, rgba(199, 156, 76, 0.12) 0%, rgba(199, 156, 76, 0.04) 100%);
+    border: 1px solid rgba(199, 156, 76, 0.3);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .cta-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    color: #c79c4c; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .cta-title {
+    font-size: 18px; font-weight: 800; color: #fff;
+    margin: 0 0 8px; letter-spacing: -0.4px;
+  }
+  .cta-desc {
+    font-size: 13px; color: #a8b0c5; margin: 0 0 20px; line-height: 1.5;
+  }
+  .cta-perks {
+    display: flex; justify-content: center; gap: 14px;
+    margin: 0 0 20px; flex-wrap: wrap;
+  }
+  .cta-perk {
+    font-size: 11px; color: #c79c4c;
+    background: rgba(199, 156, 76, 0.1);
+    padding: 5px 10px; border-radius: 20px;
+    border: 1px solid rgba(199, 156, 76, 0.2);
+  }
+  .btn-cta {
+    display: block; width: 100%;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #c79c4c 0%, #a07a2e 100%);
+    color: #0a0e1a; font-size: 16px; font-weight: 700;
+    border: none; border-radius: 12px; cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 8px 24px rgba(199, 156, 76, 0.4);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+  .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(199, 156, 76, 0.5); }
+  .cta-foot {
+    font-size: 11px; color: #6e7689; margin-top: 12px;
+  }
+
+  .reassure {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin: 24px 0; padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    font-size: 11px; color: #8a93a8;
+    flex-wrap: wrap;
+  }
+  .reassure-item { display: flex; align-items: center; gap: 4px; }
+
+  .footer {
+    text-align: center; margin-top: 32px;
+    font-size: 11px; color: #4a5060; line-height: 1.6;
+  }
+  .footer strong { color: #8a93a8; }
+
+  /* Hidden by default */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 380px) {
+    .container { padding: 16px 14px 60px; }
+    h1.title { font-size: 24px; }
+    .q-text { font-size: 17px; }
+    .grade-circle { width: 110px; height: 110px; font-size: 54px; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="container">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-mark">B</div>
+      <div>
+        <div class="brand-name">벨라리치</div>
+        <div class="brand-sub">BELLARICH · 법인 자산관리</div>
+      </div>
+    </div>
+    <div class="badge-trust">공식 진단</div>
+  </div>
+
+  <!-- INTRO SCREEN -->
+  <div id="screen-intro" class="screen active">
+    <div class="intro-card">
+      <div class="eyebrow"><span class="eyebrow-dot"></span>법인 CEO 전용 진단</div>
+      <h1 class="title">내 법인 자산, <em>지금 어디까지</em> 와 있나?</h1>
+      <p class="subtitle">10개 질문 1분. 절세·승계·수익성 부동산, 지금 내 자산을 가장 잘 쓰고 있는지 점검해 보세요.</p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-num">20+</span>
+          <div class="stat-label">현장 경력</div>
+        </div>
+        <div class="stat">
+          <span class="stat-num">CFP</span>
+          <div class="stat-label">공인재무설계사</div>
+        </div>
+        <div class="stat">
+          <span class="stat-num">1:1</span>
+          <div class="stat-label">맞춤 상담</div>
+        </div>
+      </div>
+
+      <ul class="features">
+        <li><span class="check">✓</span>결과 즉시 확인 — 이메일 가입 없이 끝</li>
+        <li><span class="check">✓</span>절세 · 가업승계 · 수익성 부동산 관점 진단</li>
+        <li><span class="check">✓</span>결과에 따라 벨라리치 무료 1:1 상담 연결</li>
+      </ul>
+
+      <button class="btn-primary" onclick="startTest()">1분 진단 시작하기 →</button>
+      <div class="btn-meta">소요시간 약 60초 · 응답은 익명 처리됩니다</div>
+    </div>
+  </div>
+
+  <!-- QUESTION SCREEN -->
+  <div id="screen-question" class="screen">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span class="progress-label">진행 중</span>
+        <span class="progress-count"><span id="q-current">1</span> / 10</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+    <div class="question-card">
+      <div class="q-tag" id="q-tag">질문 1</div>
+      <h2 class="q-text" id="q-text"></h2>
+      <p class="q-sub" id="q-sub" style="display:none"></p>
+      <div class="options" id="q-options"></div>
+      <div class="nav-row">
+        <button class="btn-back" id="btn-back" onclick="goBack()">← 이전</button>
+        <button class="btn-next" id="btn-next" onclick="goNext()" disabled>다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="screen-result" class="screen">
+    <div class="result-card">
+      <div class="result-tag">진단 결과</div>
+      <div class="grade-display">
+        <div class="grade-circle" id="grade-circle">S</div>
+      </div>
+      <h2 class="grade-name" id="grade-name"></h2>
+      <p class="grade-summary" id="grade-summary"></p>
+
+      <div class="score-meter">
+        <div class="score-meter-label">
+          <span>잠재 기회 지수</span>
+          <span class="score-meter-value"><span id="score-value">0</span> / 100</span>
+        </div>
+        <div class="score-meter-bar">
+          <div class="score-meter-fill" id="score-fill"></div>
+        </div>
+      </div>
+
+      <div class="findings">
+        <h3 class="findings-title">지금 진단에서 발견된 포인트</h3>
+        <div id="findings-list"></div>
+      </div>
+
+      <div class="cta-block">
+        <div class="cta-eyebrow" id="cta-eyebrow">무료 1:1 진단</div>
+        <h3 class="cta-title" id="cta-title"></h3>
+        <p class="cta-desc" id="cta-desc"></p>
+        <div class="cta-perks">
+          <div class="cta-perk">✓ 30분 무료</div>
+          <div class="cta-perk">✓ 1:1 화상/대면</div>
+          <div class="cta-perk">✓ 진단서 제공</div>
+        </div>
+        <a class="btn-cta" id="cta-btn" href="#" target="_blank" rel="noopener">벨라리치 상담 신청하기 →</a>
+        <div class="cta-foot">평일 09:00–21:00 · 주말/공휴일 휴무</div>
+      </div>
+
+      <div class="reassure">
+        <div class="reassure-item">🔒 정보 보호</div>
+        <div class="reassure-item">⏱ 강요 없음</div>
+        <div class="reassure-item">📋 진단서 제공</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <strong>벨라리치(BELLARICH)</strong> · 서울 서대문구 이화여대길 38<br>
+      법인(Corporate) 부동산 자산관리 · 가업승계 컨설팅<br>
+      CFP · 공인중개사 · 20년+ 현장 경력
+    </div>
+  </div>
+</div>
+
+<script>
+  // ====== QUESTIONS ======
+  const QUESTIONS = [
+    {
+      tag: 'Q1 · 사업 형태',
+      text: '현재 사업의 형태는 어떤 단계인가요?',
+      options: [
+        { label: '개인사업자 (대표 1인)', score: 3 },
+        { label: '법인 설립 1~5년차', score: 6 },
+        { label: '법인 5~15년차 · 안정 궤도', score: 10 },
+        { label: '법인 15년차 이상 · 다수 법인 보유', score: 13 }
+      ]
+    },
+    {
+      tag: 'Q2 · 사옥 / 사업장',
+      text: '사옥(또는 본사 사업장) 형태는 어떻게 되시나요?',
+      options: [
+        { label: '전부 임차 · 월 임대료 부담', score: 4 },
+        { label: '일부 자가 + 일부 임차', score: 8 },
+        { label: '본사는 자가 보유', score: 12 },
+        { label: '본사 + 다수의 수익성 부동산 보유', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q3 · 법인 부동산 투자',
+      text: '법인 명의로 보유한 투자 목적 부동산이 있나요?',
+      options: [
+        { label: '없음', score: 3 },
+        { label: '1건 보유', score: 7 },
+        { label: '2~3건 보유', score: 11 },
+        { label: '4건 이상 또는 다층 포트폴리오', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q4 · 가족법인 · 승계',
+      text: '가족법인 / 지주사 구조를 검토 중이거나 이미 보유하고 계신가요?',
+      options: [
+        { label: '생각해본 적 없음', score: 3 },
+        { label: '알아보는 중 (정보 수집 단계)', score: 7 },
+        { label: '설립 검토 / 진행 중', score: 12 },
+        { label: '이미 보유 · 운영 중', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q5 · 절세 / 세무',
+      text: '절세·세무 전략을 얼마나 적극적으로 하고 계신가요?',
+      options: [
+        { label: '세무사에게 연말정산만 맡김', score: 3 },
+        { label: '법인/개인 분리 정도', score: 7 },
+        { label: '비용 처리 · 법인 구조 최적화', score: 12 },
+        { label: '공격적 절세 + 법인 구조화', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q6 · 자산 다각화',
+      text: '자산 다각화 수준은 어느 정도인가요?',
+      options: [
+        { label: '사업·부동산에만 집중', score: 3 },
+        { label: '예적금 + 부동산 정도', score: 7 },
+        { label: '주식·채권·보험으로 분산', score: 12 },
+        { label: '다층적 포트폴리오 설계', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q7 · 현금흐름',
+      text: '법인 현금흐름은 어떤 상태인가요?',
+      options: [
+        { label: '빠듯하거나 적자 경험 있음', score: 3 },
+        { label: '연 1~2회 흑자 · 불안정', score: 7 },
+        { label: '안정적 흑자 유지', score: 12 },
+        { label: '여유자금 발생 · 재투자 가능', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q8 · 10년 후 계획',
+      text: '10년 후 사업/자산 승계 계획을 갖고 계신가요?',
+      options: [
+        { label: '전혀 생각해본 적 없음', score: 3 },
+        { label: '막연한 우려는 있음', score: 7 },
+        { label: '일부 계획 수립', score: 12 },
+        { label: '구체적 로드맵 보유', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q9 · 전문가 활용',
+      text: '현재 전문 컨설팅/회계 서비스를 받고 계신가요?',
+      options: [
+        { label: '세무사만', score: 3 },
+        { label: '세무사 + 법무사 정도', score: 7 },
+        { label: '재무설계 + 세무사', score: 12 },
+        { label: '종합 자산관리 컨설팅', score: 15 }
+      ]
+    },
+    {
+      tag: 'Q10 · 가장 큰 걱정',
+      text: '지금 가장 걱정되는 부분은 무엇인가요?',
+      sub: '가장 끌리는 항목 하나만 골라 주세요.',
+      options: [
+        { label: '사옥 마련 · 확장', score: 8, labelTag: '🏢 사옥' },
+        { label: '절세 · 세무 최적화', score: 10, labelTag: '💰 절세' },
+        { label: '승계 · 상속 · 증여', score: 12, labelTag: '👨\u200d👩\u200d👧 승계' },
+        { label: '수익성 부동산 투자', score: 10, labelTag: '🏘 수익부동산' }
+      ]
+    }
+  ];
+
+  // ====== STATE ======
+  let current = 0;
+  const answers = new Array(QUESTIONS.length).fill(null);
+
+  // ====== RENDER ======
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    document.getElementById('q-current').textContent = current + 1;
+    document.getElementById('q-tag').textContent = q.tag;
+    document.getElementById('q-text').textContent = q.text;
+    const subEl = document.getElementById('q-sub');
+    if (q.sub) { subEl.textContent = q.sub; subEl.style.display = 'block'; }
+    else { subEl.style.display = 'none'; }
+
+    const fillPct = ((current) / QUESTIONS.length) * 100;
+    document.getElementById('progress-fill').style.width = fillPct + '%';
+
+    const opts = document.getElementById('q-options');
+    opts.innerHTML = '';
+    q.options.forEach((opt, idx) => {
+      const div = document.createElement('div');
+      div.className = 'option' + (answers[current] === idx ? ' selected' : '');
+      div.innerHTML = `<span class="opt-mark">${String.fromCharCode(65 + idx)}</span><span class="opt-text">${opt.label}</span>`;
+      div.onclick = () => selectOption(idx);
+      opts.appendChild(div);
+    });
+
+    document.getElementById('btn-back').disabled = current === 0;
+    document.getElementById('btn-next').disabled = answers[current] === null;
+    document.getElementById('btn-next').textContent = current === QUESTIONS.length - 1 ? '결과 보기 →' : '다음 →';
+  }
+
+  function selectOption(idx) {
+    answers[current] = idx;
+    renderQuestion();
+  }
+
+  function goBack() {
+    if (current > 0) { current--; renderQuestion(); }
+  }
+
+  function goNext() {
+    if (answers[current] === null) return;
+    if (current < QUESTIONS.length - 1) {
+      current++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  function startTest() {
+    current = 0;
+    for (let i = 0; i < answers.length; i++) answers[i] = null;
+    showScreen('screen-question');
+    renderQuestion();
+  }
+
+  // ====== RESULT ======
+  function calcResult() {
+    let total = 0;
+    let max = 0;
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      const opts = QUESTIONS[i].options;
+      max += Math.max(...opts.map(o => o.score));
+      const idx = answers[i];
+      if (idx !== null) total += opts[idx].score;
+    }
+    // Normalize to 100 scale
+    const score = Math.round((total / max) * 100);
+
+    let grade, name, summary, findings, cta;
+
+    if (score >= 80) {
+      grade = 'S';
+      name = '<em>최적화 단계</em> · 더 큰 시장을 노릴 때';
+      summary = '기본기 + 적극 활용 모두 갖췄습니다. 다만 지금 구조에서 더 큰 폭의 성장을 만들 수 있는 시점이기도 합니다. 다음 단계 로드맵이 필요합니다.';
+      findings = [
+        '현재 구조에서 발생하는 절세·승계 기회를 정밀 진단할 가치가 큽니다.',
+        '법인 부동산 포트폴리오의 수익률 재점검이 ROI 개선의 핵심입니다.',
+        '10년 후 시나리오별 자산 흐름 시뮬레이션이 필요합니다.'
+      ];
+      cta = {
+        eyebrow: '전략 컨설팅',
+        title: '지금 구조, 다음 10년의 그림으로',
+        desc: '현재 잘 관리하고 계신 만큼, 다음 단계 로드맵을 짜는 것이 ROI를 좌우합니다. 1:1 전략 진단을 받아보세요.'
+      };
+    } else if (score >= 60) {
+      grade = 'A';
+      name = '숨은 <em>기회 존재</em> 단계';
+      summary = '기본 구조는 갖췄지만, 손쉽게 잡지 못하고 있는 절세·승계·수익 구조의 기회가 분명히 있습니다. 한 번 점검받으실 가치가 있습니다.';
+      findings = [
+        '법인 명의 부동산/자산 구조에서 절세 누락 구간이 있을 가능성이 높습니다.',
+        '가족법인·지주사 진입 시 검토할 시나리오가 다수 존재합니다.',
+        '현재 컨설팅 활용도를 한 단계 올리면 5~15% 절세 효과도 가능합니다.'
+      ];
+      cta = {
+        eyebrow: '무료 1:1 진단',
+        title: '숨은 기회를 30분 만에 점검받으세요',
+        desc: '잘하고 계신 만큼, 점검 한 번으로 더 큰 효과를 만들 수 있는 시점입니다. 무료 진단을 추천드립니다.'
+      };
+    } else if (score >= 40) {
+      grade = 'B';
+      name = '<em>리스크 노출</em> 단계 · 점검 권장';
+      summary = '지금 구조를 그대로 두시면 절세·승계 측면에서 손해가 누적될 가능성이 있습니다. 빠른 점검이 필요합니다.';
+      findings = [
+        '절세 전략 부재로 매년 누수되고 있는 비용이 있을 수 있습니다.',
+        '승계/상속 계획 미수립 시 10년 후 세금 부담이 크게 증가합니다.',
+        '컨설팅 활용도를 높이면 1년 안에 가시적 효과를 보실 수 있습니다.'
+      ];
+      cta = {
+        eyebrow: '긴급 진단',
+        title: '지금 점검 안 하시면 매년 손해입니다',
+        desc: '구조 자체를 최적화하는 것이 핵심입니다. 우선순위가 높은 영역부터 짚어드릴 수 있습니다.'
+      };
+    } else {
+      grade = 'C';
+      name = '<em>긴급 점검</em>이 필요한 단계';
+      summary = '여러 영역에서 구조적 리스크가 동시 노출되어 있습니다. 지금이 가장 효과적인 시점입니다 — 한 번의 진단이 향후 10년을 바꿉니다.';
+      findings = [
+        '법인 구조 자체의 재설계가 필요한 시점입니다.',
+        '현재 자산·현금흐름 상태에서 절세·승계 모두 노출되어 있습니다.',
+        '임대차·투자·세무 모든 영역에서 우선순위 재점검이 필요합니다.'
+      ];
+      cta = {
+        eyebrow: '긴급 컨설팅',
+        title: '지금 바로 1:1 진단을 받아보세요',
+        desc: '구조 자체를 새로 짜는 것이 가장 효과적인 시점입니다. 30분 진단으로 우선순위를 정리해 드립니다.'
+      };
+    }
+
+    return { score, grade, name, summary, findings, cta };
+  }
+
+  function showResult() {
+    const r = calcResult();
+    showScreen('screen-result');
+
+    const circle = document.getElementById('grade-circle');
+    circle.textContent = r.grade;
+    circle.className = 'grade-circle grade-' + r.grade;
+
+    document.getElementById('grade-name').innerHTML = r.name;
+    document.getElementById('grade-summary').textContent = r.summary;
+    document.getElementById('cta-eyebrow').textContent = r.cta.eyebrow;
+    document.getElementById('cta-title').textContent = r.cta.title;
+    document.getElementById('cta-desc').textContent = r.cta.desc;
+
+    const list = document.getElementById('findings-list');
+    list.innerHTML = '';
+    r.findings.forEach(f => {
+      const div = document.createElement('div');
+      div.className = 'finding';
+      div.innerHTML = '<span class="finding-icon">›</span><span>' + f + '</span>';
+      list.appendChild(div);
+    });
+
+    // Animate score
+    setTimeout(() => {
+      document.getElementById('score-value').textContent = r.score;
+      document.getElementById('score-fill').style.width = r.score + '%';
+    }, 200);
+
+    // CTA link (벨라리치 상담 연결)
+    // 기본은 인스타 DM/네이버 블로그/이메일 등 — 사용자가 나중에 교체 가능
+    const ctaBtn = document.getElementById('cta-btn');
+    ctaBtn.href = buildCtaLink(r);
+  }
+
+  function buildCtaLink(r) {
+    // 등급 + 가장 큰 고민(Q10) 정보를 메시지에 포함
+    const concern = QUESTIONS[9].options[answers[9]]?.label || '미선택';
+    const msg = `[벨라리치 1:1 진단 신청]\n` +
+                `- 진단 등급: ${r.grade} (점수 ${r.score}/100)\n` +
+                `- 가장 큰 고민: ${concern}\n` +
+                `- 진단 결과: ${r.cta.title}\n\n` +
+                `위 내용으로 상담 신청합니다.`;
+    // 네이버 블로그는 메시지 프리필이 어려우니, mailto로 받는 게 가장 깔끔.
+    // 인스타/블로그는 사용자가 교체할 수 있도록 placeholder.
+    const subject = encodeURIComponent('벨라리치 1:1 상담 신청');
+    const body = encodeURIComponent(msg);
+    return `mailto:bellarich1004@naver.com?subject=${subject}&body=${body}`;
+  }
+</script>
+</body>
+</html>
