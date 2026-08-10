@@ -723,6 +723,118 @@
   .retake-row {
     display: flex; justify-content: center; margin: 16px 0 0;
   }
+
+  /* ========== DATA NOTICE & Q0 ========== */
+  .data-notice {
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-left: 4px solid #b08d4f;
+    border-radius: 12px;
+    padding: 24px 24px;
+    margin: 0 0 20px;
+    box-shadow: 0 2px 12px rgba(15, 37, 71, 0.04);
+  }
+  .data-notice-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .data-notice-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, #fdf6e3 0%, #f7e8c4 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    border: 1px solid rgba(176, 141, 79, 0.3);
+  }
+  .data-notice-title {
+    font-size: 15px; font-weight: 800; color: #0f2547;
+    letter-spacing: -0.2px;
+  }
+  .data-notice-text {
+    font-size: 13px; color: #5a6478;
+    line-height: 1.65; margin: 0 0 12px;
+  }
+  .data-notice-text strong { color: #0f2547; }
+  .data-notice-list {
+    margin: 0 0 12px; padding-left: 18px;
+    font-size: 12.5px; color: #5a6478;
+    line-height: 1.7;
+  }
+  .data-notice-list li { padding: 2px 0; }
+  .data-notice-foot {
+    font-size: 11.5px; color: #8a93a8;
+    margin: 0; padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .q0-section {
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-radius: 14px;
+    padding: 24px;
+    margin: 0 0 20px;
+    box-shadow: 0 2px 12px rgba(15, 37, 71, 0.04);
+  }
+  .q0-title {
+    font-size: 14px; font-weight: 800; color: #0f2547;
+    margin: 0 0 4px; letter-spacing: -0.2px;
+  }
+  .q0-sub {
+    font-size: 12.5px; color: #8a93a8;
+    margin: 0 0 16px;
+  }
+  .q0-options {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .q0-opt {
+    display: flex; align-items: center; justify-content: center;
+    padding: 12px 8px;
+    background: #fafbfc;
+    border: 1.5px solid #e5e8ee;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px; font-weight: 600; color: #1a1f2e;
+    text-align: center;
+    transition: all 0.15s ease;
+  }
+  .q0-opt:hover { border-color: #b08d4f; background: #fdfaf2; }
+  .q0-opt.selected {
+    border-color: #b08d4f;
+    background: #fdf6e3;
+    color: #0f2547;
+  }
+  .q0-opt:focus-visible { outline: 3px solid #b08d4f; outline-offset: 2px; }
+  .q0-skip {
+    margin-top: 10px; text-align: center;
+    font-size: 12px;
+  }
+  .q0-skip button {
+    background: none; border: none; color: #8a93a8;
+    cursor: pointer; padding: 6px 12px;
+    text-decoration: underline; font-size: 12px;
+  }
+  .q0-skip button:hover { color: #0f2547; }
+  @media (max-width: 480px) {
+    .q0-options { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .btn-secondary {
+    display: block; width: 100%;
+    padding: 14px 24px; margin-top: 12px;
+    background: transparent;
+    color: #b8c2d4; font-size: 14px; font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px; cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-secondary:hover { color: #ffffff; border-color: rgba(255, 255, 255, 0.3); }
+  .btn-secondary:focus-visible { outline: 3px solid #c9a14a; outline-offset: 2px; }
+
+  .privacy-link {
+    color: #c9a14a; text-decoration: underline;
+    font-size: 11.5px;
+  }
+  .privacy-link:hover { color: #ffffff; }
   .btn-retake {
     background: #ffffff;
     border: 1.5px solid #d0d5dd;
@@ -951,6 +1063,43 @@
     </div>
   </div>
 
+  <!-- DATA COLLECTION NOTICE -->
+  <div class="container">
+    <div class="data-notice">
+      <div class="data-notice-head">
+        <div class="data-notice-icon">🔒</div>
+        <div class="data-notice-title">100% 익명 · 데이터 수집 안내</div>
+      </div>
+      <p class="data-notice-text">
+        벨라리치는 진단 품질 개선과 서비스 연구를 위해 <strong>익명 데이터</strong>를 수집합니다. <a href="#privacy-details" class="privacy-link" style="color: #b08d4f;">자세히 보기 ↓</a>
+      </p>
+      <ul class="data-notice-list">
+        <li>✓ 응답 선택지 · 진단 결과 (점수, 등급)</li>
+        <li>✓ 응답 소요 시간 · 브라우저 환경 (UX 개선용)</li>
+        <li>✓ <strong>선택</strong> — 법인 자산 규모 범위</li>
+      </ul>
+      <p class="data-notice-foot">
+        ✕ <strong>수집하지 않음</strong>: 이름, 이메일, 연락처, IP 주소, 정확한 위치<br>
+        ⏱ <strong>보관 기간</strong>: 개별 데이터 12개월 후 자동 삭제 · 익명 통계 24개월까지 보존<br>
+        📋 <strong>용도</strong>: 진단 품질 개선, B2B 트렌드 연구 (개인 식별 불가 형태로만 활용)
+      </p>
+    </div>
+
+    <!-- Q0: ASSET SIZE (OPTIONAL) -->
+    <div class="q0-section" id="q0-section">
+      <h3 class="q0-title">맞춤 진단을 위한 선택 정보 (선택사항)</h3>
+      <p class="q0-sub">법인 자산 규모 범위를 알려주시면 더 맞춤화된 진단을 드릴 수 있어요. 모르면 건너뛰셔도 됩니다.</p>
+      <div class="q0-options" id="q0-options">
+        <div class="q0-opt" data-value="under_5" role="radio" tabindex="0" aria-checked="false">5억 미만</div>
+        <div class="q0-opt" data-value="5_to_10" role="radio" tabindex="0" aria-checked="false">5억 ~ 10억</div>
+        <div class="q0-opt" data-value="10_to_30" role="radio" tabindex="0" aria-checked="false">10억 ~ 30억</div>
+        <div class="q0-opt" data-value="30_to_100" role="radio" tabindex="0" aria-checked="false">30억 ~ 100억</div>
+        <div class="q0-opt" data-value="over_100" role="radio" tabindex="0" aria-checked="false">100억 이상</div>
+        <div class="q0-opt" data-value="skip" role="radio" tabindex="0" aria-checked="false">응답하지 않음</div>
+      </div>
+    </div>
+  </div>
+
   <!-- TEST ENTRY -->
   <div class="test-entry">
     <div class="test-entry-inner">
@@ -984,8 +1133,9 @@
         </li>
       </ul>
 
-      <button class="btn-primary" onclick="startTest()">1분 진단 시작하기 →</button>
-      <div class="btn-meta">평균 소요 60초 · 응답은 익명 처리 · 결과 즉시 확인</div>
+      <button class="btn-primary" id="btn-start-test" onclick="startTest()">1분 진단 시작하기 →</button>
+      <button class="btn-secondary" onclick="startTest(true)">데이터 수집 거부하고 시작</button>
+      <div class="btn-meta">평균 소요 60초 · 100% 익명 · 결과 즉시 확인</div>
     </div>
   </div>
 
@@ -1123,6 +1273,131 @@
 </div>
 
 <script>
+  // ====== DATA COLLECTION CONFIG ======
+  // Google Apps Script Web App URL — replace with your deployed URL.
+  // Setup guide: see SETUP_GUIDE.md (or the user guide provided)
+  // Leave empty string '' to disable data collection (test still works).
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwf_CMbLB0yTgew2x0ZgkamYQv-WYWFx6Iwjd-3O4PNC6mWNefO3CxQskQtDjaXSssq/exec';
+
+  // ====== SESSION & ANALYTICS STATE ======
+  let sessionId = (function() {
+    // Try to reuse session ID from sessionStorage
+    let sid = sessionStorage.getItem('bellarich_sid');
+    if (!sid) {
+      sid = 'sid_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 9);
+      sessionStorage.setItem('bellarich_sid', sid);
+    }
+    return sid;
+  })();
+  let q0AssetSize = null; // captured before test starts
+  let testStartTime = null;
+  let testCompleted = false;
+  let lastResult = null;
+  let dataCollectionAllowed = true;
+
+  // ====== Q0 (ASSET SIZE) SELECTION ======
+  document.addEventListener('DOMContentLoaded', function() {
+    const q0Opts = document.querySelectorAll('.q0-opt');
+    q0Opts.forEach(opt => {
+      const selectHandler = function() {
+        q0Opts.forEach(o => {
+          o.classList.remove('selected');
+          o.setAttribute('aria-checked', 'false');
+        });
+        opt.classList.add('selected');
+        opt.setAttribute('aria-checked', 'true');
+        q0AssetSize = opt.dataset.value;
+      };
+      opt.addEventListener('click', selectHandler);
+      opt.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectHandler();
+        }
+      });
+    });
+  });
+
+  // ====== DATA SUBMISSION ======
+  function buildPayload(completed) {
+    const elapsedMs = testStartTime ? Date.now() - testStartTime : 0;
+    return {
+      session_id: sessionId,
+      timestamp: new Date().toISOString(),
+      completed: completed,
+      last_question: current + (completed ? 1 : 0),
+      time_taken_seconds: Math.floor(elapsedMs / 1000),
+      score: lastResult ? lastResult.score : null,
+      grade: lastResult ? lastResult.grade : null,
+      q0_asset_size: q0AssetSize || 'skip',
+      q1: answers[0],
+      q2: answers[1],
+      q3: answers[2],
+      q4: answers[3],
+      q5: answers[4],
+      q6: answers[5],
+      q7: answers[6],
+      q8: answers[7],
+      q9: answers[8],
+      q10: answers[9],
+      user_agent: navigator.userAgent.substring(0, 250),
+      screen_width: window.innerWidth,
+      screen_height: window.innerHeight,
+      referrer: document.referrer || 'direct'
+    };
+  }
+
+  function sendData(completed) {
+    if (!dataCollectionAllowed) return;
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
+      // Data collection not configured — silently skip
+      return;
+    }
+    const payload = JSON.stringify(buildPayload(completed));
+    try {
+      if (completed) {
+        // Use fetch for completed submissions (more reliable)
+        fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload
+        }).catch(() => { /* silent fail — anonymous data isn't critical */ });
+      } else {
+        // Use sendBeacon for page unload (works even when tab is closing)
+        const blob = new Blob([payload], { type: 'application/json' });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(APPS_SCRIPT_URL, blob);
+        } else {
+          fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload,
+            keepalive: true
+          }).catch(() => {});
+        }
+      }
+    } catch (err) {
+      // Never let data collection break the user experience
+      console.warn('Data collection skipped:', err);
+    }
+  }
+
+  // Drop-off / page unload detection
+  window.addEventListener('beforeunload', function() {
+    if (testStartTime && !testCompleted) {
+      // User started but didn't complete — send partial data
+      sendData(false);
+    }
+  });
+  // Also catch visibility changes (mobile-friendly)
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden' && testStartTime && !testCompleted) {
+      sendData(false);
+    }
+  });
+
   // ====== QUESTIONS ======
   const QUESTIONS = [
     {
@@ -1296,9 +1571,13 @@
     }
   }
 
-  function startTest() {
+  function startTest(skipDataCollection) {
     current = 0;
     for (let i = 0; i < answers.length; i++) answers[i] = null;
+    testStartTime = Date.now();
+    testCompleted = false;
+    lastResult = null;
+    dataCollectionAllowed = !skipDataCollection;
     showScreen('screen-question');
     renderQuestion();
   }
@@ -1381,6 +1660,8 @@
   function showResult() {
     const r = calcResult();
     showScreen('screen-result');
+    testCompleted = true;
+    lastResult = r;
 
     const circle = document.getElementById('grade-circle');
     circle.textContent = r.grade;
@@ -1408,6 +1689,9 @@
 
     const ctaBtn = document.getElementById('cta-btn');
     ctaBtn.href = buildCtaLink(r);
+
+    // Send completed data
+    sendData(true);
   }
 
   function buildCtaLink(r) {
