@@ -280,14 +280,13 @@
     border-bottom: 1px solid #f0f0f0;
   }
   .company-avatar {
-    width: 60px; height: 60px; border-radius: 50%;
+    width: 60px; height: 60px; border-radius: 14px;
     background: linear-gradient(135deg, #0f2547 0%, #1a3a6b 100%);
-    color: #c9a14a;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 18px;
-    flex-shrink: 0;
+    flex-shrink: 0; overflow: hidden;
     box-shadow: 0 4px 12px rgba(15, 37, 71, 0.18);
   }
+  .company-avatar svg { display: block; width: 100%; height: 100%; }
   .company-card-head-text { flex: 1; }
   .company-name {
     font-size: 19px; font-weight: 800; color: #0f2547;
@@ -312,21 +311,24 @@
     margin-top: 4px;
   }
   .credential {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px;
     background: #fafbfc;
     border: 1px solid #ececec;
     border-radius: 10px;
+    min-height: 72px;
   }
   .credential-icon {
-    width: 32px; height: 32px; border-radius: 8px;
+    width: 44px; height: 44px; min-width: 44px; min-height: 44px;
+    border-radius: 8px;
     background: linear-gradient(135deg, #fdf6e3 0%, #f7e8c4 100%);
     color: #b08d4f;
     display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 800; flex-shrink: 0;
+    text-align: center; white-space: nowrap;
+    font-size: 12px; font-weight: 800; line-height: 1; flex-shrink: 0;
     border: 1px solid rgba(176, 141, 79, 0.2);
   }
-  .credential-text { font-size: 12.5px; line-height: 1.4; }
+  .credential-text { font-size: 12.5px; line-height: 1.4; min-width: 0; }
   .credential-text strong {
     display: block; color: #0f2547; font-weight: 700;
     font-size: 13px;
@@ -911,6 +913,14 @@
     max-width: 720px;
     margin: 0 auto;
   }
+  .venn-img {
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    margin: 0 auto 24px;
+    filter: drop-shadow(0 4px 16px rgba(15, 37, 71, 0.08));
+  }
   .fusion-diagram svg {
     width: 100%;
     height: auto;
@@ -1243,57 +1253,7 @@
       </div>
 
       <div class="fusion-diagram">
-        <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="세 분야 교집합 융합 모델">
-          <defs>
-            <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-
-          <!-- 3 circles (using mix-blend-mode for intersection coloring) -->
-          <g style="mix-blend-mode: multiply;">
-            <circle cx="200" cy="120" r="100" fill="#0f2547" fill-opacity="0.78" />
-            <circle cx="300" cy="120" r="100" fill="#1e5a8e" fill-opacity="0.78" />
-            <circle cx="400" cy="120" r="100" fill="#b08d4f" fill-opacity="0.78" />
-          </g>
-
-          <!-- Labels above circles -->
-          <g font-family="Pretendard, sans-serif" font-weight="700" text-anchor="middle">
-            <text x="200" y="35" font-size="20" fill="#0f2547">부동산 전문가</text>
-            <text x="200" y="58" font-size="13" fill="#5a6478">20년 현장</text>
-            <text x="300" y="35" font-size="20" fill="#0f2547">자산관리</text>
-            <text x="300" y="58" font-size="13" fill="#5a6478">포트폴리오 설계</text>
-            <text x="400" y="35" font-size="20" fill="#0f2547">법인 전문가</text>
-            <text x="400" y="58" font-size="13" fill="#5a6478">10년 컨설팅</text>
-          </g>
-
-          <!-- Center label: 융합 모델 -->
-          <g>
-            <circle cx="300" cy="120" r="32" fill="#c9a14a" filter="url(#goldGlow)" />
-            <text x="300" y="118" text-anchor="middle" font-family="Pretendard, sans-serif"
-                  font-size="14" font-weight="800" fill="#0f2547">FUSION</text>
-            <text x="300" y="135" text-anchor="middle" font-family="Pretendard, sans-serif"
-                  font-size="11" font-weight="600" fill="#0f2547">융합 모델</text>
-          </g>
-
-          <!-- Arrow down -->
-          <g>
-            <line x1="300" y1="240" x2="300" y2="295" stroke="#0f2547" stroke-width="3" />
-            <polygon points="290,290 310,290 300,310" fill="#0f2547" />
-          </g>
-
-          <!-- Bottom label -->
-          <g>
-            <text x="300" y="335" text-anchor="middle" font-family="Pretendard, sans-serif"
-                  font-size="22" font-weight="800" fill="#0f2547">"법인을 통한 통합 자산관리"</text>
-            <text x="300" y="357" text-anchor="middle" font-family="Pretendard, sans-serif"
-                  font-size="14" fill="#5a6478">세 분야를 아우르는 유일한 현장 전문가</text>
-          </g>
-        </svg>
+        <img src="venn-diagram.png" alt="부동산 전문가 · 자산관리 · 법인 전문가 — 세 분야 교집합 융합 모델" class="venn-img" />
 
         <div class="credentials-row">
           <div class="credential">
@@ -1328,7 +1288,13 @@
     <div class="container">
       <div class="company-card">
         <div class="company-card-head">
-          <div class="company-avatar">金</div>
+          <div class="company-avatar" aria-label="벨라리치 B 로고">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <rect width="64" height="64" rx="14" fill="#0f2547"/>
+              <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                    fill="#c9a14a" font-family="Arial, sans-serif" font-size="40" font-weight="900">B</text>
+            </svg>
+          </div>
           <div class="company-card-head-text">
             <h3 class="company-name">김자영 대표 · 벨라리치㈜</h3>
             <div class="company-role">법인 부동산 전문가 · <strong>CFP®</strong> · <strong>공인중개사</strong></div>
