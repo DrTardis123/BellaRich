@@ -325,7 +325,7 @@
     color: #b08d4f;
     display: flex; align-items: center; justify-content: center;
     text-align: center; white-space: nowrap;
-    font-size: 12px; font-weight: 800; line-height: 1; flex-shrink: 0;
+    font-size: 11px; font-weight: 800; line-height: 1; flex-shrink: 0;
     border: 1px solid rgba(176, 141, 79, 0.2);
   }
   .credential-text { font-size: 12.5px; line-height: 1.4; min-width: 0; }
@@ -919,7 +919,10 @@
     max-width: 460px;
     height: auto;
     margin: 0 auto 24px;
-    filter: drop-shadow(0 4px 16px rgba(15, 37, 71, 0.08));
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(15, 37, 71, 0.04);
   }
   .fusion-diagram svg {
     width: 100%;
@@ -931,18 +934,24 @@
   .credentials-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    max-width: 600px;
+    gap: 8px;
+    max-width: 720px;
     margin: 0 auto;
   }
   .credential {
     background: #ffffff;
     border: 1px solid #ececec;
     border-radius: 14px;
-    padding: 16px 12px;
+    padding: 18px 10px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(15, 37, 71, 0.04);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 108px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
   .credential:hover {
     transform: translateY(-2px);
@@ -950,17 +959,19 @@
     border-color: #c9a14a;
   }
   .credential-icon {
-    font-size: 28px;
-    margin-bottom: 8px;
+    font-size: 24px;
+    line-height: 1;
   }
   .credential-name {
-    font-size: 14px;
+    font-size: 12.5px;
     font-weight: 700;
     color: #0f2547;
-    line-height: 1.4;
+    line-height: 1.35;
+    white-space: nowrap;
+    word-break: keep-all;
   }
   .credential-name small {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
     color: #8a93a8;
     display: block;
@@ -2137,6 +2148,53 @@
     setTimeout(() => t.classList.remove('show'), 2500);
   }
 
+  // ====== SHARE FUNCTIONS (Web Share API + mailto: 통합) ======
+  // 모바일: navigator.share로 native share sheet (한 번에 모든 앱 선택 가능)
+  // PC: 플랫폼별 fallback (Kakao SDK / 클립보드 / mailto:)
+  // 네이버/Gmail은 mailto: scheme 사용 → PC는 OS 메일 클라이언트, 모바일은 메일 앱 (body+subject 100% 전달)
+
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+
+  function buildShareSubject() {
+    return '법인 자산 1분 건강검진 추천';
+  }
+
+  function buildShareBody() {
+    return `${getShareText()}\n\n진단 받아보기 → ${getShareUrl()}`;
+  }
+
+  // 모바일: Web Share API (네이티브 공유 시트)
+  function tryWebShare(fallback) {
+    if (navigator.share) {
+      const data = {
+        title: '법인 자산 1분 건강검진 | 벨라리치',
+        text: getShareText(),
+        url: getShareUrl()
+      };
+      try {
+        const result = navigator.share(data);
+        if (result && typeof result.catch === 'function') {
+          result.catch((e) => {
+            // AbortError(사용자 취소)는 무시, 그 외 에러는 fallback
+            if (e && e.name && e.name !== 'AbortError') {
+              console.warn('Web Share failed:', e);
+              fallback();
+            }
+          });
+        }
+        return true;
+      } catch (e) {
+        if (e && e.name !== 'AbortError') {
+          console.warn('Web Share error:', e);
+          return false;
+        }
+        return true; // AbortError는 정상 (취소)
+      }
+    }
+    return false;
+  }
+
+  // 카카오톡
   function shareKakao() {
     const url = getShareUrl();
     const text = getShareText();
@@ -2146,7 +2204,7 @@
         content: {
           title: '법인 자산 1분 건강검진 | 벨라리치',
           description: text,
-          imageUrl: 'https://drtardis123.github.io/BellaRich/og-image.svg',
+          imageUrl: 'https://DrTardis123.github.io/BellaRich/og-image.svg',
           link: { mobileWebUrl: url, webUrl: url }
         },
         buttons: [{
@@ -2154,63 +2212,83 @@
           link: { mobileWebUrl: url, webUrl: url }
         }]
       });
+      return;
+    }
+    // 모바일: Web Share API (사용자가 카카오톡 선택)
+    if (tryWebShare(kakaoPCFallback)) return;
+    // PC: 클립보드
+    kakaoPCFallback();
+  }
+
+  function kakaoPCFallback() {
+    const fullText = `${getShareText()}\n${getShareUrl()}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(fullText).then(
+        () => showToast('링크가 복사됐어요. 카카오톡에 붙여넣기 하세요. (Kakao SDK 키 등록 전)'),
+        () => showToast('Kakao SDK 키 등록이 필요해요. (SETUP_GUIDE.md 참고)')
+      );
     } else {
-      // Kakao 미설정: 클립보드 폴백
-      const fullText = `${text}\n${url}`;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(fullText).then(
-          () => showToast('링크가 복사됐어요. 카카오톡에 붙여넣기 하세요. (Kakao SDK 키 설정 전)'),
-          () => showToast('Kakao SDK 키 설정이 필요해요.')
-        );
-      } else {
-        showToast('Kakao SDK 키 설정이 필요해요. SETUP_GUIDE.md 참고.');
-      }
+      fallbackCopy(getShareUrl());
     }
   }
 
+  // 인스타그램
   function shareInstagram() {
-    const url = getShareUrl();
-    const text = getShareText();
-    const fullText = `${text}\n${url}`;
+    // 모바일: Web Share API (사용자가 Instagram 선택)
+    if (tryWebShare(instaPCFallback)) return;
+    // PC: 클립보드 + 인스타 웹
+    instaPCFallback();
+  }
+
+  function instaPCFallback() {
+    const fullText = `${getShareText()}\n${getShareUrl()}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(fullText).then(() => {
         showToast('링크가 복사됐어요. 인스타 DM/스토리에 붙여넣기 하세요.');
-        setTimeout(() => {
-          if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-            window.location.href = 'instagram://app';
-          } else {
-            window.open('https://www.instagram.com/', '_blank', 'noopener');
-          }
-        }, 400);
+        window.open('https://www.instagram.com/', '_blank', 'noopener');
       });
     } else {
-      showToast('복사 기능을 지원하지 않는 브라우저예요.');
+      fallbackCopy(getShareUrl());
+      window.open('https://www.instagram.com/', '_blank', 'noopener');
     }
   }
 
+  // 네이버 메일 — mailto: scheme (PC=OS 메일, 모바일=메일 앱, body+subject 100% 전달)
   function shareNaverMail() {
-    const subject = encodeURIComponent('법인 자산 1분 건강검진 추천');
-    const body = encodeURIComponent(`${getShareText()}\n\n진단 받아보기 → ${getShareUrl()}`);
-    // 모바일/PC 모두 작동. 모바일은 네이버 메일 앱/웹, PC는 네이버 메일 웹
-    window.open(`https://mail.naver.com/write?to=&subject=${subject}&body=${body}`, '_blank', 'noopener');
+    // 모바일: Web Share API (사용자가 네이버 메일 선택)
+    if (tryWebShare(naverMailFallback)) return;
+    // PC/모바일 fallback: mailto: scheme
+    naverMailFallback();
   }
 
+  function naverMailFallback() {
+    const subject = encodeURIComponent(buildShareSubject());
+    const body = encodeURIComponent(buildShareBody());
+    // mailto: scheme — 가장 호환성 높음. body, subject 모두 정상 전달
+    window.location.href = `mailto:bellarich7@naver.com?subject=${subject}&body=${body}`;
+    setTimeout(() => {
+      showToast('메일 앱이 안 열리면 "URL 복사" 후 직접 붙여넣기 하세요.');
+    }, 1500);
+  }
+
+  // Gmail — mailto: scheme (받는 사람 없이, body+subject 전달)
   function shareGmail() {
-    const subject = encodeURIComponent('법인 자산 1분 건강검진 추천');
-    const body = encodeURIComponent(`${getShareText()}\n\n진단 받아보기 → ${getShareUrl()}`);
-    // Gmail 웹 compose. 모바일은 Gmail 앱이 있으면 앱으로, 없으면 웹으로
-    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
-    if (isMobile) {
-      // 모바일: Gmail 앱 시도, 실패 시 웹으로
-      const gmailApp = `googlegmail://co?to=&subject=${subject}&body=${body}`;
-      const web = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${subject}&body=${body}`;
-      window.location.href = gmailApp;
-      setTimeout(() => window.open(web, '_blank', 'noopener'), 300);
-    } else {
-      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=&su=${subject}&body=${body}`, '_blank', 'noopener');
-    }
+    // 모바일: Web Share API
+    if (tryWebShare(gmailFallback)) return;
+    // PC/모바일 fallback: mailto:
+    gmailFallback();
   }
 
+  function gmailFallback() {
+    const subject = encodeURIComponent(buildShareSubject());
+    const body = encodeURIComponent(buildShareBody());
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    setTimeout(() => {
+      showToast('메일 앱이 안 열리면 "URL 복사" 후 직접 붙여넣기 하세요.');
+    }, 1500);
+  }
+
+  // URL 복사
   function shareCopyUrl() {
     const url = getShareUrl();
     if (navigator.clipboard) {
