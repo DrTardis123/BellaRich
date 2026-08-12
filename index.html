@@ -34,12 +34,12 @@
   "url": "https://drtardis123.github.io/BellaRich/",
   "logo": "https://drtardis123.github.io/BellaRich/favicon.svg",
   "image": "https://drtardis123.github.io/BellaRich/og-image.svg",
-  "telephone": "+82-2-0000-0000",
+  "telephone": "+82-10-5031-0789",
   "priceRange": "$$$",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "이화여대길 38, 201-51",
-    "addressLocality": "서대문구",
+    "streetAddress": "선릉 일대 (강남구)",
+    "addressLocality": "강남구",
     "addressRegion": "서울",
     "addressCountry": "KR"
   },
@@ -58,7 +58,7 @@
     "@type": "Person",
     "name": "김자영",
     "jobTitle": "대표 컨설턴트",
-    "hasCredential": ["CFP® 국제공인재무설계사", "공인중개사"]
+    "hasCredential": ["부동산전문가", "공인중개사", "법인전문가", "CFP(국제공인자산관리사)"]
   },
   "areaServed": {
     "@type": "Country",
@@ -900,7 +900,289 @@
     .cta-eyebrow, .cta-title, .cta-desc { color: #000000 !important; }
     .cta-perk { border: 1px solid #cccccc; color: #000000 !important; background: transparent !important; }
   }
+
+  /* ========== POSITIONING (3-in-1 Fusion) ========== */
+  .positioning {
+    background: linear-gradient(180deg, #f6f7f9 0%, #ffffff 100%);
+    padding: 64px 0 56px;
+    border-top: 1px solid #ececec;
+  }
+  .fusion-diagram {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .fusion-diagram svg {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto 32px;
+  }
+  .credentials-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .credential {
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-radius: 14px;
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(15, 37, 71, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .credential:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(15, 37, 71, 0.08);
+    border-color: #c9a14a;
+  }
+  .credential-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  .credential-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f2547;
+    line-height: 1.4;
+  }
+  .credential-name small {
+    font-size: 11px;
+    font-weight: 500;
+    color: #8a93a8;
+    display: block;
+    margin-top: 2px;
+  }
+  @media (max-width: 480px) {
+    .credentials-row { grid-template-columns: repeat(2, 1fr); }
+    .positioning { padding: 48px 0 40px; }
+  }
+
+  /* ========== SHARE (다른 분도 진단) ========== */
+  .share-card {
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-radius: 16px;
+    padding: 28px 24px 24px;
+    margin: 16px 0 24px;
+    box-shadow: 0 4px 20px rgba(15, 37, 71, 0.04);
+    text-align: center;
+  }
+  .share-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f2547;
+    margin: 0 0 8px;
+    letter-spacing: -0.4px;
+  }
+  .share-title em {
+    font-style: normal;
+    color: #c9a14a;
+  }
+  .share-desc {
+    font-size: 13.5px;
+    color: #5a6478;
+    margin: 0 0 20px;
+    line-height: 1.5;
+  }
+  .share-buttons {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .share-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 6px 12px;
+    background: #fafbfc;
+    border: 1px solid #e5e8ee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 37, 71, 0.1);
+  }
+  .share-btn:focus-visible {
+    outline: 3px solid #c9a14a;
+    outline-offset: 2px;
+  }
+  .share-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .share-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #1a1f2e;
+    letter-spacing: -0.2px;
+  }
+  .share-kakao:hover { border-color: #ffe600; background: #fffae6; }
+  .share-kakao:hover .share-label { color: #3c1e1e; }
+  .share-insta:hover { border-color: #e1306c; background: #fdf0f4; }
+  .share-insta:hover .share-label { color: #c13584; }
+  .share-naver:hover { border-color: #03c75a; background: #effaf2; }
+  .share-naver:hover .share-label { color: #03c75a; }
+  .share-gmail:hover { border-color: #ea4335; background: #fdf0ef; }
+  .share-gmail:hover .share-label { color: #c5221f; }
+  .share-copy:hover { border-color: #b08d4f; background: #fdf6e3; }
+  .share-copy:hover .share-label { color: #0f2547; }
+  .share-toast {
+    margin-top: 14px;
+    font-size: 12.5px;
+    color: #c9a14a;
+    font-weight: 600;
+    min-height: 18px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .share-toast.show { opacity: 1; }
+
+  /* ========== CATEGORY SELECT ========== */
+  .category-intro {
+    text-align: center;
+    margin: 0 0 28px;
+    padding: 0 8px;
+  }
+  .category-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f2547;
+    margin: 0 0 10px;
+    letter-spacing: -0.6px;
+    line-height: 1.3;
+  }
+  .category-title em {
+    font-style: normal;
+    color: #c9a14a;
+  }
+  .category-desc {
+    font-size: 14px;
+    color: #5a6478;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .category-grid {
+    display: grid;
+    gap: 14px;
+  }
+  .category-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon title"
+      "icon sub"
+      "icon desc"
+      "icon keywords"
+      "icon cta";
+    column-gap: 18px;
+    row-gap: 6px;
+    align-items: center;
+    padding: 22px 20px;
+    background: #ffffff;
+    border: 1.5px solid #e5e8ee;
+    border-radius: 16px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(15, 37, 71, 0.04);
+  }
+  .category-card:hover {
+    border-color: #c9a14a;
+    background: #fdf6e3;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15, 37, 71, 0.1);
+  }
+  .category-card:focus-visible {
+    outline: 3px solid #c9a14a;
+    outline-offset: 2px;
+  }
+  .cat-icon {
+    grid-area: icon;
+    font-size: 40px;
+    line-height: 1;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fdf6e3 0%, #f7e8c4 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(176, 141, 79, 0.3);
+  }
+  .cat-title {
+    grid-area: title;
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f2547;
+    line-height: 1.2;
+  }
+  .cat-sub {
+    grid-area: sub;
+    font-size: 13px;
+    color: #8a6a2c;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .cat-desc {
+    grid-area: desc;
+    font-size: 13.5px;
+    color: #5a6478;
+    line-height: 1.5;
+    margin-top: 4px;
+  }
+  .cat-keywords {
+    grid-area: keywords;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .cat-kw {
+    font-size: 11.5px;
+    color: #8a93a8;
+    background: #fafbfc;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .cat-cta {
+    grid-area: cta;
+    font-size: 13px;
+    font-weight: 700;
+    color: #c9a14a;
+    margin-top: 6px;
+  }
+  .category-card:hover .cat-cta { color: #8a6a2c; }
+  @media (max-width: 480px) {
+    .category-card {
+      grid-template-columns: 56px 1fr;
+      column-gap: 14px;
+      padding: 18px 16px;
+    }
+    .cat-icon { width: 56px; height: 56px; font-size: 32px; }
+    .cat-title { font-size: 18px; }
+  }
+
+  @media (max-width: 480px) {
+    .share-buttons { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .share-btn { padding: 12px 4px 10px; }
+    .share-label { font-size: 10.5px; }
+    .share-icon { font-size: 20px; }
+  }
 </style>
+
+<!-- Kakao SDK for share (https://developers.kakao.com) -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!-- Adaptive quiz data (categories + questions + grades) -->
+<script src="quiz-data.js"></script>
 </head>
 <body>
 
@@ -946,6 +1228,90 @@
         <div class="hero-stat">
           <span class="hero-stat-num">10<em>분</em></span>
           <div class="hero-stat-label">1분 진단 · 즉시 결과</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== POSITIONING: 3-IN-1 FUSION MODEL ========== -->
+  <div class="positioning" id="positioning">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-eyebrow">WHY BELLARICH</div>
+        <h2 class="section-title">법인CEO에게는 <em>법인을 잘 아는 부동산 전문가</em>가 필요하다</h2>
+        <p class="section-desc">부동산 전문가 · 자산관리 · 법인 전문가 — 세 분야의 교집합에서 찾은 유일한 융합 모델</p>
+      </div>
+
+      <div class="fusion-diagram">
+        <svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="세 분야 교집합 융합 모델">
+          <defs>
+            <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- 3 circles (using mix-blend-mode for intersection coloring) -->
+          <g style="mix-blend-mode: multiply;">
+            <circle cx="200" cy="120" r="100" fill="#0f2547" fill-opacity="0.78" />
+            <circle cx="300" cy="120" r="100" fill="#1e5a8e" fill-opacity="0.78" />
+            <circle cx="400" cy="120" r="100" fill="#b08d4f" fill-opacity="0.78" />
+          </g>
+
+          <!-- Labels above circles -->
+          <g font-family="Pretendard, sans-serif" font-weight="700" text-anchor="middle">
+            <text x="200" y="35" font-size="20" fill="#0f2547">부동산 전문가</text>
+            <text x="200" y="58" font-size="13" fill="#5a6478">20년 현장</text>
+            <text x="300" y="35" font-size="20" fill="#0f2547">자산관리</text>
+            <text x="300" y="58" font-size="13" fill="#5a6478">포트폴리오 설계</text>
+            <text x="400" y="35" font-size="20" fill="#0f2547">법인 전문가</text>
+            <text x="400" y="58" font-size="13" fill="#5a6478">10년 컨설팅</text>
+          </g>
+
+          <!-- Center label: 융합 모델 -->
+          <g>
+            <circle cx="300" cy="120" r="32" fill="#c9a14a" filter="url(#goldGlow)" />
+            <text x="300" y="118" text-anchor="middle" font-family="Pretendard, sans-serif"
+                  font-size="14" font-weight="800" fill="#0f2547">FUSION</text>
+            <text x="300" y="135" text-anchor="middle" font-family="Pretendard, sans-serif"
+                  font-size="11" font-weight="600" fill="#0f2547">융합 모델</text>
+          </g>
+
+          <!-- Arrow down -->
+          <g>
+            <line x1="300" y1="240" x2="300" y2="295" stroke="#0f2547" stroke-width="3" />
+            <polygon points="290,290 310,290 300,310" fill="#0f2547" />
+          </g>
+
+          <!-- Bottom label -->
+          <g>
+            <text x="300" y="335" text-anchor="middle" font-family="Pretendard, sans-serif"
+                  font-size="22" font-weight="800" fill="#0f2547">"법인을 통한 통합 자산관리"</text>
+            <text x="300" y="357" text-anchor="middle" font-family="Pretendard, sans-serif"
+                  font-size="14" fill="#5a6478">세 분야를 아우르는 유일한 현장 전문가</text>
+          </g>
+        </svg>
+
+        <div class="credentials-row">
+          <div class="credential">
+            <div class="credential-icon">🏢</div>
+            <div class="credential-name">부동산전문가</div>
+          </div>
+          <div class="credential">
+            <div class="credential-icon">📋</div>
+            <div class="credential-name">공인중개사</div>
+          </div>
+          <div class="credential">
+            <div class="credential-icon">🏛️</div>
+            <div class="credential-name">법인전문가</div>
+          </div>
+          <div class="credential">
+            <div class="credential-icon">🎓</div>
+            <div class="credential-name">CFP<br/><small>(국제공인자산관리사)</small></div>
+          </div>
         </div>
       </div>
     </div>
@@ -1147,19 +1513,43 @@
       <a href="https://blog.naver.com/bellarich1004" target="_blank" rel="noopener">블로그</a>
       <a href="https://www.youtube.com/@bellarich7" target="_blank" rel="noopener">유튜브</a>
       <a href="https://www.instagram.com/bellarich1004" target="_blank" rel="noopener">인스타그램</a>
-      <a href="mailto:bellarich1004@naver.com?subject=벨라리치 문의">이메일</a>
+      <a href="mailto:bellarich7@naver.com?subject=벨라리치 문의">이메일</a>
     </div>
   </div>
 </div>
 </main>
+
+<!-- ========== CATEGORY SELECT SCREEN ========== -->
+<div id="screen-category" class="screen">
+  <div class="q-container">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span class="progress-label">어떤 고민이 가장 크세요?</span>
+        <span class="progress-count">맞춤 진단</span>
+      </div>
+      <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" aria-label="카테고리 선택">
+        <div class="progress-fill" style="width:10%"></div>
+      </div>
+    </div>
+
+    <div class="category-intro">
+      <h2 class="category-title">가장 궁금한 영역을 <em>하나</em> 골라 주세요</h2>
+      <p class="category-desc">선택하신 분야에 맞춰 질문이 자동으로 이어집니다. 6~7개 질문이면 끝나요.</p>
+    </div>
+
+    <div class="category-grid" id="category-grid">
+      <!-- 동적으로 채워짐 (renderCategoryScreen) -->
+    </div>
+  </div>
+</div>
 
 <!-- ========== QUESTION SCREEN ========== -->
 <div id="screen-question" class="screen">
   <div class="q-container">
     <div class="progress-wrap">
       <div class="progress-info">
-        <span class="progress-label">진단 진행 중</span>
-        <span class="progress-count"><span id="q-current">1</span> / 10</span>
+        <span class="progress-label"><span id="q-category-label">진단 진행 중</span></span>
+        <span class="progress-count"><span id="q-current">1</span> / <span id="q-total">6</span></span>
       </div>
       <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" aria-label="진단 진행률">
         <div class="progress-fill" id="progress-fill"></div>
@@ -1221,6 +1611,35 @@
         </div>
       </div>
 
+      <!-- ========== SHARE: 다른 분도 진단 ========== -->
+      <div class="share-card" aria-labelledby="share-title">
+        <h3 class="share-title" id="share-title">법인 CEO 지인분께도 <em>추천</em>해 주세요</h3>
+        <p class="share-desc">1분이면 끝납니다. "나도 한번 해볼까" 하는 분께 공유해 보세요.</p>
+        <div class="share-buttons">
+          <button type="button" class="share-btn share-kakao" onclick="shareKakao()" aria-label="카카오톡으로 공유">
+            <span class="share-icon" aria-hidden="true">💬</span>
+            <span class="share-label">카카오톡</span>
+          </button>
+          <button type="button" class="share-btn share-insta" onclick="shareInstagram()" aria-label="인스타그램으로 공유">
+            <span class="share-icon" aria-hidden="true">📷</span>
+            <span class="share-label">인스타</span>
+          </button>
+          <button type="button" class="share-btn share-naver" onclick="shareNaverMail()" aria-label="네이버 메일로 공유">
+            <span class="share-icon" aria-hidden="true">🟢</span>
+            <span class="share-label">네이버 메일</span>
+          </button>
+          <button type="button" class="share-btn share-gmail" onclick="shareGmail()" aria-label="구글 메일로 공유">
+            <span class="share-icon" aria-hidden="true">📧</span>
+            <span class="share-label">구글 메일</span>
+          </button>
+          <button type="button" class="share-btn share-copy" onclick="shareCopyUrl()" aria-label="URL 복사">
+            <span class="share-icon" aria-hidden="true">🔗</span>
+            <span class="share-label">URL 복사</span>
+          </button>
+        </div>
+        <div class="share-toast" id="share-toast" role="status" aria-live="polite"></div>
+      </div>
+
       <div class="retake-row">
         <button class="btn-retake" onclick="retakeTest()" aria-label="진단 다시 시작">
           ↻ 다시 진단하기
@@ -1265,7 +1684,7 @@
           <a href="https://blog.naver.com/bellarich1004" target="_blank" rel="noopener">블로그</a>
           <a href="https://www.youtube.com/@bellarich7" target="_blank" rel="noopener">유튜브</a>
           <a href="https://www.instagram.com/bellarich1004" target="_blank" rel="noopener">인스타그램</a>
-          <a href="mailto:bellarich1004@naver.com?subject=벨라리치 문의">이메일</a>
+          <a href="mailto:bellarich7@naver.com?subject=벨라리치 문의">이메일</a>
         </div>
       </div>
     </div>
@@ -1321,25 +1740,28 @@
   // ====== DATA SUBMISSION ======
   function buildPayload(completed) {
     const elapsedMs = testStartTime ? Date.now() - testStartTime : 0;
+    // 카테고리별 답변을 q1~q6에 매핑 (최대 6개)
+    const qData = {};
+    for (let i = 0; i < 6; i++) {
+      const idx = i;
+      if (idx < currentQuestions.length) {
+        const opt = currentQuestions[idx].options[answers[idx]];
+        qData['q' + (idx + 1)] = (opt && opt.label) || '';
+      } else {
+        qData['q' + (idx + 1)] = '';
+      }
+    }
     return {
       session_id: sessionId,
       timestamp: new Date().toISOString(),
       completed: completed,
+      category: currentCategory || '',
       last_question: current + (completed ? 1 : 0),
       time_taken_seconds: Math.floor(elapsedMs / 1000),
       score: lastResult ? lastResult.score : null,
       grade: lastResult ? lastResult.grade : null,
       q0_asset_size: q0AssetSize || 'skip',
-      q1: answers[0],
-      q2: answers[1],
-      q3: answers[2],
-      q4: answers[3],
-      q5: answers[4],
-      q6: answers[5],
-      q7: answers[6],
-      q8: answers[7],
-      q9: answers[8],
-      q10: answers[9],
+      ...qData,
       user_agent: navigator.userAgent.substring(0, 250),
       screen_width: window.innerWidth,
       screen_height: window.innerHeight,
@@ -1503,9 +1925,11 @@
     }
   ];
 
-  // ====== STATE ======
+  // ====== STATE (v6 적응형: 카테고리별 분기) ======
   let current = 0;
-  const answers = new Array(QUESTIONS.length).fill(null);
+  let currentCategory = null;       // 'tax' | 'realestate' | 'succession'
+  let currentQuestions = [];        // 현재 카테고리 questions 배열
+  const answers = [];                // 동적 길이
 
   // ====== RENDER ======
   function showScreen(id) {
@@ -1514,8 +1938,52 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // 카테고리 선택 화면 렌더링
+  function renderCategoryScreen() {
+    const grid = document.getElementById('category-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    CATEGORY_META.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'category-card';
+      btn.setAttribute('aria-label', `${cat.title} - ${cat.subtitle}`);
+      btn.innerHTML = `
+        <span class="cat-icon" aria-hidden="true">${cat.icon}</span>
+        <span class="cat-title">${cat.title}</span>
+        <span class="cat-sub">${cat.subtitle}</span>
+        <span class="cat-desc">${cat.desc}</span>
+        <span class="cat-keywords">${cat.keywords.map(k => `<span class="cat-kw">#${k}</span>`).join('')}</span>
+        <span class="cat-cta">이 분야로 진단하기 →</span>
+      `;
+      btn.onclick = () => selectCategory(cat.id);
+      grid.appendChild(btn);
+    });
+  }
+
+  // 카테고리 선택 → 질문 화면으로
+  function selectCategory(id) {
+    if (!CATEGORIES[id]) return;
+    currentCategory = id;
+    currentQuestions = CATEGORIES[id].questions;
+    current = 0;
+    answers.length = 0;
+    for (let i = 0; i < currentQuestions.length; i++) answers.push(null);
+    // 진행률 라벨 업데이트
+    const label = document.getElementById('q-category-label');
+    if (label) label.textContent = CATEGORIES[id].subtitle;
+    const total = document.getElementById('q-total');
+    if (total) total.textContent = currentQuestions.length;
+    // 타이머 시작
+    testStartTime = Date.now();
+    testCompleted = false;
+    lastResult = null;
+    showScreen('screen-question');
+    renderQuestion();
+  }
+
   function renderQuestion() {
-    const q = QUESTIONS[current];
+    const q = currentQuestions[current];
     document.getElementById('q-current').textContent = current + 1;
     document.getElementById('q-tag').textContent = q.tag;
     document.getElementById('q-text').textContent = q.text;
@@ -1523,8 +1991,8 @@
     if (q.sub) { subEl.textContent = q.sub; subEl.style.display = 'block'; }
     else { subEl.style.display = 'none'; }
 
-    // Progress: shows 10% on Q1, 100% on Q10 (feels more responsive)
-    const fillPct = ((current + 1) / QUESTIONS.length) * 100;
+    // 진행률
+    const fillPct = ((current + 1) / currentQuestions.length) * 100;
     const bar = document.getElementById('progress-fill');
     bar.style.width = fillPct + '%';
     bar.setAttribute('aria-valuenow', Math.round(fillPct));
@@ -1543,13 +2011,12 @@
       opts.appendChild(btn);
     });
 
-    // Set role on options container
     opts.setAttribute('role', 'radiogroup');
     opts.setAttribute('aria-label', q.text);
 
     document.getElementById('btn-back').disabled = current === 0;
     document.getElementById('btn-next').disabled = answers[current] === null;
-    document.getElementById('btn-next').textContent = current === QUESTIONS.length - 1 ? '결과 보기 →' : '다음 →';
+    document.getElementById('btn-next').textContent = current === currentQuestions.length - 1 ? '결과 보기 →' : '다음 →';
   }
 
   function selectOption(idx) {
@@ -1563,7 +2030,7 @@
 
   function goNext() {
     if (answers[current] === null) return;
-    if (current < QUESTIONS.length - 1) {
+    if (current < currentQuestions.length - 1) {
       current++;
       renderQuestion();
     } else {
@@ -1572,89 +2039,40 @@
   }
 
   function startTest(skipDataCollection) {
-    current = 0;
-    for (let i = 0; i < answers.length; i++) answers[i] = null;
-    testStartTime = Date.now();
-    testCompleted = false;
-    lastResult = null;
     dataCollectionAllowed = !skipDataCollection;
-    showScreen('screen-question');
-    renderQuestion();
+    renderCategoryScreen();
+    showScreen('screen-category');
   }
 
   // ====== RESULT ======
   function calcResult() {
+    const cat = CATEGORIES[currentCategory];
     let total = 0;
     let max = 0;
-    for (let i = 0; i < QUESTIONS.length; i++) {
-      const opts = QUESTIONS[i].options;
+    for (let i = 0; i < currentQuestions.length; i++) {
+      const opts = currentQuestions[i].options;
       max += Math.max(...opts.map(o => o.score));
       const idx = answers[i];
       if (idx !== null) total += opts[idx].score;
     }
     const score = Math.round((total / max) * 100);
 
-    let grade, name, summary, findings, cta;
+    let grade;
+    if (score >= 80) grade = 'S';
+    else if (score >= 60) grade = 'A';
+    else if (score >= 40) grade = 'B';
+    else grade = 'C';
 
-    if (score >= 80) {
-      grade = 'S';
-      name = '최적화 단계 · <em>다음 10년의 그림</em>';
-      summary = '기본 구조와 적극 활용 모두 갖췄습니다. 지금의 강점을 살려 더 큰 폭의 성장을 만들 수 있는 시점입니다. 다음 단계 로드맵 설계가 핵심입니다.';
-      findings = [
-        '현재 구조에서 발생하는 절세 · 승계 기회를 정밀 진단할 가치가 큽니다.',
-        '법인 부동산 포트폴리오의 수익률 재점검이 ROI 개선의 핵심입니다.',
-        '10년 후 시나리오별 자산 흐름 시뮬레이션이 필요합니다.'
-      ];
-      cta = {
-        eyebrow: '전략 컨설팅',
-        title: '지금 구조, 다음 10년의 그림으로',
-        desc: '현재 잘 관리하고 계신 만큼, 다음 단계 로드맵을 짜는 것이 ROI를 좌우합니다. 1:1 전략 진단을 받아보세요.'
-      };
-    } else if (score >= 60) {
-      grade = 'A';
-      name = '숨은 <em>기회 존재</em> 단계';
-      summary = '기본 구조는 갖췄지만 손쉽게 잡지 못하고 있는 절세 · 승계 · 수익 구조의 기회가 분명히 있습니다. 한 번 점검받으실 가치가 있습니다.';
-      findings = [
-        '법인 명의 부동산 · 자산 구조에서 절세 누락 구간이 있을 가능성이 높습니다.',
-        '가족법인 · 지주사 진입 시 검토할 시나리오가 다수 존재합니다.',
-        '현재 컨설팅 활용도를 한 단계 올리면 5~15% 절세 효과도 가능합니다.'
-      ];
-      cta = {
-        eyebrow: '무료 1:1 진단',
-        title: '숨은 기회를 30분 만에 점검받으세요',
-        desc: '잘하고 계신 만큼, 점검 한 번으로 더 큰 효과를 만들 수 있는 시점입니다. 무료 진단을 추천드립니다.'
-      };
-    } else if (score >= 40) {
-      grade = 'B';
-      name = '<em>리스크 노출</em> 단계 · 점검 권장';
-      summary = '지금 구조를 그대로 두시면 절세 · 승계 측면에서 손해가 누적될 가능성이 있습니다. 빠른 점검이 필요합니다.';
-      findings = [
-        '절세 전략 부재로 매년 누수되고 있는 비용이 있을 수 있습니다.',
-        '승계 · 상속 계획 미수립 시 10년 후 세금 부담이 크게 증가합니다.',
-        '컨설팅 활용도를 높이면 1년 안에 가시적 효과를 보실 수 있습니다.'
-      ];
-      cta = {
-        eyebrow: '긴급 진단',
-        title: '지금 점검 안 하시면 매년 손해입니다',
-        desc: '구조 자체를 최적화하는 것이 핵심입니다. 우선순위가 높은 영역부터 짚어드릴 수 있습니다.'
-      };
-    } else {
-      grade = 'C';
-      name = '<em>긴급 점검</em>이 필요한 단계';
-      summary = '여러 영역에서 구조적 리스크가 동시 노출되어 있습니다. 지금이 가장 효과적인 시점입니다 — 한 번의 진단이 향후 10년을 바꿉니다.';
-      findings = [
-        '법인 구조 자체의 재설계가 필요한 시점입니다.',
-        '현재 자산 · 현금흐름 상태에서 절세 · 승계 모두 노출되어 있습니다.',
-        '임대차 · 투자 · 세무 모든 영역에서 우선순위 재점검이 필요합니다.'
-      ];
-      cta = {
-        eyebrow: '긴급 컨설팅',
-        title: '지금 바로 1:1 진단을 받아보세요',
-        desc: '구조 자체를 새로 짜는 것이 가장 효과적인 시점입니다. 30분 진단으로 우선순위를 정리해 드립니다.'
-      };
-    }
-
-    return { score, grade, name, summary, findings, cta };
+    const info = cat.grades[grade];
+    return {
+      score,
+      grade,
+      name: info.name,
+      summary: info.summary,
+      findings: info.findings,
+      cta: info.cta,
+      category: cat
+    };
   }
 
   function showResult() {
@@ -1695,15 +2113,19 @@
   }
 
   function buildCtaLink(r) {
-    const concern = QUESTIONS[9].options[answers[9]]?.label || '미선택';
+    // 마지막 질문의 답변을 "가장 큰 고민"으로 사용
+    const lastIdx = currentQuestions.length - 1;
+    const concern = currentQuestions[lastIdx].options[answers[lastIdx]]?.label || '미선택';
+    const catLabel = CATEGORIES[currentCategory] ? CATEGORIES[currentCategory].title : '';
     const msg = `[벨라리치 1:1 진단 신청]\n` +
+                `- 진단 분야: ${catLabel}\n` +
                 `- 진단 등급: ${r.grade} (점수 ${r.score}/100)\n` +
                 `- 가장 큰 고민: ${concern}\n` +
                 `- 진단 결과: ${r.cta.title}\n\n` +
                 `위 내용으로 상담 신청합니다.`;
     const subject = encodeURIComponent('벨라리치 1:1 상담 신청');
     const body = encodeURIComponent(msg);
-    return `mailto:bellarich1004@naver.com?subject=${subject}&body=${body}`;
+    return `mailto:bellarich7@naver.com?subject=${subject}&body=${body}`;
   }
 
   // ====== RETAKE ======
@@ -1722,6 +2144,134 @@
       scrollTopBtn.classList.remove('visible');
     }
   }, { passive: true });
+
+  // ====== KAKAO SDK INIT ======
+  // Kakao Developers에서 JavaScript 키를 발급받아 아래에 입력하세요.
+  // https://developers.kakao.com → 내 애플리케이션 → 앱 설정 → 플랫폼 → Web 도메인 등록 → JavaScript 키 복사
+  // 발급 전에는 다른 공유 버튼은 정상 작동하며, 카카오 버튼만 클립보드 폴백으로 동작합니다.
+  const KAKAO_JS_KEY = '';  // ← 여기에 키 입력 (예: 'a1b2c3d4e5...')
+  if (KAKAO_JS_KEY && window.Kakao && !window.Kakao.isInitialized()) {
+    try { window.Kakao.init(KAKAO_JS_KEY); } catch (e) { console.warn('Kakao init failed', e); }
+  }
+
+  // ====== SHARE FUNCTIONS ======
+  function getShareUrl() {
+    return window.location.origin + window.location.pathname;
+  }
+
+  function getShareText() {
+    return '중소기업 CEO 법인 자산 1분 건강검진 — 벨라리치. 1분이면 내 법인 자산 어디까지 최적화됐는지 알 수 있어요.';
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('share-toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function shareKakao() {
+    const url = getShareUrl();
+    const text = getShareText();
+    if (window.Kakao && window.Kakao.isInitialized()) {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '법인 자산 1분 건강검진 | 벨라리치',
+          description: text,
+          imageUrl: 'https://drtardis123.github.io/BellaRich/og-image.svg',
+          link: { mobileWebUrl: url, webUrl: url }
+        },
+        buttons: [{
+          title: '진단 받아보기',
+          link: { mobileWebUrl: url, webUrl: url }
+        }]
+      });
+    } else {
+      // Kakao 미설정: 클립보드 폴백
+      const fullText = `${text}\n${url}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(fullText).then(
+          () => showToast('링크가 복사됐어요. 카카오톡에 붙여넣기 하세요. (Kakao SDK 키 설정 전)'),
+          () => showToast('Kakao SDK 키 설정이 필요해요.')
+        );
+      } else {
+        showToast('Kakao SDK 키 설정이 필요해요. SETUP_GUIDE.md 참고.');
+      }
+    }
+  }
+
+  function shareInstagram() {
+    const url = getShareUrl();
+    const text = getShareText();
+    const fullText = `${text}\n${url}`;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(fullText).then(() => {
+        showToast('링크가 복사됐어요. 인스타 DM/스토리에 붙여넣기 하세요.');
+        setTimeout(() => {
+          if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
+            window.location.href = 'instagram://app';
+          } else {
+            window.open('https://www.instagram.com/', '_blank', 'noopener');
+          }
+        }, 400);
+      });
+    } else {
+      showToast('복사 기능을 지원하지 않는 브라우저예요.');
+    }
+  }
+
+  function shareNaverMail() {
+    const subject = encodeURIComponent('법인 자산 1분 건강검진 추천');
+    const body = encodeURIComponent(`${getShareText()}\n\n진단 받아보기 → ${getShareUrl()}`);
+    // 모바일/PC 모두 작동. 모바일은 네이버 메일 앱/웹, PC는 네이버 메일 웹
+    window.open(`https://mail.naver.com/write?to=&subject=${subject}&body=${body}`, '_blank', 'noopener');
+  }
+
+  function shareGmail() {
+    const subject = encodeURIComponent('법인 자산 1분 건강검진 추천');
+    const body = encodeURIComponent(`${getShareText()}\n\n진단 받아보기 → ${getShareUrl()}`);
+    // Gmail 웹 compose. 모바일은 Gmail 앱이 있으면 앱으로, 없으면 웹으로
+    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+    if (isMobile) {
+      // 모바일: Gmail 앱 시도, 실패 시 웹으로
+      const gmailApp = `googlegmail://co?to=&subject=${subject}&body=${body}`;
+      const web = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${subject}&body=${body}`;
+      window.location.href = gmailApp;
+      setTimeout(() => window.open(web, '_blank', 'noopener'), 300);
+    } else {
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=&su=${subject}&body=${body}`, '_blank', 'noopener');
+    }
+  }
+
+  function shareCopyUrl() {
+    const url = getShareUrl();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(
+        () => showToast('URL이 복사됐어요.'),
+        () => fallbackCopy(url)
+      );
+    } else {
+      fallbackCopy(url);
+    }
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      showToast('URL이 복사됐어요.');
+    } catch (e) {
+      showToast('복사 실패. 직접 선택해 복사해 주세요.');
+    }
+    document.body.removeChild(ta);
+  }
 </script>
 
 <!-- Scroll to top button -->
