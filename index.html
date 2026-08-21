@@ -913,27 +913,16 @@
     max-width: 720px;
     margin: 0 auto;
   }
-  .venn-wrap {
-    position: relative;
+  .venn-img {
+    display: block;
+    width: 100%;
     max-width: 460px;
+    height: auto;
     margin: 0 auto 24px;
     background: #ffffff;
     padding: 16px;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(15, 37, 71, 0.04);
-  }
-  .venn-img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  .venn-overlay {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    width: calc(100% - 32px);
-    height: calc(100% - 32px);
-    pointer-events: none;
   }
   .fusion-diagram svg {
     width: 100%;
@@ -1275,15 +1264,7 @@
       </div>
 
       <div class="fusion-diagram">
-        <div class="venn-wrap">
-          <img src="venn-diagram.png" alt="부동산 전문가 · 자산관리 · 법인 전문가 — 세 분야 교집합 융합 모델" class="venn-img" />
-          <svg class="venn-overlay" viewBox="0 0 720 759" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-            <!-- 3개 원 — alpha blend로 교집합 강조 (1겹=0.18, 2겹≈0.33, 3겹≈0.45) -->
-            <circle cx="360" cy="252" r="170" fill="rgba(201, 161, 74, 0.18)"/>
-            <circle cx="244" cy="428" r="170" fill="rgba(201, 161, 74, 0.18)"/>
-            <circle cx="476" cy="428" r="170" fill="rgba(201, 161, 74, 0.18)"/>
-          </svg>
-        </div>
+        <img src="venn-diagram.png" alt="부동산 전문가 · 자산관리 · 법인 전문가 — 세 분야 교집합 융합 모델" class="venn-img" />
 
         <div class="credentials-row">
           <div class="credential">
