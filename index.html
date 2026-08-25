@@ -1093,6 +1093,13 @@
   .category-grid {
     display: grid;
     gap: 14px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1080px) {
+    .category-grid { grid-template-columns: repeat(3, 1fr); }
   }
   .category-card {
     display: grid;
@@ -1190,6 +1197,200 @@
     }
     .cat-icon { width: 56px; height: 56px; font-size: 32px; }
     .cat-title { font-size: 18px; }
+  }
+
+  /* ========== CONSENT (이메일 + 동의) ========== */
+  .consent-card {
+    background: #ffffff;
+    border: 1.5px solid #e5e8ee;
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 20px rgba(15, 37, 71, 0.06);
+  }
+  .consent-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    color: #c9a14a;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .consent-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f2547;
+    line-height: 1.35;
+    margin: 0 0 12px;
+  }
+  .consent-title em {
+    color: #c9a14a;
+    font-style: normal;
+  }
+  .consent-desc {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #4a5b78;
+    margin: 0 0 24px;
+  }
+  .consent-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .consent-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .consent-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f2547;
+  }
+  .consent-label .req {
+    color: #d04545;
+    font-style: normal;
+    margin-left: 2px;
+  }
+  .consent-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #d6dde7;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #0f2547;
+    background: #fafbfc;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+  .consent-input:focus {
+    outline: none;
+    border-color: #c9a14a;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(201, 161, 74, 0.15);
+  }
+  .consent-input::placeholder {
+    color: #98a3b5;
+  }
+  .consent-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #fafbfc;
+    border: 1px solid #e5e8ee;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .consent-check:hover {
+    background: #fdf6e3;
+    border-color: #e8d6a8;
+  }
+  .consent-check input[type="checkbox"] {
+    margin-top: 2px;
+    width: 18px;
+    height: 18px;
+    accent-color: #c9a14a;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .consent-check-text {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #2c3e5a;
+  }
+  .consent-check-text strong {
+    color: #0f2547;
+    font-weight: 700;
+  }
+  .consent-meta {
+    display: block;
+    font-size: 11.5px;
+    color: #7a8aa0;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .consent-error {
+    background: #fff2f2;
+    border: 1px solid #f4c4c4;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #c0392b;
+  }
+  .btn-consent {
+    margin-top: 4px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #0f2547 0%, #1e5a8e 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(15, 37, 71, 0.2);
+  }
+  .btn-consent:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(15, 37, 71, 0.3);
+  }
+  .btn-consent:active {
+    transform: translateY(0);
+  }
+  .consent-foot {
+    font-size: 11.5px;
+    color: #7a8aa0;
+    line-height: 1.5;
+    margin: 4px 0 0;
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    .consent-card { padding: 24px 18px; }
+    .consent-title { font-size: 20px; }
+    .consent-desc { font-size: 13.5px; }
+  }
+
+  /* ========== RESULT - 메일 발송 안내 ========== */
+  .result-mail-sent {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 24px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, #fdf6e3 0%, #fffaf0 100%);
+    border: 1.5px solid #e8d6a8;
+    border-radius: 16px;
+  }
+  .result-mail-icon {
+    font-size: 32px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .result-mail-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #4a5b78;
+  }
+  .result-mail-text strong {
+    font-size: 15px;
+    color: #0f2547;
+    font-weight: 700;
+  }
+  .result-mail-text #result-email-display {
+    color: #c9a14a;
+    font-weight: 700;
+  }
+  @media (max-width: 480px) {
+    .result-mail-sent { padding: 14px 16px; gap: 10px; }
+    .result-mail-icon { font-size: 26px; }
+    .result-mail-text { font-size: 13px; }
+    .result-mail-text strong { font-size: 13.5px; }
   }
 
   @media (max-width: 480px) {
@@ -1545,6 +1746,56 @@
   </div>
 </div>
 
+<!-- ========== CONSENT SCREEN (이메일 + 동의) ========== -->
+<div id="screen-consent" class="screen">
+  <div class="q-container">
+    <div class="progress-wrap">
+      <div class="progress-info">
+        <span class="progress-label">진단이 거의 끝났어요</span>
+        <span class="progress-count">마지막 단계</span>
+      </div>
+      <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="95" aria-label="진행률">
+        <div class="progress-fill" style="width:95%"></div>
+      </div>
+    </div>
+
+    <div class="consent-card">
+      <div class="consent-eyebrow">STEP 7 · 결과 발송</div>
+      <h2 class="consent-title">진단 결과를 <em>이메일</em>로 보내드릴게요</h2>
+      <p class="consent-desc">입력하신 이메일로 등급, 핵심 포인트, 다음 단계 가이드를 보내드립니다. 이메일 발송을 위한 개인정보 수집·이용에 동의해 주세요.</p>
+
+      <form id="consent-form" class="consent-form" onsubmit="return false;">
+        <label class="consent-field">
+          <span class="consent-label">이메일 주소 <em class="req">*</em></span>
+          <input type="email" id="consent-email" class="consent-input" placeholder="example@company.com" required autocomplete="email" />
+        </label>
+
+        <label class="consent-check" for="consent-collection">
+          <input type="checkbox" id="consent-collection" required />
+          <span class="consent-check-text">
+            <strong>(필수)</strong> 진단 결과 발송을 위한 개인정보 수집·이용에 동의합니다.
+            <span class="consent-meta">수집 항목: 이메일 / 보유 기간: 결과 발송 후 1년 / 이용 목적: 진단 결과 발송</span>
+          </span>
+        </label>
+
+        <label class="consent-check" for="consent-newsletter">
+          <input type="checkbox" id="consent-newsletter" />
+          <span class="consent-check-text">
+            <strong>(선택)</strong> 앞으로도 관련 뉴스레터를 받아보시겠어요?
+            <span class="consent-meta">주 1회 · 절세/부동산/승계/은퇴/경영 관련 뉴스레터 · 언제든 구독 취소 가능</span>
+          </span>
+        </label>
+
+        <div class="consent-error" id="consent-error" style="display:none"></div>
+
+        <button type="button" class="btn-consent" id="btn-consent" onclick="submitConsent()">진단 결과 메일로 받기 →</button>
+
+        <p class="consent-foot">벨라리치는 발송 외 용도로 이메일을 사용하지 않으며, 관련 법령에 따라 안전하게 관리합니다.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
 <!-- ========== RESULT SCREEN ========== -->
 <div id="screen-result" class="screen">
   <div class="result-container">
@@ -1554,6 +1805,14 @@
         <div class="grade-circle" id="grade-circle">S</div>
         <h2 class="grade-name" id="grade-name"></h2>
         <p class="grade-summary" id="grade-summary"></p>
+      </div>
+    </div>
+
+    <div class="result-mail-sent">
+      <span class="result-mail-icon" aria-hidden="true">📧</span>
+      <div class="result-mail-text">
+        <strong>자세한 결과는 <span id="result-email-display">입력하신 이메일</span>로 보내드렸어요</strong>
+        <span>등급 분석, 핵심 포인트 3가지, 다음 단계 가이드가 담긴 메일을 확인해 주세요.</span>
       </div>
     </div>
 
@@ -1733,10 +1992,13 @@
       timestamp: new Date().toISOString(),
       completed: completed,
       category: currentCategory || '',
+      group: currentCategory || '',  // 주소록 분류용 (5개 그룹)
       last_question: current + (completed ? 1 : 0),
       time_taken_seconds: Math.floor(elapsedMs / 1000),
       score: lastResult ? lastResult.score : null,
       grade: lastResult ? lastResult.grade : null,
+      email: currentEmail || '',
+      newsletter_consent: currentNewsletter ? 'yes' : 'no',
       q0_asset_size: q0AssetSize || 'skip',
       ...qData,
       user_agent: navigator.userAgent.substring(0, 250),
@@ -1904,7 +2166,7 @@
 
   // ====== STATE (v6 적응형: 카테고리별 분기) ======
   let current = 0;
-  let currentCategory = null;       // 'tax' | 'realestate' | 'succession'
+  let currentCategory = null;       // 'tax' | 'realestate' | 'succession' | 'retirement' | 'management'
   let currentQuestions = [];        // 현재 카테고리 questions 배열
   const answers = [];                // 동적 길이
 
@@ -2011,14 +2273,70 @@
       current++;
       renderQuestion();
     } else {
-      showResult();
+      // 마지막 질문 완료 → 동의 화면 → 결과 화면
+      showConsent();
     }
   }
 
   function startTest(skipDataCollection) {
     dataCollectionAllowed = !skipDataCollection;
+    currentEmail = '';
+    currentNewsletter = false;
     renderCategoryScreen();
     showScreen('screen-category');
+  }
+
+  // ====== CONSENT (이메일 + 광고성 동의) ======
+  let currentEmail = '';
+  let currentNewsletter = false;
+
+  function showConsent() {
+    // 결과 미리 계산 (점수/등급은 동의 화면에서도 표시 가능)
+    const r = calcResult();
+    lastResult = r;
+    // 동의 화면 진입 시 입력 필드 초기화
+    document.getElementById('consent-email').value = '';
+    document.getElementById('consent-collection').checked = false;
+    document.getElementById('consent-newsletter').checked = false;
+    document.getElementById('consent-error').style.display = 'none';
+    showScreen('screen-consent');
+    // 포커스
+    setTimeout(() => document.getElementById('consent-email').focus(), 300);
+  }
+
+  function submitConsent() {
+    const emailEl = document.getElementById('consent-email');
+    const collEl  = document.getElementById('consent-collection');
+    const newsEl  = document.getElementById('consent-newsletter');
+    const errEl   = document.getElementById('consent-error');
+    const email = (emailEl.value || '').trim();
+    const coll  = collEl.checked;
+    const news  = newsEl.checked;
+
+    // 간단한 이메일 검증
+    if (!email) {
+      errEl.textContent = '이메일 주소를 입력해 주세요.';
+      errEl.style.display = 'block';
+      emailEl.focus();
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errEl.textContent = '이메일 형식이 올바르지 않습니다.';
+      errEl.style.display = 'block';
+      emailEl.focus();
+      return;
+    }
+    if (!coll) {
+      errEl.textContent = '개인정보 수집·이용 동의(필수)에 체크해 주세요.';
+      errEl.style.display = 'block';
+      collEl.focus();
+      return;
+    }
+
+    currentEmail = email;
+    currentNewsletter = news;
+    errEl.style.display = 'none';
+    showResult();
   }
 
   // ====== RESULT ======
@@ -2053,7 +2371,8 @@
   }
 
   function showResult() {
-    const r = calcResult();
+    // lastResult는 showConsent()에서 이미 계산됨
+    const r = lastResult || calcResult();
     showScreen('screen-result');
     testCompleted = true;
     lastResult = r;
@@ -2064,28 +2383,26 @@
 
     document.getElementById('grade-name').innerHTML = r.name;
     document.getElementById('grade-summary').textContent = r.summary;
-    document.getElementById('cta-eyebrow').textContent = r.cta.eyebrow;
-    document.getElementById('cta-title').textContent = r.cta.title;
-    document.getElementById('cta-desc').textContent = r.cta.desc;
 
-    const list = document.getElementById('findings-list');
-    list.innerHTML = '';
-    r.findings.forEach(f => {
-      const div = document.createElement('div');
-      div.className = 'finding';
-      div.innerHTML = '<span class="finding-icon">›</span><span>' + f + '</span>';
-      list.appendChild(div);
-    });
+    // 메일 발송 안내 (이메일 마스킹)
+    if (currentEmail) {
+      const masked = currentEmail.replace(/(^.).+(@.+)/, '$1***$2');
+      const emailEl = document.getElementById('result-email-display');
+      if (emailEl) emailEl.textContent = masked;
+    }
+
+    // 화면에는 등급 + 한 줄 멘트 + 점수만 표시 (findings/cta는 이메일에만)
+    const findingsCard = document.querySelector('.findings-card');
+    if (findingsCard) findingsCard.style.display = 'none';
+    const ctaCard = document.querySelector('.cta-card');
+    if (ctaCard) ctaCard.style.display = 'none';
 
     setTimeout(() => {
       document.getElementById('score-value').textContent = r.score;
       document.getElementById('score-fill').style.width = r.score + '%';
     }, 200);
 
-    const ctaBtn = document.getElementById('cta-btn');
-    ctaBtn.href = buildCtaLink(r);
-
-    // Send completed data
+    // Send completed data (email + newsletter_consent + group 포함)
     sendData(true);
   }
 
