@@ -1,0 +1,110 @@
+{
+  "phase": "pre-fix",
+  "logs": {
+    "errors": [
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2436:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2436:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2436:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2436:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)",
+      "[PAGE_ERROR] Cannot read properties of null (reading 'classList')\nTypeError: Cannot read properties of null (reading 'classList')\n    at window.addEventListener.passive (file:///C:/Users/LG/orca/BellaRich/index.html:2438:20)"
+    ],
+    "warnings": [],
+    "info": [
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js.",
+      "[CONSOLE.WARN] Tracking Prevention blocked access to storage for https://developers.kakao.com/sdk/js/kakao.js."
+    ]
+  },
+  "categoryResults": {
+    "tax": {
+      "reachedConsent": true,
+      "hasEmailInput": true,
+      "hasConsentCheck": true,
+      "hasNewsletterCheck": true,
+      "hasSubmitBtn": true
+    },
+    "realestate": {
+      "reachedConsent": true,
+      "hasEmailInput": true,
+      "hasConsentCheck": true,
+      "hasNewsletterCheck": true,
+      "hasSubmitBtn": true
+    },
+    "succession": {
+      "reachedConsent": true,
+      "hasEmailInput": true,
+      "hasConsentCheck": true,
+      "hasNewsletterCheck": true,
+      "hasSubmitBtn": true
+    },
+    "retirement": {
+      "reachedConsent": true,
+      "hasEmailInput": true,
+      "hasConsentCheck": true,
+      "hasNewsletterCheck": true,
+      "hasSubmitBtn": true
+    },
+    "management": {
+      "reachedConsent": true,
+      "hasEmailInput": true,
+      "hasConsentCheck": true,
+      "hasNewsletterCheck": true,
+      "hasSubmitBtn": true
+    }
+  },
+  "timestamp": "2026-09-01T07:50:24.036Z"
+}

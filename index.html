@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://drtardis123.github.io/BellaRich/" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="법인 자산 1분 건강검진 | 벨라리치" />
-<meta property="og:description" content="지금 내 법인 자산, 어디까지 최적화되어 있나요? 10개 질문으로 진단합니다." />
+<meta property="og:description" content="지금 내 법인 자산, 어디까지 최적화되어 있나요? 6개 질문으로 진단합니다." />
 <meta property="og:url" content="https://drtardis123.github.io/BellaRich/" />
 <meta property="og:site_name" content="벨라리치" />
 <meta property="og:locale" content="ko_KR" />
@@ -1448,7 +1448,7 @@
           <div class="hero-stat-label">이중 자격 보유</div>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-num">10<em>분</em></span>
+          <span class="hero-stat-num">1<em>분</em></span>
           <div class="hero-stat-label">1분 진단 · 즉시 결과</div>
         </div>
       </div>
@@ -1609,10 +1609,10 @@
 
   <!-- DATA COLLECTION NOTICE -->
   <div class="container">
-    <div class="data-notice">
+    <div class="data-notice" id="privacy-details">
       <div class="data-notice-head">
         <div class="data-notice-icon">🔒</div>
-        <div class="data-notice-title">100% 익명 · 데이터 수집 안내</div>
+        <div class="data-notice-title">진단 데이터 및 결과 발송 안내</div>
       </div>
       <p class="data-notice-text">
         벨라리치는 진단 품질 개선과 서비스 연구를 위해 <strong>익명 데이터</strong>를 수집합니다. <a href="#privacy-details" class="privacy-link" style="color: #b08d4f;">자세히 보기 ↓</a>
@@ -1621,11 +1621,12 @@
         <li>✓ 응답 선택지 · 진단 결과 (점수, 등급)</li>
         <li>✓ 응답 소요 시간 · 브라우저 환경 (UX 개선용)</li>
         <li>✓ <strong>선택</strong> — 법인 자산 규모 범위</li>
+        <li>✓ <strong>결과 발송 시</strong> — 이메일 주소 (진단 결과 리포트 전달용)</li>
       </ul>
       <p class="data-notice-foot">
-        ✕ <strong>수집하지 않음</strong>: 이름, 이메일, 연락처, IP 주소, 정확한 위치<br>
+        ✕ <strong>수집하지 않음</strong>: 이름, 연락처(전화번호), 주민등록번호, IP 주소, 정확한 위치 (이메일은 결과 발송 동의 시에만 수집)<br>
         ⏱ <strong>보관 기간</strong>: 개별 데이터 12개월 후 자동 삭제 · 익명 통계 24개월까지 보존<br>
-        📋 <strong>용도</strong>: 진단 품질 개선, B2B 트렌드 연구 (개인 식별 불가 형태로만 활용)
+        📋 <strong>용도</strong>: 진단 결과 이메일 발송, 진단 품질 개선, B2B 트렌드 연구
       </p>
     </div>
 
@@ -1650,14 +1651,14 @@
       <div class="section-head" style="margin-bottom: 24px;">
         <div class="section-eyebrow">SELF-CHECK</div>
         <h2 class="section-title">지금 내 상황을 <em>1분 점검</em></h2>
-        <p class="section-desc">10개 질문으로 절세·승계·수익구조의 잠재 기회와 빈틈을 확인하고, 그에 맞는 다음 단계를 안내받으세요.</p>
+        <p class="section-desc">6개 질문으로 절세·승계·수익구조의 잠재 기회와 빈틈을 확인하고, 그에 맞는 다음 단계를 안내받으세요.</p>
       </div>
 
       <ul class="features">
         <li class="feature">
-          <div class="feature-icon">10</div>
+          <div class="feature-icon">6</div>
           <div class="feature-text">
-            <strong>10개 질문 · 1분</strong>
+            <strong>6개 질문 · 1분</strong>
             이메일 가입 없이 바로 시작, 결과 즉시 확인
           </div>
         </li>
@@ -1712,7 +1713,7 @@
 
     <div class="category-intro">
       <h2 class="category-title">가장 궁금한 영역을 <em>하나</em> 골라 주세요</h2>
-      <p class="category-desc">선택하신 분야에 맞춰 질문이 자동으로 이어집니다. 6~7개 질문이면 끝나요.</p>
+      <p class="category-desc">선택하신 분야에 맞춰 질문이 자동으로 이어집니다. 6개 질문이면 끝나요.</p>
     </div>
 
     <div class="category-grid" id="category-grid">
@@ -2289,11 +2290,18 @@
   // ====== CONSENT (이메일 + 광고성 동의) ======
   let currentEmail = '';
   let currentNewsletter = false;
+  let isSubmitting = false;
 
   function showConsent() {
     // 결과 미리 계산 (점수/등급은 동의 화면에서도 표시 가능)
     const r = calcResult();
     lastResult = r;
+    isSubmitting = false;
+    const btnConsent = document.getElementById('btn-consent');
+    if (btnConsent) {
+      btnConsent.disabled = false;
+      btnConsent.textContent = '진단 결과 메일로 받기 →';
+    }
     // 동의 화면 진입 시 입력 필드 초기화
     document.getElementById('consent-email').value = '';
     document.getElementById('consent-collection').checked = false;
@@ -2305,10 +2313,13 @@
   }
 
   function submitConsent() {
+    if (isSubmitting) return;
+
     const emailEl = document.getElementById('consent-email');
     const collEl  = document.getElementById('consent-collection');
     const newsEl  = document.getElementById('consent-newsletter');
     const errEl   = document.getElementById('consent-error');
+    const btnConsent = document.getElementById('btn-consent');
     const email = (emailEl.value || '').trim();
     const coll  = collEl.checked;
     const news  = newsEl.checked;
@@ -2331,6 +2342,12 @@
       errEl.style.display = 'block';
       collEl.focus();
       return;
+    }
+
+    isSubmitting = true;
+    if (btnConsent) {
+      btnConsent.disabled = true;
+      btnConsent.textContent = '진단 결과 발송 중...';
     }
 
     currentEmail = email;
@@ -2430,12 +2447,13 @@
   }
 
   // ====== SCROLL TO TOP ======
-  const scrollTopBtn = document.getElementById('scroll-top-btn');
   window.addEventListener('scroll', () => {
+    const btn = document.getElementById('scroll-top-btn');
+    if (!btn) return;
     if (window.scrollY > 600) {
-      scrollTopBtn.classList.add('visible');
+      btn.classList.add('visible');
     } else {
-      scrollTopBtn.classList.remove('visible');
+      btn.classList.remove('visible');
     }
   }, { passive: true });
 
@@ -2640,7 +2658,5 @@
   ↑
 </button>
 
-</body>
-</html>
 </body>
 </html>

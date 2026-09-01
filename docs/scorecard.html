@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html{color-scheme:light dark}
+  body{margin:0;font:14px system-ui,sans-serif}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+</style>
+<title>본선 진출 득점표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap">
+
+<style>
+:root{
+  --paper:#EEF1F1;
+  --surface:#FAFBFA;
+  --surface-2:#F1F4F3;
+  --ink:#16202E;
+  --ink-2:#4B5865;
+  --ink-3:#7B8794;
+  --rule:#D3DAD8;
+  --rule-soft:#E2E7E5;
+  --accent:#1F5F5B;
+  --accent-soft:#DCE9E7;
+  --gain:#8C6C36;
+  --gain-soft:#EFE5D2;
+  --risk:#A0413A;
+  --risk-soft:#F2E0DD;
+  --shadow:0 1px 2px rgba(22,32,46,.05), 0 8px 24px -16px rgba(22,32,46,.28);
+
+  --f-display:'Gowun Batang', 'Nanum Myeongjo', 'Apple SD Gothic Neo', serif;
+  --f-body:'IBM Plex Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+  --f-mono:'IBM Plex Mono', 'D2Coding', ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1519;
+    --surface:#161E23;
+    --surface-2:#1C262B;
+    --ink:#E4EAE9;
+    --ink-2:#A3B0AF;
+    --ink-3:#76837F;
+    --rule:#2A3740;
+    --rule-soft:#212C33;
+    --accent:#59AFA6;
+    --accent-soft:#1B322F;
+    --gain:#D2AE71;
+    --gain-soft:#2E2718;
+    --risk:#D4837A;
+    --risk-soft:#33201E;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1519;
+  --surface:#161E23;
+  --surface-2:#1C262B;
+  --ink:#E4EAE9;
+  --ink-2:#A3B0AF;
+  --ink-3:#76837F;
+  --rule:#2A3740;
+  --rule-soft:#212C33;
+  --accent:#59AFA6;
+  --accent-soft:#1B322F;
+  --gain:#D2AE71;
+  --gain-soft:#2E2718;
+  --risk:#D4837A;
+  --risk-soft:#33201E;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-weight:400;
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  padding:0 20px 96px;
+}
+.wrap{max-width:940px;margin:0 auto}
+h1,h2,h3{text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+
+/* ---------- masthead ---------- */
+.masthead{padding:64px 0 32px;border-bottom:2px solid var(--ink)}
+.eyebrow{
+  font-family:var(--f-mono);font-size:11px;font-weight:500;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+}
+.eyebrow span:not(:last-child)::after{content:" ·";color:var(--rule)}
+h1{
+  font-family:var(--f-display);font-weight:700;
+  font-size:clamp(34px,6.2vw,54px);line-height:1.12;
+  letter-spacing:-.02em;margin:14px 0 12px;
+}
+.dek{font-size:16px;color:var(--ink-2);max-width:60ch;font-weight:300}
+
+/* ---------- console ---------- */
+.console{
+  margin:28px 0 12px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:3px;box-shadow:var(--shadow);overflow:hidden;
+}
+.console-top{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:28px 40px;
+  padding:26px 28px 22px;border-bottom:1px solid var(--rule-soft);
+}
+.readout{display:flex;flex-direction:column;gap:2px}
+.readout .lbl{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.readout .val{
+  font-family:var(--f-mono);font-weight:600;font-variant-numeric:tabular-nums;
+  font-size:40px;line-height:1.05;letter-spacing:-.02em;
+}
+.readout .val small{font-size:15px;font-weight:400;color:var(--ink-3);margin-left:2px}
+.readout.now .val{color:var(--ink)}
+.readout.gap .val{color:var(--risk)}
+.readout.gap.clear .val{color:var(--accent)}
+.readout.ceil .val{color:var(--ink-3);font-size:26px}
+.readout.ceil{margin-left:auto;text-align:right}
+
+/* ruler */
+.ruler{padding:22px 28px 26px}
+.track{
+  position:relative;height:26px;background:var(--surface-2);
+  border:1px solid var(--rule-soft);border-radius:2px;overflow:hidden;
+}
+.fill-base,.fill-gain{position:absolute;inset:0 auto 0 0;transition:width .45s cubic-bezier(.4,.9,.3,1)}
+.fill-base{background:var(--accent);opacity:.82}
+.fill-gain{background:repeating-linear-gradient(135deg,var(--gain) 0 5px,transparent 5px 10px);opacity:.9;border-left:1px solid var(--gain)}
+.cutline{position:absolute;top:-7px;bottom:-7px;left:80%;width:2px;background:var(--risk)}
+.ticks{position:relative;height:20px;margin-top:6px}
+.tick{
+  position:absolute;top:0;transform:translateX(-50%);
+  font-family:var(--f-mono);font-size:10px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+}
+.tick.cut{color:var(--risk);font-weight:600;white-space:nowrap}
+.legend{
+  display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;
+  font-size:12px;color:var(--ink-2);font-family:var(--f-mono);
+}
+.legend i{display:inline-block;width:22px;height:9px;margin-right:7px;vertical-align:0;border-radius:1px}
+.legend .k1 i{background:var(--accent);opacity:.82}
+.legend .k2 i{background:repeating-linear-gradient(135deg,var(--gain) 0 5px,transparent 5px 10px);border:1px solid var(--gain)}
+.legend .k3 i{background:var(--risk);width:2px;margin-left:10px}
+
+/* ---------- sections ---------- */
+section{margin-top:56px}
+.sec-head{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  padding-bottom:10px;border-bottom:1px solid var(--ink);
+}
+.sec-num{
+  font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.1em;
+  color:var(--accent);
+}
+h2{font-family:var(--f-display);font-weight:700;font-size:26px;letter-spacing:-.01em}
+.sec-note{font-size:13px;color:var(--ink-3);margin-left:auto;font-family:var(--f-mono)}
+.lede{margin:16px 0 0;color:var(--ink-2);max-width:66ch;font-size:15px}
+
+/* ---------- rubric rows ---------- */
+.rubric{display:flex;flex-direction:column;gap:22px;margin-top:26px}
+.item{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  box-shadow:var(--shadow);overflow:hidden;
+}
+.item-head{
+  display:grid;grid-template-columns:1fr auto;gap:10px 24px;align-items:center;
+  padding:18px 22px 16px;border-bottom:1px solid var(--rule-soft);
+  background:var(--surface-2);
+}
+.item-title{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.item-title h3{font-family:var(--f-display);font-size:20px;font-weight:700}
+.weight{
+  font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.06em;
+  color:var(--accent);background:var(--accent-soft);
+  padding:3px 8px;border-radius:2px;white-space:nowrap;
+}
+.item-score{
+  font-family:var(--f-mono);font-variant-numeric:tabular-nums;
+  font-size:22px;font-weight:600;white-space:nowrap;text-align:right;
+}
+.item-score small{font-size:12px;font-weight:400;color:var(--ink-3)}
+.minitrack{
+  grid-column:1/-1;height:5px;background:var(--rule-soft);
+  border-radius:2px;overflow:hidden;position:relative;
+}
+.minitrack b{
+  display:block;height:100%;background:var(--accent);
+  transition:width .45s cubic-bezier(.4,.9,.3,1);
+}
+.diag{padding:16px 22px;font-size:14px;color:var(--ink-2);border-bottom:1px solid var(--rule-soft)}
+.diag strong{color:var(--ink);font-weight:600}
+
+ul.acts{list-style:none;margin:0;padding:0}
+ul.acts li{border-bottom:1px solid var(--rule-soft)}
+ul.acts li:last-child{border-bottom:0}
+label.act{
+  display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;
+  padding:14px 22px;cursor:pointer;align-items:start;
+  transition:background .15s;
+}
+label.act:hover{background:var(--surface-2)}
+label.act input{
+  appearance:none;-webkit-appearance:none;margin:3px 0 0;
+  width:17px;height:17px;border:1.5px solid var(--ink-3);border-radius:2px;
+  background:var(--surface);cursor:pointer;position:relative;flex:none;
+  transition:background .15s,border-color .15s;
+}
+label.act input:checked{background:var(--accent);border-color:var(--accent)}
+label.act input:checked::after{
+  content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid var(--surface);border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+label.act input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.act-name{font-size:15px;font-weight:500;line-height:1.5}
+.act-why{grid-column:2;font-size:13.5px;color:var(--ink-2);line-height:1.62;font-weight:300}
+.act-meta{display:flex;flex-direction:column;align-items:flex-end;gap:5px;grid-row:1/3}
+.pts{
+  font-family:var(--f-mono);font-size:12px;font-weight:600;
+  color:var(--gain);background:var(--gain-soft);
+  padding:2px 7px;border-radius:2px;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.time{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);white-space:nowrap}
+label.act:has(input:checked) .act-name{color:var(--ink-3);text-decoration:line-through;text-decoration-color:var(--rule)}
+label.act:has(input:checked) .pts{opacity:.45}
+.capnote{
+  padding:11px 22px;font-family:var(--f-mono);font-size:11.5px;
+  color:var(--ink-3);background:var(--surface-2);border-top:1px solid var(--rule-soft);
+}
+
+/* ---------- rules table ---------- */
+.rules{display:flex;flex-direction:column;gap:0;margin-top:24px;border-top:1px solid var(--rule)}
+.rule-row{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  gap:8px 32px;padding:16px 2px;border-bottom:1px solid var(--rule-soft);
+}
+.rule-row .r-src{font-size:14px;color:var(--ink-2);font-weight:300}
+.rule-row .r-src b{
+  display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;margin-bottom:3px;
+}
+.rule-row .r-use{font-size:14.5px;font-weight:500;line-height:1.6}
+
+/* ---------- facts ---------- */
+.facts{display:grid;gap:14px;margin-top:24px}
+.fact{
+  display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+  padding:16px 18px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:3px;border-left:3px solid var(--ink-3);
+}
+.fact.ok{border-left-color:var(--accent)}
+.fact.warn{border-left-color:var(--risk)}
+.fact .f-tag{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:600;padding-top:4px;color:var(--ink-3);white-space:nowrap;
+}
+.fact.ok .f-tag{color:var(--accent)}
+.fact.warn .f-tag{color:var(--risk)}
+.fact .f-body{font-size:14.5px;color:var(--ink-2);line-height:1.65}
+.fact .f-body b{color:var(--ink);font-weight:600}
+code{
+  font-family:var(--f-mono);font-size:.88em;background:var(--surface-2);
+  border:1px solid var(--rule-soft);border-radius:2px;padding:1px 5px;
+  word-break:break-all;
+}
+
+/* ---------- checklist ---------- */
+.subs{
+  margin-top:24px;display:grid;gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+}
+.sub{
+  display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;
+  background:var(--surface);padding:14px 18px;
+}
+.sub .s-n{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);font-weight:600}
+.sub .s-name{font-size:15px;font-weight:500}
+.sub .s-name em{
+  display:block;font-style:normal;font-size:13px;color:var(--ink-2);font-weight:300;
+}
+.stat{
+  font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;
+  padding:3px 9px;border-radius:2px;white-space:nowrap;text-transform:uppercase;
+}
+.stat.none{color:var(--risk);background:var(--risk-soft)}
+.stat.part{color:var(--gain);background:var(--gain-soft)}
+.stat.done{color:var(--accent);background:var(--accent-soft)}
+
+/* ---------- misc ---------- */
+.callout{
+  margin-top:24px;padding:20px 22px;background:var(--surface);
+  border:1px solid var(--rule);border-left:3px solid var(--gain);border-radius:3px;
+  font-size:14.5px;color:var(--ink-2);line-height:1.7;
+}
+.callout h3{
+  font-family:var(--f-body);font-size:14px;font-weight:600;color:var(--ink);
+  margin-bottom:7px;
+}
+.callout p + p{margin-top:10px}
+.quote{
+  font-family:var(--f-display);font-size:16px;color:var(--ink);
+  border-left:2px solid var(--rule);padding-left:16px;margin:12px 0;line-height:1.65;
+}
+.quote cite{
+  display:block;font-family:var(--f-mono);font-style:normal;font-size:11px;
+  color:var(--ink-3);letter-spacing:.06em;margin-top:7px;
+}
+
+.reset{
+  margin-top:14px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;
+  color:var(--ink-3);background:none;border:0;border-bottom:1px solid var(--rule);
+  padding:2px 0;cursor:pointer;text-transform:uppercase;
+}
+.reset:hover{color:var(--risk);border-color:var(--risk)}
+.reset:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+footer{
+  margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-3);line-height:1.9;
+}
+
+@media (max-width:640px){
+  body{padding:0 16px 72px}
+  .masthead{padding-top:44px}
+  .console-top{gap:20px 26px;padding:22px 18px 18px}
+  .readout .val{font-size:32px}
+  .readout.ceil{margin-left:0;text-align:left}
+  .ruler{padding:18px 18px 22px}
+  .rule-row{grid-template-columns:1fr;gap:6px}
+  label.act{grid-template-columns:auto 1fr;padding:14px 16px}
+  .act-meta{grid-row:auto;grid-column:2;flex-direction:row;align-items:center;gap:10px;justify-content:flex-start}
+  .item-head,.diag,.capnote{padding-left:16px;padding-right:16px}
+  .sub{grid-template-columns:auto 1fr;gap:10px}
+  .sub .stat{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="eyebrow">
+    <span>서울AI재단 소상공인 청년팀</span><span>팀 FOUR BACK</span><span>점포 벨라리치(주)</span>
+  </div>
+  <h1>본선 진출 득점표</h1>
+  <p class="dek">별표 4 「최종평가 결과 우수팀 선정기준」 배점에 지금까지의 작업을 대입한 예상 점수와, 100팀 중 상위 10팀 안에 들기 위해 남은 일들. 항목을 체크하면 예상 점수가 올라갑니다.</p>
+</header>
+
+<div class="console">
+  <div class="console-top">
+    <div class="readout now">
+      <div class="lbl">예상 점수</div>
+      <div class="val"><span id="v-total">68.5</span><small>/ 100</small></div>
+    </div>
+    <div class="readout gap" id="ro-gap">
+      <div class="lbl">본선 커트까지</div>
+      <div class="val"><span id="v-gap">11.5</span><small>점</small></div>
+    </div>
+    <div class="readout ceil">
+      <div class="lbl">전부 실행 시</div>
+      <div class="val"><span id="v-ceil">86.0</span></div>
+    </div>
+  </div>
+  <div class="ruler">
+    <div class="track">
+      <div class="fill-base" id="f-base" style="width:68.5%"></div>
+      <div class="fill-gain" id="f-gain" style="left:68.5%;width:0%"></div>
+      <div class="cutline"></div>
+    </div>
+    <div class="ticks">
+      <span class="tick" style="left:0%">0</span>
+      <span class="tick" style="left:50%">50</span>
+      <span class="tick cut" style="left:80%">80 · 본선 커트 추정</span>
+      <span class="tick" style="left:100%">100</span>
+    </div>
+    <div class="legend">
+      <span class="k1"><i></i>현재 확보</span>
+      <span class="k2"><i></i>체크한 작업</span>
+      <span class="k3"><i></i>커트라인</span>
+    </div>
+    <button class="reset" id="btn-reset" type="button">체크 초기화</button>
+  </div>
+</div>
+
+<!-- ============ 평가 구조 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">규칙</span>
+    <h2>채점 방식이 알려주는 것</h2>
+    <span class="sec-note">별표 4 · 2~7항</span>
+  </div>
+  <p class="lede">배점표만 보면 놓치는 규칙들이 있습니다. 이 아홉 가지가 어디에 힘을 쓸지를 사실상 결정합니다.</p>
+  <div class="rules">
+    <div class="rule-row">
+      <div class="r-src"><b>4항 라호</b>심사위원 5인의 총점 중 최고점 1개와 최저점 1개를 제외하고 나머지 3개의 산술평균으로 산정한다.</div>
+      <div class="r-use">한 명을 열광시켜도 그 점수는 잘려나갑니다. 튀는 한 방보다 <strong>다섯 명 모두에게 무난한 구성</strong>이 이깁니다. 실험적인 시도는 반드시 근거를 붙여서.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>2항 카호 · 7항 라호</b>예선 평가점수와 예선 순위는 본선 평가점수에 합산하거나 최종 순위 및 훈격 결정에 반영하지 않는다.</div>
+      <div class="r-use">예선은 <strong>10등 안에만 들면 되는 통과 시험</strong>입니다. 1등으로 통과할 이유가 전혀 없습니다. 완벽주의로 시간을 태우지 말고 커트라인 돌파에 필요한 만큼만.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>6항 나호</b>동점 시 실행계획 → 개선전략 → 근거 분석 → 점포 이해 → 보고서 구성 순으로 비교한다.</div>
+      <div class="r-use">커트라인 근처는 동점이 몰리는 구간입니다. 그때 순위를 가르는 첫 기준이 <strong>실행계획(30점)</strong>입니다. 배점 1위와 동점 1순위가 같은 항목이라는 건 우연이 아닙니다.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>2항 바호</b>발표영상이 20분을 초과하면 시작부터 20분까지만 평가대상에 포함한다.</div>
+      <div class="r-use">21분짜리를 내면 마지막 1분은 없는 셈이 됩니다. <strong>19분 30초에 끝나게</strong> 편집하고, 실행계획은 앞쪽에 배치하세요.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>2항 자호</b>영상의 촬영장비, 편집기술, 화면효과 또는 전문적인 영상제작 수준 자체는 평가하지 않는다.</div>
+      <div class="r-use">영상 퀄리티에 시간을 쓰지 마세요. 확보해야 할 건 <strong>음성 명확성과 발표자료·발표 내용의 일치</strong>뿐입니다. 그게 흔들리면 보고서 항목에서 깎입니다.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>5항 (근거 분석)</b>점포의 특성상 확보 가능한 자료가 적다는 이유만으로 불리하게 평가하지 않는다.</div>
+      <div class="r-use">없는 데이터를 지어내면 부정행위 조항에 걸립니다. <strong>한계와 분석범위를 명시</strong>하고 확보 가능한 것만 제대로 쓰는 쪽이 안전하고 점수도 높습니다.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>5항 다호</b>중간점검 이후 핵심 문제나 개선전략을 변경한 경우, 변경 자체를 가점 또는 감점 요인으로 적용하지 않는다.</div>
+      <div class="r-use">방향을 바꿨어도 괜찮습니다. 다만 <strong>왜 바꿨는지 판단 근거</strong>는 반드시 써야 합니다. 안 쓰면 그냥 일관성 없는 팀으로 읽힙니다.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>3항 다호·라호</b>본선 진출 통보 후 48시간 내에 발표자료만 보완 제출할 수 있다. 보고서 원문·요약본은 수정 불가.</div>
+      <div class="r-use">보고서는 예선 제출로 확정입니다. 예선을 내면서 <strong>"본선 진출하면 발표자료에서 고칠 것" 목록</strong>을 같이 적어두세요. 48시간은 새로 만들기엔 짧습니다.</div>
+    </div>
+    <div class="rule-row">
+      <div class="r-src"><b>7항 다호·마호</b>본선 현장에서 발표하고 질의응답에 참여한 팀은 모두 최종 우수팀으로 선정하여 시상한다.</div>
+      <div class="r-use">10위 안에 들면 <strong>최소 장려상은 확보</strong>됩니다. 예선 통과가 곧 수상입니다. 목표를 여기에 고정하세요.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 실행계획 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">배점 1위</span>
+    <h2>득점 작업</h2>
+    <span class="sec-note">배점 큰 순서 = 동점 시 비교 순서</span>
+  </div>
+  <p class="lede">각 항목에는 현실적인 천장이 있습니다. 한 항목에 작업을 몰아넣어도 그 이상은 오르지 않으니, 천장에 닿으면 다음 항목으로 넘어가는 게 맞습니다.</p>
+
+  <div class="rubric">
+
+    <!-- 실행계획 -->
+    <article class="item" data-key="exec">
+      <div class="item-head">
+        <div class="item-title">
+          <h3>실행계획의 구체성 및 실현 가능성</h3>
+          <span class="weight">30점 · 지속가능성 포함</span>
+        </div>
+        <div class="item-score"><span class="s-now">19.5</span><small> / 30</small></div>
+        <div class="minitrack"><b style="width:65%"></b></div>
+      </div>
+      <p class="diag">실제로 작동하는 결과물이 있다는 게 가장 큰 자산입니다. 무료 스택이라 운영비가 0원이고 점포가 계속 쓸 수 있습니다. 문제는 <strong>인수인계·위험관리 문서가 하나도 없다는 것</strong> — 평가표에 "관리 주체, 운영방법, 소요비용, 점포주와의 인수인계 및 후속 관리방안"이 못박혀 있는데 현재 문서화율 0%입니다.</p>
+      <ul class="acts">
+        <li><label class="act">
+          <input type="checkbox" data-gain="3.0">
+          <span class="act-name">운영 인수인계 매뉴얼 작성</span>
+          <span class="act-why">관리 주체, 일·주·월 운영 루틴, 계정 목록(구글/깃허브/Apps Script), 소요비용 0원 근거, 대표님이 혼자 할 수 있는 절차. 평가표가 명시적으로 요구하는 항목인데 지금 존재하지 않습니다.</span>
+          <span class="act-meta"><span class="pts">+3.0</span><span class="time">반나절</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.5">
+          <span class="act-name">8월 29일 메일 발송 장애를 위험관리 사례로 문서화</span>
+          <span class="act-why">Apps Script를 재배포할 때마다 배포 ID가 새로 생기는데 프론트 URL은 고정이라 메일이 끊겼고, v7.2.5에서 롤백해 잡았습니다. "위험요인을 실제로 겪고 원인을 규명해 재발 방지 절차를 만든 팀"은 드뭅니다. 감점 소재를 가점으로 뒤집는 자리입니다.</span>
+          <span class="act-meta"><span class="pts">+1.5</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.5">
+          <span class="act-name">위험요인 · 대응방안 표</span>
+          <span class="act-why">발생 가능한 문제 / 징후 / 1차 대응 / 대체안 4열. 메일 미발송, 시트 권한 만료, 스크립트 할당량 초과, 스팸함 분류, 응답 급증 같은 것들. 평가표 문구가 "합리적으로 예상하고 대응방안 또는 대체방안을 구체적으로 마련"입니다.</span>
+          <span class="act-meta"><span class="pts">+1.5</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">주차별 추진 일정표 + 역할분담</span>
+          <span class="act-why">대상·실행내용·방법·활용채널·추진일정·역할분담·필요사항. 평가표가 이 일곱 가지를 그대로 나열해 놓았으니 표의 열도 그대로 맞추는 게 가장 확실합니다.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">단계별 확대 로드맵</span>
+          <span class="act-why">1단계 진단테스트(완료) → 2단계 카카오 채널·뉴스레터 → 3단계 Dify 상담 챗봇 → 4단계 홈페이지. "전부를 즉시 적용하기 어려운 경우 단계별 추진방안과 우선 적용범위를 제시했는지"가 그대로 평가항목입니다. 교육 결과 보고서에 이미 적어둔 계획이라 재료가 있습니다.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">리드 유실 방지 장치</span>
+          <span class="act-why">지금은 전송이 실패해도 화면상 조용히 넘어갑니다. 잠재고객이 이메일까지 넣었는데 기록이 안 남으면 사업의 목적 자체가 무너집니다. 실패 시 재시도 + 브라우저 로컬 임시 저장 + 대표님께 실패 알림.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">3시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">P0 버그 3건 수정</span>
+          <span class="act-why">중복 <code>&lt;/html&gt;</code> 태그, 인트로의 "이메일 미수집" 문구와 동의폼의 "이메일 필수" 충돌, 중복 제출 방지 부재. 배점은 작지만 심사위원이 링크를 직접 눌러볼 수 있고, 개인정보 문구 충돌은 법적 리스크로도 읽힙니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">1시간</span></span>
+        </label></li>
+      </ul>
+      <p class="capnote">천장 26.0 — 여기 넘으면 더 해도 안 오릅니다</p>
+    </article>
+
+    <!-- 개선전략 -->
+    <article class="item" data-key="strat">
+      <div class="item-head">
+        <div class="item-title">
+          <h3>개선전략의 타당성 및 점포 적합성</h3>
+          <span class="weight">25점</span>
+        </div>
+        <div class="item-score"><span class="s-now">18.0</span><small> / 25</small></div>
+        <div class="minitrack"><b style="width:72%"></b></div>
+      </div>
+      <p class="diag">여기는 원래 강합니다. 리드마그넷 전략이 대표님 발언에서 직접 도출돼 논리 연결이 깔끔하고, 5개 카테고리가 벨라리치의 "세 역할 풀패키지" 강점과 정확히 맞습니다. <strong>단 하나, 이메일 문제가 정면으로 걸립니다.</strong></p>
+      <div class="callout" style="margin:0 22px 4px;border-radius:0 0 3px 3px">
+        <h3>2차 미팅에서 대표님이 하신 말</h3>
+        <blockquote class="quote">요즘은 이메일을 잘 안 본다. 대표들 50~60대는 업무용까지는 열지만 편하게 시간내서는 안 본다. 주로 관리하는 건 유튜브를 많이 본다. 카카오톡도 좀 많이 본다.<cite>2차 미팅.docx</cite></blockquote>
+        <p>그런데 진단테스트는 결과를 <strong>이메일로만</strong> 보냅니다. 게다가 코드의 카카오 JS 키는 빈 문자열이라 카카오톡 공유 버튼이 클립보드 복사로 폴백되고 있습니다. 평가표 개선전략 항목에 "<strong>점포주 의견</strong>을 고려하여 전략을 적절하게 구체화하거나 조정하였는지"가 있어서, 심사위원이 인터뷰 기록과 대조하면 바로 나옵니다.</p>
+      </div>
+      <ul class="acts">
+        <li><label class="act">
+          <input type="checkbox" data-gain="2.0">
+          <span class="act-name">대표님 발언 → 전략 도출 매핑표</span>
+          <span class="act-why">왼쪽에 인터뷰 원문 인용, 오른쪽에 그로부터 나온 전략. "도구는 많은데 상담신청까지 연결이 안 되는 게 핵심" → 리드마그넷, "온라인 유입 없음·홈페이지 없음" → 진단테스트, "오프라인 끝나고 QR로 들어오게" → QR 배포. 평가표가 요구하는 "근거하여 타당하게 도출"의 가장 직접적인 증거입니다.</span>
+          <span class="act-meta"><span class="pts">+2.0</span><span class="time">3시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.5">
+          <span class="act-name">카카오 채널 연동 또는 채널 로드맵 명시</span>
+          <span class="act-why">카카오 개발자 콘솔에서 JS 키를 발급해 공유를 살리는 게 가장 깔끔합니다. 시간이 없으면 최소한 "1단계는 이메일, 2단계는 카카오 채널·전자명함"으로 로드맵에 박아 대표님 의견을 반영했다는 근거를 남기세요. 지금은 반박 자료가 없습니다.</span>
+          <span class="act-meta"><span class="pts">+1.5</span><span class="time">3시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">전략 우선순위와 선택·집중 기준</span>
+          <span class="act-why">"여러 전략을 제시한 경우 전략별 우선순위, 상호 연계성 및 선택과 집중의 기준이 합리적인지 평가한다" — 평가표 원문입니다. 왜 진단테스트를 1번으로 했는지, 왜 홈페이지를 뒤로 미뤘는지 기준을 한 문단으로.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">안 하기로 한 전략과 그 근거</span>
+          <span class="act-why">네이버 검색광고는 대표님이 비용 부담을 이유로 거부했습니다("광고는 안 해봄, 비용은 그쪽으로는 굳이"). 검토했지만 뺀 선택지를 근거와 함께 쓰면 "일반적인 홍보방안 나열"이 아니라는 걸 증명합니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">1시간</span></span>
+        </label></li>
+      </ul>
+      <p class="capnote">천장 21.5</p>
+    </article>
+
+    <!-- 근거 분석 -->
+    <article class="item" data-key="anal">
+      <div class="item-head">
+        <div class="item-title">
+          <h3>근거 기반 현황·원인 분석</h3>
+          <span class="weight">20점</span>
+        </div>
+        <div class="item-score"><span class="s-now">12.5</span><small> / 20</small></div>
+        <div class="minitrack"><b style="width:62.5%"></b></div>
+      </div>
+      <p class="diag"><strong>가장 약한 항목이자, 가장 많이 올릴 수 있는 항목입니다.</strong> 인터뷰 정성자료는 훌륭한데 정량이 거의 없습니다. 평가표는 "자료의 출처, 기준 및 수집시점", "비교 가능한 기준자료", "효과를 확인할 지표와 확인방법"을 명시적으로 봅니다. 블로그 인사이트 데이터는 "다음주 질문" 메모에 적혀만 있고 확보 흔적이 없습니다.</p>
+      <ul class="acts">
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.5">
+          <span class="act-name">도입 전 baseline 수집</span>
+          <span class="act-why">네이버에서 "법인 절세 컨설팅" 등으로 검색했을 때 노출 순위, 플레이스 등록 여부(선릉), 블로그 방문자·체류시간·유입검색어, 유튜브 조회수, 인스타 팔로워, 그리고 <strong>온라인 문의 건수 0건</strong>. 0건이야말로 가장 강력한 기준자료입니다. 나중에 1건만 들어와도 변화를 증명합니다.</span>
+          <span class="act-meta"><span class="pts">+1.5</span><span class="time">하루</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.5">
+          <span class="act-name">진단테스트 실응답 데이터 분석</span>
+          <span class="act-why">시트에 이미 쌓이고 있습니다. 총 응답 수, 완료율, 어느 문항에서 이탈하는지, 카테고리 분포, 등급 분포, Q0 자산규모 분포, 이메일 제출률. 교육에서 배운 Google AI Studio 대시보드를 여기 붙이면 "교육 내용을 프로젝트에 적용했다"까지 같이 증명됩니다.</span>
+          <span class="act-meta"><span class="pts">+1.5</span><span class="time">하루</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">키워드 검색량으로 5개 카테고리 근거 대기</span>
+          <span class="act-why">네이버 키워드도구로 "가업승계", "법인 절세", "부동산 증여" 월간 검색량을 뽑으면, 왜 하필 이 다섯 카테고리인지가 감이 아니라 숫자가 됩니다. 미팅 노트에도 "키워드 분석을 해야할 것임"이라고 적혀 있습니다.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">3시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">자료 출처·기준·수집시점 표</span>
+          <span class="act-why">모든 수치 옆에 어디서, 어떤 기준으로, 언제 받았는지. 평가표에 그대로 나오는 문구라 표 하나로 통째로 충족시킬 수 있습니다. 가장 싸게 먹히는 점수입니다.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">잠재고객 5~10명 인터뷰 + 5Whys</span>
+          <span class="act-why">교육 결과 보고서에 "잠재 고객 5~10명 인터뷰 + 5Whys로 불편한 점 도출"이라고 스스로 적어두셨습니다. 계획으로만 남으면 아깝고, 실행하면 점포주 한 명의 말이 아니라 <strong>고객 쪽 근거</strong>가 생깁니다.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">이틀</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">경쟁사 온라인 리드 채널 벤치마크</span>
+          <span class="act-why">유사 법인 컨설팅사 5곳이 온라인에서 어떻게 리드를 받는지(무료 진단, 전자책, 웨비나, 상담 신청폼). 벨라리치의 현 위치를 비교로 보여주는 자료가 되고, 진단테스트가 업계 표준 수단이라는 방증도 됩니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">3시간</span></span>
+        </label></li>
+      </ul>
+      <p class="capnote">천장 17.0</p>
+    </article>
+
+    <!-- 점포 이해 -->
+    <article class="item" data-key="store">
+      <div class="item-head">
+        <div class="item-title">
+          <h3>점포 이해 및 핵심 문제 선정·정의</h3>
+          <span class="weight">15점</span>
+        </div>
+        <div class="item-score"><span class="s-now">11.5</span><small> / 15</small></div>
+        <div class="minitrack"><b style="width:76.7%"></b></div>
+      </div>
+      <p class="diag">인터뷰 설계가 잘 돼 있고(A/B 섹션, QA1~4·QB1~5), 핵심 문제가 대표님 입에서 직접 나왔습니다 — "도구는 많은데 상담신청까지 연결이 안 된다는 게 핵심이었다". 약점은 두 개: <strong>매출구조 수치가 없고</strong>("계약률은 꽤 높은 편"), <strong>타겟이 임대사업자 → 비상장 중소기업 → 법인 CEO로 흔들립니다.</strong> 5개 카테고리로 벌린 게 오히려 "타겟 불명확"으로 읽힐 수 있습니다.</p>
+      <ul class="acts">
+        <li><label class="act">
+          <input type="checkbox" data-gain="1.0">
+          <span class="act-name">점포 프로필 1페이지</span>
+          <span class="act-why">주요 상품·서비스, 고객군, 판매채널, 매출 발생구조, 운영여건. 평가표 첫 문장이 이 다섯 가지입니다. 3차 현장방문에서 컨설팅 단가대, 월 상담 건수, 세미나 횟수와 인원, 리드 소스 비중을 숫자로 받아오세요.</span>
+          <span class="act-meta"><span class="pts">+1.0</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">핵심 문제를 한 문장으로 고정</span>
+          <span class="act-why">"오프라인 접점은 충분하나 이를 상담으로 전환할 온라인 통로가 없다." 이 한 문장을 보고서·요약본·발표자료·영상에서 토씨까지 같게 쓰세요. 평가표는 문제의 <strong>대상과 범위가 구체적인지</strong>, 그 문제가 매출과 운영에 미치는 영향이 명확한지를 봅니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">1시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">주력 타겟 1개 확정, 나머지는 확장으로 서술</span>
+          <span class="act-why">대표님은 "임대사업자, 개인명의 사업자, 자식에게 넘길 때(부동산 특화)"를 가장 원한다고 했고 비상장 중소기업도 언급했습니다. 하나를 주력으로 못 박고 나머지 넷은 "동일 구조로 확장 가능"으로 정리하면, 다섯 개가 산만함이 아니라 확장성으로 읽힙니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">1시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">중간점검 대비 변경사항과 판단 근거</span>
+          <span class="act-why">평가표에 "중간점검 당시 선정한 핵심 문제를 변경한 경우 변경의 필요성과 판단 근거를 합리적으로 제시하였는지"가 별도 배점 요소로 있습니다. 안 바꿨으면 "유지했고 그 이유는 이것"이라고 쓰면 됩니다. 빈칸으로 두는 게 가장 나쁩니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">1시간</span></span>
+        </label></li>
+      </ul>
+      <p class="capnote">천장 13.0</p>
+    </article>
+
+    <!-- 보고서 -->
+    <article class="item" data-key="report">
+      <div class="item-head">
+        <div class="item-title">
+          <h3>보고서 구성 및 전달력</h3>
+          <span class="weight">10점</span>
+        </div>
+        <div class="item-score"><span class="s-now">7.0</span><small> / 10</small></div>
+        <div class="minitrack"><b style="width:70%"></b></div>
+      </div>
+      <p class="diag">교육 결과 보고서를 보면 글은 잘 쓰십니다. 구체적이고 근거가 붙어 있고 읽힙니다. 문제는 실력이 아니라 <strong>아직 한 건도 안 썼다는 것</strong>입니다. 배점이 10점으로 가장 작으니 여기에 시간을 과하게 쓰지는 마세요.</p>
+      <ul class="acts">
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">원문·요약본·발표자료 내용 일치 점검</span>
+          <span class="act-why">"세 자료의 주요 내용이 서로 일치하며"가 평가 문장에 그대로 있습니다. 핵심 문제 문장, 다섯 개 숫자, 전략 이름을 셋 다 동일하게 맞추는 최종 크로스체크 한 번.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">2시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">요약본을 결론부터 구조로</span>
+          <span class="act-why">요약본은 원문을 줄인 게 아니라 결론을 앞세운 다른 문서입니다. 핵심 문제 → 무엇을 만들었나 → 어떤 근거로 → 어떻게 이어갈 것인가. "사전 지식이 없는 평가위원도 쉽게 이해"가 평가 기준입니다.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">3시간</span></span>
+        </label></li>
+        <li><label class="act">
+          <input type="checkbox" data-gain="0.5">
+          <span class="act-name">발표영상 규정 준수</span>
+          <span class="act-why">영상 시작 시 <strong>팀명과 본인 성명을 반드시 밝혀야 합니다</strong>(2항 사호). 얼굴 노출은 자유이고 가감점 없습니다. 길이는 19분 30초, 음성 명확성만 확보하고 편집 기교에는 시간을 쓰지 마세요.</span>
+          <span class="act-meta"><span class="pts">+0.5</span><span class="time">촬영 시</span></span>
+        </label></li>
+      </ul>
+      <p class="capnote">천장 8.5</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ 제출물 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">제출</span>
+    <h2>필수 제출물 여섯 가지</h2>
+    <span class="sec-note">별표 4 · 2항</span>
+  </div>
+  <p class="lede">여기서 하나라도 빠지거나 양식을 안 지키면 내용과 무관하게 손해를 봅니다. 운영사무국이 양식을 준 제출물은 반드시 그 양식을 쓰라고 명시돼 있습니다.</p>
+  <div class="subs">
+    <div class="sub"><span class="s-n">01</span><span class="s-name">3차 점포 현장방문 보고서<em>정량 데이터를 받아올 마지막 기회 — 매출구조·상담 건수·세미나 실적</em></span><span class="stat none">미착수</span></div>
+    <div class="sub"><span class="s-n">02</span><span class="s-name">3차 멘토링 결과 보고서<em>멘토 자문의견은 개선전략 항목에서 반영 여부를 봅니다</em></span><span class="stat none">미착수</span></div>
+    <div class="sub"><span class="s-n">03</span><span class="s-name">최종 분석보고서 원문<em>배점 100점 전체가 사실상 이 문서에서 결정됩니다</em></span><span class="stat none">미착수</span></div>
+    <div class="sub"><span class="s-n">04</span><span class="s-name">최종 분석보고서 요약본<em>축약본이 아니라 결론부터 쓰는 별도 문서</em></span><span class="stat none">미착수</span></div>
+    <div class="sub"><span class="s-n">05</span><span class="s-name">발표자료<em>본선 진출 시 48시간 내 이것만 보완 가능</em></span><span class="stat none">미착수</span></div>
+    <div class="sub"><span class="s-n">06</span><span class="s-name">발표영상<em>20분 이내 · 팀명과 성명 오프닝 필수</em></span><span class="stat none">미착수</span></div>
+    <div class="sub"><span class="s-n">—</span><span class="s-name">진단테스트 (제작 결과물)<em>배포 중 · v7.2.6 · 실행계획 항목의 핵심 증거물</em></span><span class="stat done">완료</span></div>
+    <div class="sub"><span class="s-n">—</span><span class="s-name">인터뷰 · 미팅 기록<em>2회 미팅 + 방문 인터뷰 스크립트 확보</em></span><span class="stat part">재료 있음</span></div>
+  </div>
+</section>
+
+<!-- ============ 확인된 사실 ============ -->
+<section>
+  <div class="sec-head">
+    <span class="sec-num">점검</span>
+    <h2>지금 확인한 것</h2>
+    <span class="sec-note">2026-09-01</span>
+  </div>
+  <div class="facts">
+    <div class="fact ok">
+      <span class="f-tag">정상</span>
+      <span class="f-body">배포 사이트가 살아 있습니다. <code>https://drtardis123.github.io/BellaRich/</code> 가 HTTP 200으로 응답하고, 내용이 최신 커밋 <code>c1794d6</code>(v7.2.6)과 동일합니다. QR로 뿌려도 되는 상태입니다.</span>
+    </div>
+    <div class="fact ok">
+      <span class="f-tag">정정</span>
+      <span class="f-body">앞서 사본 간 2,646바이트 차이를 버전 차이로 말씀드렸는데, <b>줄바꿈(CRLF/LF) 차이였습니다.</b> 파일 줄 수와 정확히 같은 2,646줄입니다. <code>Desktop\미니맥스\bellarich-github</code> 사본도 내용은 최신과 같습니다.</span>
+    </div>
+    <div class="fact warn">
+      <span class="f-tag">충돌</span>
+      <span class="f-body">카카오 JavaScript 키가 빈 문자열이라 카카오톡 공유가 클립보드 복사로 폴백됩니다. 대표님이 "카카오톡을 많이 본다"고 하신 것과 정면으로 어긋나고, 심사에서 <b>점포주 의견 미반영</b>으로 읽힐 수 있는 지점입니다.</span>
+    </div>
+    <div class="fact warn">
+      <span class="f-tag">미확보</span>
+      <span class="f-body"><b>별표 3</b>이 이 컴퓨터에 없습니다. 평가등급별 점수 부여 구간(우수는 배점의 몇 %인지)이 거기 있어서, 지금 예상치의 폭을 좁히려면 그 파일이 필요합니다. 받으시면 다시 계산하겠습니다.</span>
+    </div>
+    <div class="fact warn">
+      <span class="f-tag">전제</span>
+      <span class="f-body">이 점수는 "지금 있는 재료로 보고서를 제대로 쓴다면"이라는 가정 위에 있습니다. 보고서·요약본·발표자료·영상이 아직 없으므로, 그것들을 안 쓰면 이 점수도 나오지 않습니다. 나머지 99팀의 수준은 알 수 없어 커트라인 80점은 일반적인 공모전 분포에 근거한 추정입니다.</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  별표 4 「최종평가 결과 우수팀 선정기준」 배점 기준 · 예선 100팀 중 상위 10팀 본선 진출 · 본선 참여 팀 전원 수상<br>
+  체크 상태는 이 브라우저에만 저장됩니다.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var ITEMS = {
+    exec:   { base:19.5, ceil:26.0, max:30 },
+    strat:  { base:18.0, ceil:21.5, max:25 },
+    anal:   { base:12.5, ceil:17.0, max:20 },
+    store:  { base:11.5, ceil:13.0, max:15 },
+    report: { base:7.0,  ceil:8.5,  max:10 }
+  };
+  var BASE_TOTAL = 68.5, CEIL_TOTAL = 86.0, CUT = 80;
+  var KEY = 'bellarich_scorecard_v1';
+
+  var articles = Array.prototype.slice.call(document.querySelectorAll('.item[data-key]'));
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('label.act input[type=checkbox]'));
+
+  boxes.forEach(function(b, i){ b.dataset.idx = i; });
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(!raw) return;
+      var on = JSON.parse(raw);
+      if(!Array.isArray(on)) return;
+      on.forEach(function(i){ if(boxes[i]) boxes[i].checked = true; });
+    }catch(e){}
+  }
+  function save(){
+    try{
+      var on = boxes.filter(function(b){ return b.checked; }).map(function(b){ return +b.dataset.idx; });
+      localStorage.setItem(KEY, JSON.stringify(on));
+    }catch(e){}
+  }
+
+  function fmt(n){ return n.toFixed(1); }
+
+  function render(){
+    var total = 0;
+    articles.forEach(function(art){
+      var cfg = ITEMS[art.dataset.key];
+      var gain = 0;
+      art.querySelectorAll('label.act input:checked').forEach(function(b){
+        gain += parseFloat(b.dataset.gain) || 0;
+      });
+      var score = Math.min(cfg.base + gain, cfg.ceil);
+      total += score;
+      art.querySelector('.s-now').textContent = fmt(score);
+      art.querySelector('.minitrack b').style.width = (score / cfg.max * 100).toFixed(1) + '%';
+    });
+
+    total = Math.round(total * 10) / 10;
+    document.getElementById('v-total').textContent = fmt(total);
+    document.getElementById('v-ceil').textContent = fmt(CEIL_TOTAL);
+
+    var gapEl = document.getElementById('ro-gap');
+    var gap = CUT - total;
+    if(gap > 0){
+      gapEl.classList.remove('clear');
+      gapEl.querySelector('.lbl').textContent = '본선 커트까지';
+      document.getElementById('v-gap').textContent = fmt(gap);
+    }else{
+      gapEl.classList.add('clear');
+      gapEl.querySelector('.lbl').textContent = '커트라인 초과';
+      document.getElementById('v-gap').textContent = '+' + fmt(-gap);
+    }
+
+    document.getElementById('f-base').style.width = BASE_TOTAL + '%';
+    var g = Math.max(0, total - BASE_TOTAL);
+    var gainFill = document.getElementById('f-gain');
+    gainFill.style.left = BASE_TOTAL + '%';
+    gainFill.style.width = g + '%';
+  }
+
+  boxes.forEach(function(b){
+    b.addEventListener('change', function(){ save(); render(); });
+  });
+
+  document.getElementById('btn-reset').addEventListener('click', function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    save(); render();
+  });
+
+  load();
+  render();
+})();
+</script>
+
+<style>
+/* ---------- 인쇄 전용 ---------- */
+@page{ size:A4; margin:14mm 12mm 16mm; }
+@media print{
+  :root,
+  :root[data-theme="dark"],
+  :root:not([data-theme="light"]){
+    --paper:#FFFFFF;
+    --surface:#FFFFFF;
+    --surface-2:#F4F6F5;
+    --ink:#16202E;
+    --ink-2:#48555F;
+    --ink-3:#6B7780;
+    --rule:#C6CFCD;
+    --rule-soft:#E0E5E3;
+    --accent:#1F5F5B;
+    --accent-soft:#DCE9E7;
+    --gain:#7F6130;
+    --gain-soft:#EFE5D2;
+    --risk:#93392F;
+    --risk-soft:#F2E0DD;
+    --shadow:none;
+  }
+  *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body{ padding:0; background:#fff; font-size:10.3pt; line-height:1.62; }
+  .wrap{ max-width:none; }
+  .masthead{ padding:0 0 16px; }
+  h1{ font-size:29pt; margin-top:10px; }
+  .dek{ font-size:10.5pt; }
+  .reset{ display:none !important; }
+  section{ margin-top:24px; }
+  h2{ font-size:17pt; }
+  .console,.item,.fact,.subs,.callout{ box-shadow:none; break-inside:avoid; }
+  .rule-row,.sub,.diag{ break-inside:avoid; }
+  ul.acts li{ break-inside:avoid; }
+  .sec-head{ break-after:avoid; }
+  .item-head{ break-after:avoid; }
+  label.act:hover{ background:transparent; }
+  label.act{ padding-top:11px; padding-bottom:11px; }
+  .act-why{ font-size:9.4pt; }
+  a{ color:var(--ink); text-decoration:none; }
+  footer{ margin-top:26px; }
+  .capnote{ break-before:avoid; }
+}
+</style>
+</html>
