@@ -1393,6 +1393,92 @@
     .result-mail-text strong { font-size: 13.5px; }
   }
 
+  /* ========== RESULT - 카카오톡 채널 추가 유도 ========== */
+  .kakao-cta {
+    max-width: 672px;
+    width: calc(100% - 48px);
+    margin: 0 auto 24px;
+    padding: 24px 20px;
+    background: #ffffff;
+    border: 1.5px solid #e8d6a8;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 37, 71, 0.05);
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .kakao-cta-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .kakao-cta-icon {
+    font-size: 20px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .kakao-cta-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f2547;
+    line-height: 1.4;
+  }
+  .kakao-cta-title #kakao-cta-category {
+    color: #c9a14a;
+    font-weight: 800;
+  }
+  .kakao-cta-desc {
+    font-size: 13.5px;
+    color: #4a5b78;
+    line-height: 1.6;
+    margin: 0 0 16px;
+    word-break: keep-all;
+  }
+  .kakao-cta-btn {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background: #FEE500;
+    color: #191600;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(254, 229, 0, 0.3);
+    margin: 0 0 10px;
+  }
+  .kakao-cta-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(254, 229, 0, 0.45);
+  }
+  .kakao-cta-btn:active {
+    transform: translateY(0);
+  }
+  .kakao-cta-foot {
+    font-size: 11.5px;
+    color: #7a8aa0;
+    line-height: 1.5;
+    margin: 0;
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    .kakao-cta {
+      width: calc(100% - 32px);
+      padding: 18px 16px;
+      margin: 0 auto 20px;
+    }
+    .kakao-cta-title { font-size: 14.5px; }
+    .kakao-cta-desc { font-size: 13px; margin-bottom: 14px; }
+    .kakao-cta-btn { padding: 13px 16px; font-size: 14px; }
+    .kakao-cta-foot { font-size: 11px; }
+  }
+
   @media (max-width: 480px) {
     .share-buttons { grid-template-columns: repeat(5, 1fr); gap: 6px; }
     .share-btn { padding: 12px 4px 10px; }
@@ -1815,6 +1901,20 @@
         <strong>자세한 결과는 <span id="result-email-display">입력하신 이메일</span>로 보내드렸어요</strong>
         <span>등급 분석, 핵심 포인트 3가지, 다음 단계 가이드가 담긴 메일을 확인해 주세요.</span>
       </div>
+    </div>
+
+    <div class="kakao-cta" id="kakao-cta">
+      <div class="kakao-cta-head">
+        <span class="kakao-cta-icon" aria-hidden="true">💬</span>
+        <strong class="kakao-cta-title">
+          <span id="kakao-cta-category">이 영역</span>에 변화가 생기면 알려드릴게요
+        </strong>
+      </div>
+      <p class="kakao-cta-desc" id="kakao-cta-desc"></p>
+      <button type="button" class="kakao-cta-btn" id="kakao-cta-btn" onclick="addKakaoChannel()">
+        카카오톡 채널 추가하기
+      </button>
+      <p class="kakao-cta-foot">관심 없는 분야는 보내지 않습니다 · 주 1회 · 언제든 차단 가능</p>
     </div>
 
     <div class="result-body">
@@ -2408,6 +2508,30 @@
       if (emailEl) emailEl.textContent = masked;
     }
 
+    // 카카오톡 채널 추가 유도 문구 설정
+    const ctaCatEl = document.getElementById('kakao-cta-category');
+    if (ctaCatEl) {
+      const catTitle = CATEGORIES[currentCategory] ? CATEGORIES[currentCategory].title : (r.category ? r.category.title : '이 영역');
+      ctaCatEl.textContent = catTitle;
+    }
+
+    // [갱신 대상] 카테고리별 안내 문구.
+    // 기준 시점: 2026년 9월. 연 1~2회 최신 제도 변화로 교체하면 좋다.
+    // 교체하지 않아도 연도를 명시했으므로 내용이 틀리지는 않는다.
+    // 작성 규칙: '최근' 같은 상대적 표현 금지, 미확정 사안은 '~하는 안이 나왔습니다'로 표기.
+    const kakaoCtaDescs = {
+      tax: '세법은 해마다 바뀝니다. 2026년에는 사업소득 원천징수 특례 적용 범위가 조정되는 안이 나왔습니다. 공제 요건이나 신고 기한이 달라지면 카카오톡으로 알려드립니다.',
+      realestate: '부동산 세제 기준은 자주 바뀝니다. 2026년에는 종합부동산세 기본공제를 낮추려던 안이 철회되어 12억 원이 유지됐습니다. 보유 구조에 영향이 생기면 알려드립니다.',
+      succession: '이 영역은 제도가 자주 바뀝니다. 2026년에는 가업상속공제의 경영기간 요건을 10년에서 30년으로 강화하는 안이 나왔습니다. 이런 변화가 생기면 카카오톡으로 알려드립니다.',
+      retirement: '연금과 퇴직급여 제도는 계속 손질되고 있습니다. 2026년에는 기금형 퇴직연금 도입안이 공개됐습니다. 노후 설계에 영향이 생기면 알려드립니다.',
+      management: '정책자금과 지원제도는 공고 시기가 정해져 있습니다. 2026년 추석에는 소상공인·중소기업 대상 명절자금이 공급됐습니다. 해당되는 시점에 알려드립니다.'
+    };
+    const ctaDescEl = document.getElementById('kakao-cta-desc');
+    if (ctaDescEl) {
+      const catId = currentCategory || (r.category && r.category.id);
+      ctaDescEl.textContent = kakaoCtaDescs[catId] || '제도나 기한에 변화가 생기면 카카오톡으로 알려드립니다.';
+    }
+
     // 화면에는 등급 + 한 줄 멘트 + 점수만 표시 (findings/cta는 이메일에만)
     const findingsCard = document.querySelector('.findings-card');
     if (findingsCard) findingsCard.style.display = 'none';
@@ -2462,8 +2586,27 @@
   // https://developers.kakao.com → 내 애플리케이션 → 앱 설정 → 플랫폼 → Web 도메인 등록 → JavaScript 키 복사
   // 발급 전에는 다른 공유 버튼은 정상 작동하며, 카카오 버튼만 클립보드 폴백으로 동작합니다.
   const KAKAO_JS_KEY = '';  // ← 여기에 키 입력 (예: 'a1b2c3d4e5...')
+  // 카카오톡 채널 공개 ID. 채널 관리자센터 → 채널 정보에서 확인. 밑줄로 시작한다.
+  const KAKAO_CHANNEL_ID = '';  // ← 예: '_xaBcdE'
   if (KAKAO_JS_KEY && window.Kakao && !window.Kakao.isInitialized()) {
     try { window.Kakao.init(KAKAO_JS_KEY); } catch (e) { console.warn('Kakao init failed', e); }
+  }
+
+  // ====== KAKAO CHANNEL ======
+  function addKakaoChannel() {
+    if (!KAKAO_JS_KEY || !KAKAO_CHANNEL_ID) {
+      showToast('카카오톡 채널 준비 중입니다. 조금만 기다려 주세요.');
+      return;
+    }
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+      showToast('잠시 후 다시 시도해 주세요.');
+      return;
+    }
+    try {
+      window.Kakao.Channel.addChannel({ channelPublicId: KAKAO_CHANNEL_ID });
+    } catch (e) {
+      showToast('채널 추가 화면을 열지 못했어요. 카카오톡에서 벨라리치를 검색해 주세요.');
+    }
   }
 
   // ====== SHARE FUNCTIONS ======
