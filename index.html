@@ -1066,6 +1066,111 @@
   }
   .share-toast.show { opacity: 1; }
 
+  /* ========== RATING (만족도 조사) ========== */
+  .rating-card {
+    background: #ffffff;
+    border: 1px solid #ececec;
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin: 0 0 24px;
+    box-shadow: 0 4px 20px rgba(15, 37, 71, 0.04);
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .rating-q {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f2547;
+    margin: 0 0 14px;
+    letter-spacing: -0.3px;
+    text-align: center;
+  }
+  .rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .rating-star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 1;
+    color: #d7dde5;
+    transition: color 0.15s ease, transform 0.15s ease;
+    padding: 0;
+    font-family: inherit;
+    touch-action: manipulation;
+  }
+  .rating-star:hover,
+  .rating-star.hover,
+  .rating-star.selected {
+    color: #f5b301;
+  }
+  .rating-star:hover,
+  .rating-star.hover {
+    transform: scale(1.15);
+  }
+  .rating-star:focus-visible {
+    outline: 2px solid #c9a14a;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+  .rating-star:disabled {
+    cursor: default;
+    transform: none;
+  }
+  .rating-star:disabled.selected {
+    color: #f5b301;
+  }
+  .rating-scale {
+    display: flex;
+    justify-content: space-between;
+    max-width: 280px;
+    margin: 0 auto 12px;
+    font-size: 12px;
+    color: #8a93a8;
+    padding: 0 8px;
+  }
+  .rating-thanks {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #0d9488;
+    background: #f0fdfa;
+    border: 1px solid #ccfbf1;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 12px 0 0;
+    line-height: 1.5;
+    animation: ratingFadeIn 0.3s ease;
+  }
+  @keyframes ratingFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (max-width: 360px) {
+    .rating-star {
+      width: 44px;
+      height: 44px;
+      font-size: 28px;
+    }
+    .rating-stars {
+      gap: 4px;
+    }
+    .rating-scale {
+      max-width: 250px;
+      font-size: 11px;
+    }
+  }
+
   /* ========== CATEGORY SELECT ========== */
   .category-intro {
     text-align: center;
@@ -1868,7 +1973,7 @@
         <label class="consent-check" for="consent-newsletter">
           <input type="checkbox" id="consent-newsletter" />
           <span class="consent-check-text">
-            <strong>(선택)</strong> 앞으로도 관련 뉴스레터를 받아보시겠어요?
+            <strong>(선택)</strong> 앞으로도 관련 뉴스레터를 이메일로 받아보시겠어요?
             <span class="consent-meta">주 1회 · 절세/부동산/승계/은퇴/경영 관련 뉴스레터 · 언제든 구독 취소 가능</span>
           </span>
         </label>
@@ -1975,6 +2080,20 @@
           </button>
         </div>
         <div class="share-toast" id="share-toast" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- ========== SATISFACTION RATING (만족도 조사) ========== -->
+      <div class="rating-card" id="rating-card">
+        <p class="rating-q">이 진단이 도움이 되셨나요?</p>
+        <div class="rating-stars" id="rating-stars" role="radiogroup" aria-label="진단 만족도 1점에서 5점">
+          <button type="button" class="rating-star" data-score="1" role="radio" aria-checked="false" aria-label="1점">★</button>
+          <button type="button" class="rating-star" data-score="2" role="radio" aria-checked="false" aria-label="2점">★</button>
+          <button type="button" class="rating-star" data-score="3" role="radio" aria-checked="false" aria-label="3점">★</button>
+          <button type="button" class="rating-star" data-score="4" role="radio" aria-checked="false" aria-label="4점">★</button>
+          <button type="button" class="rating-star" data-score="5" role="radio" aria-checked="false" aria-label="5점">★</button>
+        </div>
+        <p class="rating-scale"><span>도움 안 됨</span><span>매우 도움됨</span></p>
+        <p class="rating-thanks" id="rating-thanks" hidden>평가해 주셔서 감사합니다. 문항을 다듬는 데 쓰겠습니다.</p>
       </div>
 
       <div class="retake-row">
@@ -2383,6 +2502,7 @@
     dataCollectionAllowed = !skipDataCollection;
     currentEmail = '';
     currentNewsletter = false;
+    resetRating();
     renderCategoryScreen();
     showScreen('screen-category');
   }
@@ -2566,8 +2686,111 @@
   // ====== RETAKE ======
   function retakeTest() {
     if (confirm('다시 진단을 시작하시겠습니까?\n이전 응답은 초기화됩니다.')) {
+      resetRating();
       startTest();
     }
+  }
+
+  // ====== SATISFACTION RATING (만족도 조사) ======
+  let ratingSent = false;
+
+  function sendRating(score) {
+    if (!dataCollectionAllowed) return;
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+    const payload = JSON.stringify({
+      type: 'rating',              // 서버가 진단 데이터와 구분하는 표시
+      session_id: sessionId,       // 나중에 진단 기록과 연결하기 위한 키
+      timestamp: new Date().toISOString(),
+      category: currentCategory || '',
+      grade: lastResult ? lastResult.grade : null,
+      rating: score                // 1~5
+    });
+    try {
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload
+      }).catch(() => {});
+    } catch (e) { /* 조용히 무시 */ }
+  }
+
+  function highlightStars(score) {
+    const stars = document.querySelectorAll('.rating-star');
+    stars.forEach(s => {
+      const sScore = parseInt(s.dataset.score, 10);
+      if (sScore <= score) {
+        s.classList.add('hover');
+      } else {
+        s.classList.remove('hover');
+      }
+    });
+  }
+
+  function selectRating(score) {
+    if (ratingSent) return;
+    ratingSent = true;
+    const stars = document.querySelectorAll('.rating-star');
+    stars.forEach(s => {
+      const sScore = parseInt(s.dataset.score, 10);
+      s.classList.remove('hover');
+      if (sScore <= score) {
+        s.classList.add('selected');
+        s.setAttribute('aria-checked', sScore === score ? 'true' : 'false');
+      } else {
+        s.classList.remove('selected');
+        s.setAttribute('aria-checked', 'false');
+      }
+      s.disabled = true;
+    });
+    const thanks = document.getElementById('rating-thanks');
+    if (thanks) thanks.hidden = false;
+    sendRating(score);
+  }
+
+  function resetRating() {
+    ratingSent = false;
+    const stars = document.querySelectorAll('.rating-star');
+    stars.forEach(s => {
+      s.classList.remove('selected', 'hover');
+      s.setAttribute('aria-checked', 'false');
+      s.disabled = false;
+    });
+    const thanks = document.getElementById('rating-thanks');
+    if (thanks) thanks.hidden = true;
+  }
+
+  function initRating() {
+    const stars = document.querySelectorAll('.rating-star');
+    stars.forEach(star => {
+      const score = parseInt(star.dataset.score, 10);
+      star.addEventListener('mouseenter', () => {
+        if (ratingSent) return;
+        highlightStars(score);
+      });
+      star.addEventListener('focus', () => {
+        if (ratingSent) return;
+        highlightStars(score);
+      });
+      star.addEventListener('click', () => {
+        if (ratingSent) return;
+        selectRating(score);
+      });
+    });
+
+    const starContainer = document.getElementById('rating-stars');
+    if (starContainer) {
+      starContainer.addEventListener('mouseleave', () => {
+        if (ratingSent) return;
+        highlightStars(0);
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRating);
+  } else {
+    initRating();
   }
 
   // ====== SCROLL TO TOP ======
