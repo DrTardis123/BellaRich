@@ -2254,12 +2254,13 @@
     // 카테고리별 답변을 q1~q6에 매핑 (최대 6개)
     const qData = {};
     for (let i = 0; i < 6; i++) {
-      const idx = i;
-      if (idx < currentQuestions.length) {
-        const opt = currentQuestions[idx].options[answers[idx]];
-        qData['q' + (idx + 1)] = (opt && opt.label) || '';
+      if (i < currentQuestions.length) {
+        const opt = currentQuestions[i].options[answers[i]];
+        qData['q' + (i + 1)] = (opt && opt.label) || '';
+        qData['f' + (i + 1)] = (opt && opt.feedback) || '';
       } else {
-        qData['q' + (idx + 1)] = '';
+        qData['q' + (i + 1)] = '';
+        qData['f' + (i + 1)] = '';
       }
     }
     return {
