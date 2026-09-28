@@ -21,9 +21,9 @@
 <title>법인 자산 1분 건강검진 | 벨라리치</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f2547'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' fill='%23c9a14a' font-family='Arial,sans-serif' font-size='38' font-weight='900'%3EB%3C/text%3E%3C/svg%3E" />
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f2547'/%3E%3Ctext x='50%25' y='52%25' dominant-baseline='middle' text-anchor='middle' fill='%23c9a14a' font-family='Arial,sans-serif' font-size='38' font-weight='900'%3EB%3C/text%3E%3C/svg%3E" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -77,7 +77,7 @@
   html, body { margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
     background: #f6f7f9;
     color: #1a1f2e;
     line-height: 1.65;
@@ -195,7 +195,7 @@
     width: 6px; height: 6px; background: #b08d4f; border-radius: 50%;
   }
   .hero h1 {
-    font-family: 'Pretendard', sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
     font-size: 34px; font-weight: 900; line-height: 1.28;
     margin: 0 0 18px; color: #0f2547;
     letter-spacing: -1.2px;
@@ -1685,7 +1685,7 @@
     <div class="section-head">
       <div class="section-eyebrow">ABOUT BELLARICH</div>
       <h2 class="section-title">법인과 부동산을 잇는<br><em>자산 설계 파트너</em></h2>
-      <p class="section-desc">중소기업 CEO의 부동산 생애주기에 맞춰 사옥 · 수익부동산 · 가족법인 · 절세 · 승계까지, 단절 없는 통합 자산을 설계합니다.</p>
+      <p class="section-desc">중소기업 CEO의 부동산 생애주기에 맞춰 사옥 · 수익부동산 · 가족법인 · 절세 · 승계까지 끊기지 않고 하나로 이어지도록 설계합니다.</p>
     </div>
 
     <div class="container">
@@ -1894,7 +1894,7 @@
   <div class="q-container">
     <div class="progress-wrap">
       <div class="progress-info">
-        <span class="progress-label">어떤 고민이 가장 크세요?</span>
+        <span class="progress-label">어떤 고민이 가장 크신가요?</span>
         <span class="progress-count">맞춤 진단</span>
       </div>
       <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" aria-label="카테고리 선택">
@@ -1952,7 +1952,7 @@
     </div>
 
     <div class="consent-card">
-      <div class="consent-eyebrow">STEP 7 · 결과 발송</div>
+      <div class="consent-eyebrow">결과 발송</div>
       <h2 class="consent-title">진단 결과를 <em>이메일</em>로 보내드릴게요</h2>
       <p class="consent-desc">입력하신 이메일로 등급, 핵심 포인트, 다음 단계 가이드를 보내드립니다. 이메일 발송을 위한 개인정보 수집·이용에 동의해 주세요.</p>
 
@@ -1996,7 +1996,7 @@
       <span class="result-mail-icon" aria-hidden="true">📧</span>
       <div class="result-mail-text">
         <strong>자세한 결과는 <span id="result-email-display">입력하신 이메일</span>로 보내드렸어요</strong>
-        <span>등급 분석, 핵심 포인트 3가지, 다음 단계 가이드가 담긴 메일을 확인해 주세요.</span>
+        <span>등급 분석, 핵심 포인트, 문항별 진단 의견, 다음 단계 안내가 담겨 있어요.</span>
       </div>
     </div>
 
@@ -2142,7 +2142,7 @@
 <script>
   // ====== DATA COLLECTION CONFIG ======
   // Google Apps Script Web App URL — replace with your deployed URL.
-  // Setup guide: see SETUP_GUIDE.md (or the user guide provided)
+  // Setup guide: see user guide provided
   // Leave empty string '' to disable data collection (test still works).
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhUpGPuWJUssPk1F9hlvOwutqGy9w6Lo2fuygxdvDp4rCTRdteVvOk80ZDVgrDPNKX/exec';
 
@@ -2276,111 +2276,6 @@
       sendData(false);
     }
   });
-
-  // ====== QUESTIONS ======
-  const QUESTIONS = [
-    {
-      tag: 'Q1 · 사업 형태',
-      text: '현재 사업의 형태는 어떤 단계인가요?',
-      options: [
-        { label: '개인사업자 (대표 1인)', score: 3 },
-        { label: '법인 설립 1~5년차', score: 6 },
-        { label: '법인 5~15년차 · 안정 궤도', score: 10 },
-        { label: '법인 15년차 이상 · 다수 법인 보유', score: 13 }
-      ]
-    },
-    {
-      tag: 'Q2 · 사옥 / 본사',
-      text: '사옥(또는 본사 사업장) 형태는 어떻게 되시나요?',
-      options: [
-        { label: '전부 임차 · 임대료 부담', score: 4 },
-        { label: '일부 자가 + 일부 임차', score: 8 },
-        { label: '본사는 자가 보유', score: 12 },
-        { label: '본사 + 다수의 수익성 부동산', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q3 · 법인 부동산 투자',
-      text: '법인 명의로 보유한 투자 목적 부동산이 있나요?',
-      options: [
-        { label: '없음', score: 3 },
-        { label: '1건 보유', score: 7 },
-        { label: '2~3건 보유', score: 11 },
-        { label: '4건 이상 또는 다층 포트폴리오', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q4 · 가족법인 · 승계',
-      text: '가족법인 / 지주사 구조를 검토 중이거나 이미 보유하고 계신가요?',
-      options: [
-        { label: '생각해본 적 없음', score: 3 },
-        { label: '알아보는 중 (정보 수집 단계)', score: 7 },
-        { label: '설립 검토 / 진행 중', score: 12 },
-        { label: '이미 보유 · 운영 중', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q5 · 절세 / 세무',
-      text: '절세 · 세무 전략을 얼마나 적극적으로 하고 계신가요?',
-      options: [
-        { label: '세무사에게 연말정산만 맡김', score: 3 },
-        { label: '법인 · 개인 분리 정도', score: 7 },
-        { label: '비용 처리 · 법인 구조 최적화', score: 12 },
-        { label: '공격적 절세 + 법인 구조화', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q6 · 자산 다각화',
-      text: '자산 다각화 수준은 어느 정도인가요?',
-      options: [
-        { label: '사업 · 부동산에만 집중', score: 3 },
-        { label: '예적금 + 부동산 정도', score: 7 },
-        { label: '주식 · 채권 · 보험으로 분산', score: 12 },
-        { label: '다층적 포트폴리오 설계', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q7 · 현금흐름',
-      text: '법인 현금흐름은 어떤 상태인가요?',
-      options: [
-        { label: '빠듯하거나 적자 경험 있음', score: 3 },
-        { label: '연 1~2회 흑자 · 불안정', score: 7 },
-        { label: '안정적 흑자 유지', score: 12 },
-        { label: '여유자금 발생 · 재투자 가능', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q8 · 10년 후 계획',
-      text: '10년 후 사업 · 자산 승계 계획을 갖고 계신가요?',
-      options: [
-        { label: '전혀 생각해본 적 없음', score: 3 },
-        { label: '막연한 우려는 있음', score: 7 },
-        { label: '일부 계획 수립', score: 12 },
-        { label: '구체적 로드맵 보유', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q9 · 전문가 활용',
-      text: '현재 전문 컨설팅 · 회계 서비스를 받고 계신가요?',
-      options: [
-        { label: '세무사만', score: 3 },
-        { label: '세무사 + 법무사 정도', score: 7 },
-        { label: '재무설계 + 세무사', score: 12 },
-        { label: '종합 자산관리 컨설팅', score: 15 }
-      ]
-    },
-    {
-      tag: 'Q10 · 가장 큰 고민',
-      text: '지금 가장 큰 고민은 무엇인가요?',
-      sub: '가장 끌리는 항목 하나만 골라 주세요.',
-      options: [
-        { label: '사옥 마련 · 확장', score: 8 },
-        { label: '절세 · 세무 최적화', score: 10 },
-        { label: '승계 · 상속 · 증여', score: 12 },
-        { label: '수익성 부동산 투자', score: 10 }
-      ]
-    }
-  ];
 
   // ====== STATE (v6 적응형: 카테고리별 분기) ======
   let current = 0;
@@ -2642,11 +2537,12 @@
     //   · 특정 법안·개정안을 쓰지 마라. 통과되거나 폐기되면 틀린 말이 된다.
     //   · '최근'·'요즘' 같은 상대적 시점 표현도 쓰지 마라.
     //   · 제도가 '바뀐다'는 사실만 쓰면 몇 년을 두어도 유지보수가 필요 없다.
+    //   · '손질된다' 처럼 일상에서 잘 안 쓰는 말 대신 '변한다' 를 써라.
     const kakaoCtaDescs = {
       tax: '세법은 해마다 바뀝니다. 공제 요건이나 신고 기한이 달라지면 카카오톡으로 알려드립니다.',
       realestate: '부동산 세제와 대출 기준은 자주 바뀝니다. 취득·보유·매각 판단에 영향이 생기면 카카오톡으로 알려드립니다.',
-      succession: '가업승계 제도는 요건이 까다롭고 자주 손질됩니다. 공제 요건이나 사후 관리 조건이 달라지면 카카오톡으로 알려드립니다.',
-      retirement: '연금과 퇴직급여 제도는 계속 손질되고 있습니다. 납입 한도나 수령 기준이 달라지면 카카오톡으로 알려드립니다.',
+      succession: '가업승계 제도는 요건이 까다롭고 자주 변합니다. 공제 요건이나 사후 관리 조건이 달라지면 카카오톡으로 알려드립니다.',
+      retirement: '연금과 퇴직급여 제도는 해마다 변합니다. 납입 한도나 수령 기준이 달라지면 카카오톡으로 알려드립니다.',
       management: '정책자금과 지원제도는 공고 시기가 정해져 있습니다. 신청 기간이 열리거나 기준이 바뀌면 카카오톡으로 알려드립니다.'
     };
     const ctaDescEl = document.getElementById('kakao-cta-desc');
@@ -2688,7 +2584,7 @@
 
   // ====== RETAKE ======
   function retakeTest() {
-    if (confirm('다시 진단을 시작하시겠습니까?\n이전 응답은 초기화됩니다.')) {
+    if (confirm('처음부터 다시 진단할까요?\n지금까지 고르신 답변은 사라집니다.')) {
       resetRating();
       kakaoChannelClicked = false;
       startTest();
@@ -2963,8 +2859,8 @@
     const fullText = `${getShareText()}\n${getShareUrl()}`;
     if (navigator.clipboard) {
       navigator.clipboard.writeText(fullText).then(
-        () => showToast('링크가 복사됐어요. 카카오톡에 붙여넣기 하세요. (Kakao SDK 키 등록 전)'),
-        () => showToast('Kakao SDK 키 등록이 필요해요. (SETUP_GUIDE.md 참고)')
+        () => showToast('링크를 복사했어요. 카카오톡에 붙여넣어 보내주세요.'),
+        () => showToast('링크 복사에 실패했어요. 주소창의 주소를 직접 복사해 주세요.')
       );
     } else {
       fallbackCopy(getShareUrl());
