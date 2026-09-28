@@ -630,54 +630,6 @@
     margin-top: 2px;
   }
 
-  .advice-card {
-    background: #ffffff;
-    border: 1px solid #ececec;
-    border-radius: 16px;
-    padding: 28px 24px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 20px rgba(15, 37, 71, 0.04);
-  }
-  .advice-title {
-    font-size: 15px; font-weight: 800; color: #0f2547;
-    margin: 0 0 18px; letter-spacing: -0.3px;
-  }
-  #advice-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .advice-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 14px 16px;
-    background: #fafbfc;
-    border-left: 3px solid #b08d4f;
-    border-radius: 6px;
-    margin-bottom: 10px;
-  }
-  .advice-item:last-child { margin-bottom: 0; }
-  .advice-tag {
-    font-size: 12px;
-    font-weight: 700;
-    color: #8a93a8;
-    letter-spacing: -0.2px;
-  }
-  .advice-text {
-    font-size: 13.5px;
-    color: #1a1f2e;
-    line-height: 1.6;
-  }
-  .advice-closing {
-    margin: 18px 0 0;
-    padding-top: 14px;
-    border-top: 1px solid #ececec;
-    font-size: 13px;
-    color: #8a93a8;
-    line-height: 1.6;
-  }
-
   .cta-card {
     background: linear-gradient(135deg, #0f2547 0%, #1a3a6b 100%);
     color: #ffffff;
@@ -945,8 +897,7 @@
     .result-top { background: #ffffff !important; color: #000000 !important; padding: 24px 0; }
     .grade-circle { box-shadow: none; border: 2px solid #0f2547; }
     .grade-name, .grade-summary { color: #000000 !important; }
-    .score-card, .findings-card, .cta-card, .advice-card { box-shadow: none; border: 1px solid #cccccc; page-break-inside: avoid; }
-    .advice-item { break-inside: avoid; }
+    .score-card, .findings-card, .cta-card { box-shadow: none; border: 1px solid #cccccc; page-break-inside: avoid; }
     .cta-card { background: #ffffff !important; color: #000000 !important; }
     .cta-eyebrow, .cta-title, .cta-desc { color: #000000 !important; }
     .cta-perk { border: 1px solid #cccccc; color: #000000 !important; background: transparent !important; }
@@ -2060,7 +2011,7 @@
       <button type="button" class="kakao-cta-btn" id="kakao-cta-btn" onclick="addKakaoChannel()">
         카카오톡 채널 추가하기
       </button>
-      <p class="kakao-cta-foot">관심 없는 분야는 보내지 않습니다 · 주 1회 · 언제든 차단 가능</p>
+      <p class="kakao-cta-foot">절세 · 부동산 · 승계 · 은퇴 · 경영 관련 뉴스레터 · 주 1회 · 언제든 차단 가능</p>
     </div>
 
     <div class="result-body">
@@ -2077,12 +2028,6 @@
       <div class="findings-card">
         <h3 class="findings-title">진단에서 발견된 핵심 포인트</h3>
         <div id="findings-list"></div>
-      </div>
-
-      <div class="advice-card" id="advice-card" style="display: none;">
-        <h3 class="advice-title">문항별 진단 의견</h3>
-        <ul id="advice-list"></ul>
-        <p class="advice-closing" id="advice-closing"></p>
       </div>
 
       <div class="cta-card">
@@ -2494,10 +2439,17 @@
     renderQuestion();
   }
 
+  // 태그 앞의 내부 분류 코드(A1 · , B3 · 등)는 화면에 노출하지 않는다.
+  // 대표님이 질문지를 정리할 때 쓴 코드라 진단을 푸는 사람에게는 의미가 없다.
+  // quiz-data.js 의 tag 값 자체는 원본 추적용으로 그대로 둔다.
+  function displayTag(tag) {
+    return String(tag || '').replace(/^[A-Z]\d+\s*·\s*/, '');
+  }
+
   function renderQuestion() {
     const q = currentQuestions[current];
     document.getElementById('q-current').textContent = current + 1;
-    document.getElementById('q-tag').textContent = q.tag;
+    document.getElementById('q-tag').textContent = displayTag(q.tag);
     document.getElementById('q-text').textContent = q.text;
     const subEl = document.getElementById('q-sub');
     if (q.sub) { subEl.textContent = q.sub; subEl.style.display = 'block'; }
@@ -2684,16 +2636,18 @@
       ctaCatEl.textContent = catTitle;
     }
 
-    // [갱신 대상] 카테고리별 안내 문구.
-    // 기준 시점: 2026년 9월. 연 1~2회 최신 제도 변화로 교체하면 좋다.
-    // 교체하지 않아도 연도를 명시했으므로 내용이 틀리지는 않는다.
-    // 작성 규칙: '최근' 같은 상대적 표현 금지, 미확정 사안은 '~하는 안이 나왔습니다'로 표기.
+    // 카테고리별 카카오 채널 안내 문구.
+    // 작성 규칙 — 어기면 시간이 지나 거짓이 된다.
+    //   · 연도를 쓰지 마라. '2026년에는 ~' 은 그해만 맞는 말이다.
+    //   · 특정 법안·개정안을 쓰지 마라. 통과되거나 폐기되면 틀린 말이 된다.
+    //   · '최근'·'요즘' 같은 상대적 시점 표현도 쓰지 마라.
+    //   · 제도가 '바뀐다'는 사실만 쓰면 몇 년을 두어도 유지보수가 필요 없다.
     const kakaoCtaDescs = {
-      tax: '세법은 해마다 바뀝니다. 2026년에는 사업소득 원천징수 특례 적용 범위가 조정되는 안이 나왔습니다. 공제 요건이나 신고 기한이 달라지면 카카오톡으로 알려드립니다.',
-      realestate: '부동산 세제 기준은 자주 바뀝니다. 2026년에는 종합부동산세 기본공제를 낮추려던 안이 철회되어 12억 원이 유지됐습니다. 보유 구조에 영향이 생기면 알려드립니다.',
-      succession: '이 영역은 제도가 자주 바뀝니다. 2026년에는 가업상속공제의 경영기간 요건을 10년에서 30년으로 강화하는 안이 나왔습니다. 이런 변화가 생기면 카카오톡으로 알려드립니다.',
-      retirement: '연금과 퇴직급여 제도는 계속 손질되고 있습니다. 2026년에는 기금형 퇴직연금 도입안이 공개됐습니다. 노후 설계에 영향이 생기면 알려드립니다.',
-      management: '정책자금과 지원제도는 공고 시기가 정해져 있습니다. 2026년 추석에는 소상공인·중소기업 대상 명절자금이 공급됐습니다. 해당되는 시점에 알려드립니다.'
+      tax: '세법은 해마다 바뀝니다. 공제 요건이나 신고 기한이 달라지면 카카오톡으로 알려드립니다.',
+      realestate: '부동산 세제와 대출 기준은 자주 바뀝니다. 취득·보유·매각 판단에 영향이 생기면 카카오톡으로 알려드립니다.',
+      succession: '가업승계 제도는 요건이 까다롭고 자주 손질됩니다. 공제 요건이나 사후 관리 조건이 달라지면 카카오톡으로 알려드립니다.',
+      retirement: '연금과 퇴직급여 제도는 계속 손질되고 있습니다. 납입 한도나 수령 기준이 달라지면 카카오톡으로 알려드립니다.',
+      management: '정책자금과 지원제도는 공고 시기가 정해져 있습니다. 신청 기간이 열리거나 기준이 바뀌면 카카오톡으로 알려드립니다.'
     };
     const ctaDescEl = document.getElementById('kakao-cta-desc');
     if (ctaDescEl) {
@@ -2706,54 +2660,6 @@
     if (findingsCard) findingsCard.style.display = 'none';
     const ctaCard = document.querySelector('.cta-card');
     if (ctaCard) ctaCard.style.display = 'none';
-
-    // [선택지별 1:1 피드백] 점수 조건 없이 고른 선택지의 feedback 노출
-    const adviceCard = document.getElementById('advice-card');
-    const adviceList = document.getElementById('advice-list');
-    const adviceClosing = document.getElementById('advice-closing');
-    if (adviceCard && adviceList) {
-      adviceList.innerHTML = '';
-      const applicableAdvices = [];
-      for (let i = 0; i < currentQuestions.length; i++) {
-        const q = currentQuestions[i];
-        const selectedIdx = answers[i];
-        if (selectedIdx !== null && selectedIdx !== undefined) {
-          const opt = q.options && q.options[selectedIdx];
-          if (opt && opt.feedback) {
-            applicableAdvices.push({
-              tag: q.tag || '',
-              feedback: opt.feedback
-            });
-          }
-        }
-      }
-
-      if (applicableAdvices.length > 0) {
-        applicableAdvices.forEach(item => {
-          const li = document.createElement('li');
-          li.className = 'advice-item';
-
-          const tagSpan = document.createElement('span');
-          tagSpan.className = 'advice-tag';
-          tagSpan.textContent = item.tag;
-
-          const textSpan = document.createElement('span');
-          textSpan.className = 'advice-text';
-          textSpan.textContent = item.feedback;
-
-          li.appendChild(tagSpan);
-          li.appendChild(textSpan);
-          adviceList.appendChild(li);
-        });
-
-        if (adviceClosing) {
-          adviceClosing.textContent = typeof FEEDBACK_CLOSING !== 'undefined' ? FEEDBACK_CLOSING : '';
-        }
-        adviceCard.style.display = 'block';
-      } else {
-        adviceCard.style.display = 'none';
-      }
-    }
 
     setTimeout(() => {
       document.getElementById('score-value').textContent = r.score;
