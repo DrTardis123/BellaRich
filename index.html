@@ -2019,14 +2019,6 @@
           </span>
         </label>
 
-        <label class="consent-check" for="consent-newsletter">
-          <input type="checkbox" id="consent-newsletter" />
-          <span class="consent-check-text">
-            <strong>(선택)</strong> 앞으로 제도 변화 소식을 받아보시겠어요?
-            <span class="consent-meta">주 1회 이내 · 절세/부동산/승계/은퇴/경영 · 카카오톡 채널 또는 이메일로 발송 · 언제든 수신 거부 가능</span>
-          </span>
-        </label>
-
         <div class="consent-error" id="consent-error" style="display:none"></div>
 
         <button type="button" class="btn-consent" id="btn-consent" onclick="submitConsent()">진단 결과 메일로 받기 →</button>
@@ -2274,7 +2266,7 @@
       score: lastResult ? lastResult.score : null,
       grade: lastResult ? lastResult.grade : null,
       email: currentEmail || '',
-      newsletter_consent: currentNewsletter ? 'yes' : 'no',
+      kakao_channel: kakaoChannelClicked ? 'yes' : 'no',
       q0_asset_size: q0AssetSize || 'skip',
       ...qData,
       user_agent: navigator.userAgent.substring(0, 250),
@@ -2557,15 +2549,15 @@
   function startTest(skipDataCollection) {
     dataCollectionAllowed = !skipDataCollection;
     currentEmail = '';
-    currentNewsletter = false;
+    kakaoChannelClicked = false;
     resetRating();
     renderCategoryScreen();
     showScreen('screen-category');
   }
 
-  // ====== CONSENT (이메일 + 광고성 동의) ======
+  // ====== CONSENT (이메일 수집 동의) ======
   let currentEmail = '';
-  let currentNewsletter = false;
+  let kakaoChannelClicked = false;
   let isSubmitting = false;
 
   function showConsent() {
@@ -2581,7 +2573,6 @@
     // 동의 화면 진입 시 입력 필드 초기화
     document.getElementById('consent-email').value = '';
     document.getElementById('consent-collection').checked = false;
-    document.getElementById('consent-newsletter').checked = false;
     document.getElementById('consent-error').style.display = 'none';
     showScreen('screen-consent');
     // 포커스
@@ -2593,12 +2584,10 @@
 
     const emailEl = document.getElementById('consent-email');
     const collEl  = document.getElementById('consent-collection');
-    const newsEl  = document.getElementById('consent-newsletter');
     const errEl   = document.getElementById('consent-error');
     const btnConsent = document.getElementById('btn-consent');
     const email = (emailEl.value || '').trim();
     const coll  = collEl.checked;
-    const news  = newsEl.checked;
 
     // 간단한 이메일 검증
     if (!email) {
@@ -2627,7 +2616,6 @@
     }
 
     currentEmail = email;
-    currentNewsletter = news;
     errEl.style.display = 'none';
     showResult();
   }
@@ -2767,7 +2755,7 @@
       document.getElementById('score-fill').style.width = r.score + '%';
     }, 200);
 
-    // Send completed data (email + newsletter_consent + group 포함)
+    // Send completed data (email + kakao_channel + group 포함)
     sendData(true);
   }
 
@@ -2791,6 +2779,7 @@
   function retakeTest() {
     if (confirm('다시 진단을 시작하시겠습니까?\n이전 응답은 초기화됩니다.')) {
       resetRating();
+      kakaoChannelClicked = false;
       startTest();
     }
   }
@@ -2923,7 +2912,31 @@
   }
 
   // ====== KAKAO CHANNEL ======
+  function sendKakaoChannelClick() {
+    if (kakaoChannelClicked) return;        // 중복 전송 방지
+    kakaoChannelClicked = true;
+    if (!dataCollectionAllowed) return;     // 수집 거부로 시작한 경우 보내지 않는다
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+    const payload = JSON.stringify({
+      type: 'kakao',
+      session_id: sessionId,
+      timestamp: new Date().toISOString(),
+      email: currentEmail || '',
+      category: currentCategory || '',
+      grade: lastResult ? lastResult.grade : ''
+    });
+    try {
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: payload
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
   function addKakaoChannel() {
+    sendKakaoChannelClick();
     // 1순위 — SDK. JS 키가 등록돼 있으면 카카오톡에서 바로 추가된다.
     if (KAKAO_JS_KEY && KAKAO_CHANNEL_ID && window.Kakao && window.Kakao.isInitialized()) {
       try {
