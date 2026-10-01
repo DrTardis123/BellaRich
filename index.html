@@ -2200,15 +2200,19 @@
   function buildPayload(completed) {
     const elapsedMs = testStartTime ? Date.now() - testStartTime : 0;
     // 카테고리별 답변을 q1~q6에 매핑 (최대 6개)
+    //   q : 고른 선택지 라벨   f : 그 선택지의 피드백   qt : 질문 내용
+    //   qt는 결과 메일에서 "(질문) - (답변)" 으로 보여주기 위해 함께 보낸다.
     const qData = {};
     for (let i = 0; i < 6; i++) {
       if (i < currentQuestions.length) {
         const opt = currentQuestions[i].options[answers[i]];
         qData['q' + (i + 1)] = (opt && opt.label) || '';
         qData['f' + (i + 1)] = (opt && opt.feedback) || '';
+        qData['qt' + (i + 1)] = currentQuestions[i].text || '';
       } else {
         qData['q' + (i + 1)] = '';
         qData['f' + (i + 1)] = '';
+        qData['qt' + (i + 1)] = '';
       }
     }
     return {
