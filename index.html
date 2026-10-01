@@ -2095,8 +2095,8 @@
       </div>
 
       <div class="retake-row">
-        <button class="btn-retake" onclick="retakeTest()" aria-label="진단 다시 시작">
-          ↻ 다시 진단하기
+        <button class="btn-retake" onclick="continueTest()" aria-label="다른 카테고리 이어서 진단하기">
+          ↻ 이어하기
         </button>
       </div>
 
@@ -2437,8 +2437,10 @@
       btnConsent.disabled = false;
       btnConsent.textContent = '진단 결과 메일로 받기 →';
     }
-    // 동의 화면 진입 시 입력 필드 초기화
-    document.getElementById('consent-email').value = '';
+    // 동의 화면 진입 시 입력 필드 초기화.
+    // 이어하기로 다른 카테고리를 푸는 경우에는 앞서 적은 이메일을 다시 채워 둔다.
+    // (필수) 동의 체크는 매번 직접 하도록 비워 둔다.
+    document.getElementById('consent-email').value = currentEmail || '';
     document.getElementById('consent-collection').checked = false;
     document.getElementById('consent-error').style.display = 'none';
     showScreen('screen-consent');
@@ -2590,12 +2592,26 @@
   }
 
   // ====== RETAKE ======
-  function retakeTest() {
-    if (confirm('처음부터 다시 진단할까요?\n지금까지 고르신 답변은 사라집니다.')) {
-      resetRating();
-      kakaoChannelClicked = false;
-      startTest();
-    }
+  // 다른 카테고리를 이어서 진단한다.
+  // 방금 끝낸 진단은 이미 전송·메일 발송이 끝난 상태라 되돌리지 않는다.
+  // 새 카테고리는 별개의 진단으로 쌓여야 하므로 세션 아이디를 새로 만든다.
+  // (같은 아이디를 쓰면 시트에서 두 진단이 한 건처럼 엮인다)
+  // 이메일은 지우지 않는다. 동의 화면에서 다시 채워져 두 번 입력하지 않아도 된다.
+  function continueTest() {
+    const ok = confirm(
+      '이제 다른 카테고리로 진행하시겠습니까?\n\n' +
+      '방금 받으신 진단 결과는 이미 보내드렸습니다.\n' +
+      '진단 결과는 카테고리별로 각각 보내집니다.'
+    );
+    if (!ok) return;
+
+    sessionId = 'sid_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 9);
+    try { sessionStorage.setItem('bellarich_sid', sessionId); } catch (e) { /* 저장 못 해도 진행 */ }
+
+    resetRating();
+    kakaoChannelClicked = false;
+    renderCategoryScreen();
+    showScreen('screen-category');
   }
 
   // ====== SATISFACTION RATING (만족도 조사) ======
