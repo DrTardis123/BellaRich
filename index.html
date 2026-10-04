@@ -1422,6 +1422,22 @@
     margin-top: 4px;
     line-height: 1.5;
   }
+  /* 이메일 칸 아래 상담 신청 번호. 휴대폰에서는 눌러서 바로 걸 수 있다. */
+  .consent-phone {
+    margin: -4px 0 16px;
+    font-size: 13px;
+    color: #7a8aa0;
+    text-align: center;
+  }
+  .consent-phone a {
+    color: #0f2547;
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: 4px;
+    letter-spacing: 0.2px;
+    border-bottom: 1px solid #c9a14a;
+    padding-bottom: 1px;
+  }
   .consent-error {
     background: #fff2f2;
     border: 1px solid #f4c4c4;
@@ -1973,6 +1989,11 @@
           <span class="consent-label">이메일 주소 <em class="req">*</em></span>
           <input type="email" id="consent-email" class="consent-input" placeholder="example@company.com" required autocomplete="email" />
         </label>
+
+        <p class="consent-phone">
+          상담 신청 번호
+          <a href="tel:01048255383">010-4825-5383</a>
+        </p>
 
         <label class="consent-check" for="consent-collection">
           <input type="checkbox" id="consent-collection" required />
