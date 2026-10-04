@@ -2232,7 +2232,11 @@
     });
     try {
       if (navigator.sendBeacon) {
-        navigator.sendBeacon(APPS_SCRIPT_URL, new Blob([payload], { type: 'application/json' }));
+        // Content-Type 은 반드시 text/plain 이어야 한다.
+        // application/json 은 CORS 단순요청이 아니라 사전확인(OPTIONS)을 유발하는데,
+        // Apps Script 는 OPTIONS 를 받아주지 않아 브라우저가 전송을 조용히 버린다.
+        // 서버는 e.postData.contents 를 문자열로 읽으므로 JSON 파싱에는 지장이 없다.
+        navigator.sendBeacon(APPS_SCRIPT_URL, new Blob([payload], { type: 'text/plain;charset=UTF-8' }));
       } else {
         fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' }, body: payload }).catch(() => {});
@@ -2328,7 +2332,8 @@
         }).catch(() => { /* silent fail — anonymous data isn't critical */ });
       } else {
         // Use sendBeacon for page unload (works even when tab is closing)
-        const blob = new Blob([payload], { type: 'application/json' });
+        // text/plain 이어야 사전확인(OPTIONS) 없이 전송된다. 위 sendExit 의 주석 참고.
+        const blob = new Blob([payload], { type: 'text/plain;charset=UTF-8' });
         if (navigator.sendBeacon) {
           navigator.sendBeacon(APPS_SCRIPT_URL, blob);
         } else {
