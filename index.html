@@ -1818,10 +1818,10 @@
         <li>✓ 응답 선택지 · 진단 결과 (점수, 등급)</li>
         <li>✓ 응답 소요 시간 · 브라우저 환경 (UX 개선용)</li>
         <li>✓ <strong>선택</strong> — 법인 자산 규모 범위</li>
-        <li>✓ <strong>결과 발송 시</strong> — 이메일 주소 (진단 결과 리포트 전달용)</li>
+        <li>✓ <strong>결과 발송 시</strong> — 이름, 이메일 주소 (진단 결과 리포트 전달용)</li>
       </ul>
       <p class="data-notice-foot">
-        ✕ <strong>수집하지 않음</strong>: 이름, 연락처(전화번호), 주민등록번호, IP 주소, 정확한 위치 (이메일은 결과 발송 동의 시에만 수집)<br>
+        ✕ <strong>수집하지 않음</strong>: 연락처(전화번호), 주민등록번호, IP 주소, 정확한 위치 (이름·이메일은 결과 발송 동의 시에만 수집)<br>
         ⏱ <strong>보관 기간</strong>: 개별 데이터 12개월 후 자동 삭제 · 익명 통계 24개월까지 보존<br>
         📋 <strong>용도</strong>: 진단 결과 이메일 발송, 진단 품질 개선, B2B 트렌드 연구
       </p>
@@ -1960,9 +1960,15 @@
     <div class="consent-card">
       <div class="consent-eyebrow">결과 발송</div>
       <h2 class="consent-title">진단 결과를 <em>이메일</em>로 보내드릴게요</h2>
-      <p class="consent-desc">입력하신 이메일로 등급, 핵심 포인트, 다음 단계 가이드를 보내드립니다. 이메일 발송을 위한 개인정보 수집·이용에 동의해 주세요.</p>
+      <p class="consent-desc">입력하신 이메일로 등급, 핵심 포인트, 문항별 진단 의견을 보내드립니다. 결과 발송을 위한 개인정보 수집·이용에 동의해 주세요.</p>
 
       <form id="consent-form" class="consent-form" onsubmit="return false;">
+        <label class="consent-field">
+          <span class="consent-label">이름 <em class="req">*</em></span>
+          <input type="text" id="consent-name" class="consent-input" placeholder="홍길동"
+                 required autocomplete="name" maxlength="20" />
+        </label>
+
         <label class="consent-field">
           <span class="consent-label">이메일 주소 <em class="req">*</em></span>
           <input type="email" id="consent-email" class="consent-input" placeholder="example@company.com" required autocomplete="email" />
@@ -1972,7 +1978,7 @@
           <input type="checkbox" id="consent-collection" required />
           <span class="consent-check-text">
             <strong>(필수)</strong> 진단 결과 발송을 위한 개인정보 수집·이용에 동의합니다.
-            <span class="consent-meta">수집 항목: 이메일 / 보유 기간: 결과 발송 후 1년 / 이용 목적: 진단 결과 발송</span>
+            <span class="consent-meta">수집 항목: 이름, 이메일 / 보유 기간: 결과 발송 후 1년 / 이용 목적: 진단 결과 발송</span>
           </span>
         </label>
 
@@ -2173,6 +2179,67 @@
   let lastResult = null;
   let dataCollectionAllowed = true;
 
+  // ====== 이탈 지점 추적 ======
+  // 사용자가 어디까지 갔는지만 기억했다가, 페이지를 떠날 때 한 번 보낸다.
+  // 단계는 되돌아가지 않는다(뒤로 가기를 눌러도 최대 도달 단계를 유지).
+  const FUNNEL = {
+    LANDING:   [1,  '랜딩'],
+    ASSET:     [2,  '자산규모 응답'],
+    START:     [3,  '진단 시작'],
+    CATEGORY:  [4,  '카테고리 선택'],
+    Q1:        [5,  '문항 1'],
+    Q2:        [6,  '문항 2'],
+    Q3:        [7,  '문항 3'],
+    Q4:        [8,  '문항 4'],
+    Q5:        [9,  '문항 5'],
+    Q6:        [10, '문항 6'],
+    CONSENT:   [11, '이메일 입력 화면'],
+    SUBMITTED: [12, '결과 발송'],
+    RESULT:    [13, '결과 화면']
+  };
+
+  let funnelStep = 0;
+  let funnelLabel = '';
+  let funnelSentStep = 0;       // 마지막으로 보낸 단계
+
+  function markStep(entry) {
+    if (!entry) return;
+    if (entry[0] > funnelStep) {
+      funnelStep = entry[0];
+      funnelLabel = entry[1];
+    }
+  }
+
+  // 떠날 때 호출된다. 더 깊이 간 단계가 있을 때만 보낸다.
+  // sendBeacon 은 페이지가 닫히는 중에도 전송이 보장된다.
+  function sendExit() {
+    if (!dataCollectionAllowed) return;
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+    if (funnelStep <= funnelSentStep) return;   // 새로 간 데가 없으면 안 보냄
+    funnelSentStep = funnelStep;
+
+    const payload = JSON.stringify({
+      type: 'exit',
+      session_id: sessionId,
+      timestamp: new Date().toISOString(),
+      step: funnelStep,
+      step_label: funnelLabel,
+      category: currentCategory || '',
+      seconds: testStartTime ? Math.floor((Date.now() - testStartTime) / 1000) : 0,
+      completed: testCompleted === true,
+      referrer: document.referrer || 'direct',
+      screen_width: window.innerWidth
+    });
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(APPS_SCRIPT_URL, new Blob([payload], { type: 'application/json' }));
+      } else {
+        fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' }, body: payload }).catch(() => {});
+      }
+    } catch (e) { /* 조용히 무시 */ }
+  }
+
   // ====== Q0 (ASSET SIZE) SELECTION ======
   document.addEventListener('DOMContentLoaded', function() {
     const q0Opts = document.querySelectorAll('.q0-opt');
@@ -2185,6 +2252,7 @@
         opt.classList.add('selected');
         opt.setAttribute('aria-checked', 'true');
         q0AssetSize = opt.dataset.value;
+        markStep(FUNNEL.ASSET);
       };
       opt.addEventListener('click', selectHandler);
       opt.addEventListener('keydown', function(e) {
@@ -2230,6 +2298,7 @@
       finding1: lastResult && lastResult.findings ? (lastResult.findings[0] || '') : '',
       finding2: lastResult && lastResult.findings ? (lastResult.findings[1] || '') : '',
       finding3: lastResult && lastResult.findings ? (lastResult.findings[2] || '') : '',
+      name: currentName || '',
       email: currentEmail || '',
       kakao_channel: kakaoChannelClicked ? 'yes' : 'no',
       q0_asset_size: q0AssetSize || 'skip',
@@ -2280,16 +2349,13 @@
 
   // Drop-off / page unload detection
   window.addEventListener('beforeunload', function() {
-    if (testStartTime && !testCompleted) {
-      // User started but didn't complete — send partial data
-      sendData(false);
-    }
+    if (testStartTime && !testCompleted) sendData(false);   // 기존 부분 저장 유지
+    sendExit();
   });
-  // Also catch visibility changes (mobile-friendly)
   document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden' && testStartTime && !testCompleted) {
-      sendData(false);
-    }
+    if (document.visibilityState !== 'hidden') return;
+    if (testStartTime && !testCompleted) sendData(false);   // 기존 부분 저장 유지
+    sendExit();
   });
 
   // ====== STATE (v6 적응형: 카테고리별 분기) ======
@@ -2331,6 +2397,7 @@
   // 카테고리 선택 → 질문 화면으로
   function selectCategory(id) {
     if (!CATEGORIES[id]) return;
+    markStep(FUNNEL.CATEGORY);
     currentCategory = id;
     currentQuestions = CATEGORIES[id].questions;
     current = 0;
@@ -2395,6 +2462,7 @@
 
   function selectOption(idx) {
     answers[current] = idx;
+    markStep(FUNNEL['Q' + (current + 1)]);
     renderQuestion();
   }
 
@@ -2415,6 +2483,8 @@
 
   function startTest(skipDataCollection) {
     dataCollectionAllowed = !skipDataCollection;
+    markStep(FUNNEL.START);
+    currentName = '';
     currentEmail = '';
     kakaoChannelClicked = false;
     resetRating();
@@ -2423,11 +2493,13 @@
   }
 
   // ====== CONSENT (이메일 수집 동의) ======
+  let currentName = '';
   let currentEmail = '';
   let kakaoChannelClicked = false;
   let isSubmitting = false;
 
   function showConsent() {
+    markStep(FUNNEL.CONSENT);
     // 결과 미리 계산 (점수/등급은 동의 화면에서도 표시 가능)
     const r = calcResult();
     lastResult = r;
@@ -2440,41 +2512,53 @@
     // 동의 화면 진입 시 입력 필드 초기화.
     // 이어하기로 다른 카테고리를 푸는 경우에는 앞서 적은 이메일을 다시 채워 둔다.
     // (필수) 동의 체크는 매번 직접 하도록 비워 둔다.
+    document.getElementById('consent-name').value = currentName || '';
     document.getElementById('consent-email').value = currentEmail || '';
     document.getElementById('consent-collection').checked = false;
     document.getElementById('consent-error').style.display = 'none';
     showScreen('screen-consent');
     // 포커스
-    setTimeout(() => document.getElementById('consent-email').focus(), 300);
+    setTimeout(() => {
+      const el = document.getElementById('consent-name') || document.getElementById('consent-email');
+      if (el) el.focus();
+    }, 300);
   }
 
   function submitConsent() {
     if (isSubmitting) return;
 
+    const nameEl  = document.getElementById('consent-name');
     const emailEl = document.getElementById('consent-email');
     const collEl  = document.getElementById('consent-collection');
     const errEl   = document.getElementById('consent-error');
     const btnConsent = document.getElementById('btn-consent');
-    const email = (emailEl.value || '').trim();
-    const coll  = collEl.checked;
+    const name  = (nameEl ? nameEl.value : '').trim();
+    const email = (emailEl ? emailEl.value : '').trim();
+    const coll  = collEl ? collEl.checked : false;
 
-    // 간단한 이메일 검증
+    // 간단한 이름·이메일 검증
+    if (!name) {
+      errEl.textContent = '이름을 입력해 주세요.';
+      errEl.style.display = 'block';
+      if (nameEl) nameEl.focus();
+      return;
+    }
     if (!email) {
       errEl.textContent = '이메일 주소를 입력해 주세요.';
       errEl.style.display = 'block';
-      emailEl.focus();
+      if (emailEl) emailEl.focus();
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       errEl.textContent = '이메일 형식이 올바르지 않습니다.';
       errEl.style.display = 'block';
-      emailEl.focus();
+      if (emailEl) emailEl.focus();
       return;
     }
     if (!coll) {
       errEl.textContent = '개인정보 수집·이용 동의(필수)에 체크해 주세요.';
       errEl.style.display = 'block';
-      collEl.focus();
+      if (collEl) collEl.focus();
       return;
     }
 
@@ -2484,6 +2568,7 @@
       btnConsent.textContent = '진단 결과 발송 중...';
     }
 
+    currentName = name;
     currentEmail = email;
     errEl.style.display = 'none';
     showResult();
@@ -2588,7 +2673,9 @@
     }, 200);
 
     // Send completed data (email + kakao_channel + group 포함)
+    markStep(FUNNEL.SUBMITTED);
     sendData(true);
+    markStep(FUNNEL.RESULT);
   }
 
   // ====== RETAKE ======
@@ -2974,6 +3061,9 @@
     }
     document.body.removeChild(ta);
   }
+
+  // 초기화: 랜딩 단계 도달 기록
+  markStep(FUNNEL.LANDING);
 </script>
 
 <!-- Scroll to top button -->
